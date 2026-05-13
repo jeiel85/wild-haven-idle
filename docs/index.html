@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Wild Haven Idle은 작은 야생동물 보호구역을 복원하고 구조 동물의 회복을 지원하는 Android 방치형 성장 시뮬레이션입니다.">
+  <meta name="description" data-i18n-meta="description">
   <meta name="theme-color" content="#31543d">
   <meta property="og:title" content="Wild Haven Idle">
-  <meta property="og:description" content="야생동물 보호구역을 복원하는 로컬 우선 Android 방치형 성장 시뮬레이션">
+  <meta property="og:description" data-i18n-meta="og:description">
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/wild-haven-icon-source.png">
   <title>Wild Haven Idle</title>
@@ -77,6 +77,12 @@
       box-shadow: 0 8px 24px rgba(31, 60, 44, 0.18);
     }
 
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
@@ -87,6 +93,32 @@
 
     .nav-links a {
       padding: 8px 0;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 240, 0.74);
+      color: var(--forest);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+
+    .lang-switch:hover {
+      background: rgba(255, 250, 240, 0.94);
+      border-color: var(--leaf);
+    }
+
+    .lang-switch .flag {
+      font-size: 1.1rem;
+      line-height: 1;
     }
 
     .hero {
@@ -421,11 +453,18 @@
         flex-direction: column;
       }
 
+      .nav-right {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
       .nav-links {
         width: 100%;
         justify-content: space-between;
         gap: 10px;
         font-size: 0.88rem;
+        flex-wrap: wrap;
       }
 
       .stat-strip,
@@ -453,31 +492,37 @@
       <img src="assets/wild-haven-icon-source.png" alt="">
       <span>Wild Haven Idle</span>
     </a>
-    <nav class="nav-links" aria-label="Primary navigation">
-      <a href="#game">Game</a>
-      <a href="#loop">Loop</a>
-      <a href="#animals">Animals</a>
-      <a href="#principles">Principles</a>
-      <a href="https://github.com/jeiel85/wild-haven-idle/releases/latest">Download</a>
-      <a href="https://github.com/jeiel85/wild-haven-idle">GitHub</a>
-    </nav>
+    <div class="nav-right">
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#game" data-i18n="nav.game">게임</a>
+        <a href="#loop" data-i18n="nav.loop">루프</a>
+        <a href="#animals" data-i18n="nav.animals">동물</a>
+        <a href="#principles" data-i18n="nav.principles">원칙</a>
+        <a href="https://github.com/jeiel85/wild-haven-idle/releases/latest" data-i18n="nav.download">다운로드</a>
+        <a href="https://github.com/jeiel85/wild-haven-idle">GitHub</a>
+      </nav>
+      <button class="lang-switch" id="lang-toggle" aria-label="Switch language">
+        <span class="flag" id="lang-flag">🇰🇷</span>
+        <span id="lang-label">한국어</span>
+      </button>
+    </div>
   </header>
 
   <main id="top">
     <section class="shell hero">
       <div>
-        <div class="eyebrow">Local-first Android idle simulation</div>
+        <div class="eyebrow" data-i18n="hero.eyebrow">로컬 우선 Android 방치형 시뮬레이션</div>
         <h1>Wild Haven Idle</h1>
-        <p class="lead">
+        <p class="lead" data-i18n="hero.lead">
           작은 야생동물 보호구역을 운영하며 보호 포인트를 모으고,
           구조 동물의 회복을 지원하고, 서식지를 복원해 나가는 조용한 방치형 성장 게임입니다.
         </p>
         <div class="cta-row">
-          <a class="button primary" href="https://github.com/jeiel85/wild-haven-idle/releases/latest">Download APK</a>
-          <a class="button secondary" href="https://github.com/jeiel85/wild-haven-idle">View on GitHub</a>
-          <a class="button secondary" href="GAME_DESIGN.md">Read Game Design</a>
+          <a class="button primary" href="https://github.com/jeiel85/wild-haven-idle/releases/latest" data-i18n="hero.download_apk">APK 다운로드</a>
+          <a class="button secondary" href="https://github.com/jeiel85/wild-haven-idle" data-i18n="hero.view_github">GitHub에서 보기</a>
+          <a class="button secondary" href="GAME_DESIGN.md" data-i18n="hero.read_design">게임 디자인 문서</a>
         </div>
-        <p class="cta-note">
+        <p class="cta-note" data-i18n-html="hero.cta_note">
           최신 signed APK는 GitHub Releases에서 받을 수 있습니다.
           Android 기기에서 설치하려면 시스템 설정에서
           <em>알 수 없는 앱 설치</em> 권한이 필요합니다.
@@ -491,15 +536,15 @@
         <div class="stat-strip">
           <div class="stat">
             <strong>5</strong>
-            <span>MVP rescued animals</span>
+            <span data-i18n="hero.stat_animals">MVP 구조 동물</span>
           </div>
           <div class="stat">
             <strong>8h</strong>
-            <span>offline reward cap</span>
+            <span data-i18n="hero.stat_offline">오프라인 보상 한도</span>
           </div>
           <div class="stat">
             <strong>0</strong>
-            <span>network-first systems</span>
+            <span data-i18n="hero.stat_network">네트워크 우선 시스템</span>
           </div>
         </div>
       </div>
@@ -507,87 +552,87 @@
 
     <section class="shell" id="game">
       <div class="section-head">
-        <h2>Sanctuary, not ownership.</h2>
-        <p>
+        <h2 data-i18n="game.heading">소유가 아닌, 보호.</h2>
+        <p data-i18n="game.subtitle">
           Wild Haven Idle의 중심은 단일 캐릭터 관리가 아니라 보호구역 복원입니다.
           짧게 돌아와도 성장한 흔적을 확인할 수 있도록 설계합니다.
         </p>
       </div>
       <div class="grid">
         <article class="panel">
-          <h3>보호구역 성장</h3>
-          <p>보호 포인트를 모아 보호구역 레벨을 올리고, 더 안정적인 회복 환경을 만들어 갑니다.</p>
+          <h3 data-i18n="game.panel1_title">보호구역 성장</h3>
+          <p data-i18n="game.panel1_desc">보호 포인트를 모아 보호구역 레벨을 올리고, 더 안정적인 회복 환경을 만들어 갑니다.</p>
         </article>
         <article class="panel">
-          <h3>회복 지원</h3>
-          <p>구조 동물은 회복 단계와 적응 단계를 거치며 보호구역에 안정적으로 머뭅니다.</p>
+          <h3 data-i18n="game.panel2_title">회복 지원</h3>
+          <p data-i18n="game.panel2_desc">구조 동물은 회복 단계와 적응 단계를 거치며 보호구역에 안정적으로 머뭅니다.</p>
         </article>
         <article class="panel">
-          <h3>야생동물 도감</h3>
-          <p>잠김, 발견, 보호 중 상태를 구분하고 보호구역의 기록을 차곡차곡 채웁니다.</p>
+          <h3 data-i18n="game.panel3_title">야생동물 도감</h3>
+          <p data-i18n="game.panel3_desc">잠김, 발견, 보호 중 상태를 구분하고 보호구역의 기록을 차곡차곡 채웁니다.</p>
         </article>
       </div>
     </section>
 
     <section class="shell" id="loop">
       <div class="section-head">
-        <h2>Idle loop</h2>
-        <p>앱을 오래 붙잡지 않아도 다음 목표가 보이는 MVP 플레이 흐름입니다.</p>
+        <h2 data-i18n="loop.heading">방치 루프</h2>
+        <p data-i18n="loop.subtitle">앱을 오래 붙잡지 않아도 다음 목표가 보이는 MVP 플레이 흐름입니다.</p>
       </div>
       <div class="loop" aria-label="Core game loop">
-        <div class="loop-step">앱 접속</div>
-        <div class="loop-step">오프라인 보상 확인</div>
-        <div class="loop-step">보호 포인트 수령</div>
-        <div class="loop-step">회복 지원</div>
-        <div class="loop-step">신규 해금</div>
-        <div class="loop-step">다시 방치</div>
+        <div class="loop-step" data-i18n="loop.step1">앱 접속</div>
+        <div class="loop-step" data-i18n="loop.step2">오프라인 보상 확인</div>
+        <div class="loop-step" data-i18n="loop.step3">보호 포인트 수령</div>
+        <div class="loop-step" data-i18n="loop.step4">회복 지원</div>
+        <div class="loop-step" data-i18n="loop.step5">신규 해금</div>
+        <div class="loop-step" data-i18n="loop.step6">다시 방치</div>
       </div>
     </section>
 
     <section class="shell" id="animals">
       <div class="section-head">
-        <h2>MVP animals</h2>
-        <p>초기 버전은 숲 기반 보호구역에서 시작하는 5종의 구조 동물을 목표로 합니다.</p>
+        <h2 data-i18n="animals.heading">MVP 동물</h2>
+        <p data-i18n="animals.subtitle">초기 버전은 숲 기반 보호구역에서 시작하는 5종의 구조 동물을 목표로 합니다.</p>
       </div>
       <table class="animal-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>이름</th>
-            <th>희귀도</th>
-            <th>해금 조건</th>
+            <th data-i18n="animals.th_id">ID</th>
+            <th data-i18n="animals.th_name">이름</th>
+            <th data-i18n="animals.th_rarity">희귀도</th>
+            <th data-i18n="animals.th_unlock">해금 조건</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><code>rabbit_001</code></td>
-            <td>숲토끼</td>
+            <td data-i18n="animals.rabbit_name">숲토끼</td>
             <td>COMMON</td>
-            <td>최초 시작 시 자동 등록</td>
+            <td data-i18n="animals.rabbit_unlock">최초 시작 시 자동 등록</td>
           </tr>
           <tr>
             <td><code>fox_001</code></td>
-            <td>붉은여우</td>
+            <td data-i18n="animals.fox_name">붉은여우</td>
             <td>COMMON</td>
-            <td>carePoint 300 보유</td>
+            <td data-i18n="animals.fox_unlock">carePoint 300 보유</td>
           </tr>
           <tr>
             <td><code>deer_001</code></td>
-            <td>어린 사슴</td>
+            <td data-i18n="animals.deer_name">어린 사슴</td>
             <td>UNCOMMON</td>
-            <td>숲토끼 회복 단계 5</td>
+            <td data-i18n="animals.deer_unlock">숲토끼 회복 단계 5</td>
           </tr>
           <tr>
             <td><code>owl_001</code></td>
-            <td>밤부엉이</td>
+            <td data-i18n="animals.owl_name">밤부엉이</td>
             <td>UNCOMMON</td>
-            <td>총 생산량 5/sec</td>
+            <td data-i18n="animals.owl_unlock">총 생산량 5/sec</td>
           </tr>
           <tr>
             <td><code>lynx_001</code></td>
-            <td>스라소니</td>
+            <td data-i18n="animals.lynx_name">스라소니</td>
             <td>RARE</td>
-            <td>보호 중 동물 4종</td>
+            <td data-i18n="animals.lynx_unlock">보호 중 동물 4종</td>
           </tr>
         </tbody>
       </table>
@@ -596,8 +641,8 @@
     <section class="shell" id="principles">
       <div class="principles">
         <article class="principle-card">
-          <h2>Ethical by default</h2>
-          <p>
+          <h2 data-i18n="principles.heading">기본이 윤리</h2>
+          <p data-i18n="principles.desc">
             MVP는 로그인, 광고, 결제, 분석 SDK, 푸시 알림, 서버 API 없이 로컬 우선으로 설계합니다.
             동물 보호 테마를 감정 압박이나 과금 유도에 사용하지 않습니다.
           </p>
@@ -619,8 +664,200 @@
   <footer class="footer">
     <div class="shell">
       <span>Wild Haven Idle</span>
-      <span>Local-first sanctuary restoration idle simulation.</span>
+      <span data-i18n="footer.tagline">로컬 우선 보호구역 복원 방치형 시뮬레이션</span>
     </div>
   </footer>
+
+  <script>
+    (function() {
+      var translations = {
+        ko: {
+          description: "Wild Haven Idle은 작은 야생동물 보호구역을 복원하고 구조 동물의 회복을 지원하는 Android 방치형 성장 시뮬레이션입니다.",
+          "og:description": "야생동물 보호구역을 복원하는 로컬 우선 Android 방치형 성장 시뮬레이션",
+
+          "nav.game": "게임",
+          "nav.loop": "루프",
+          "nav.animals": "동물",
+          "nav.principles": "원칙",
+          "nav.download": "다운로드",
+
+          "hero.eyebrow": "로컬 우선 Android 방치형 시뮬레이션",
+          "hero.lead": "작은 야생동물 보호구역을 운영하며 보호 포인트를 모으고, 구조 동물의 회복을 지원하고, 서식지를 복원해 나가는 조용한 방치형 성장 게임입니다.",
+          "hero.download_apk": "APK 다운로드",
+          "hero.view_github": "GitHub에서 보기",
+          "hero.read_design": "게임 디자인 문서",
+          "hero.cta_note": "최신 signed APK는 GitHub Releases에서 받을 수 있습니다. Android 기기에서 설치하려면 시스템 설정에서 <em>알 수 없는 앱 설치</em> 권한이 필요합니다.",
+          "hero.stat_animals": "MVP 구조 동물",
+          "hero.stat_offline": "오프라인 보상 한도",
+          "hero.stat_network": "네트워크 우선 시스템",
+
+          "game.heading": "소유가 아닌, 보호.",
+          "game.subtitle": "Wild Haven Idle의 중심은 단일 캐릭터 관리가 아니라 보호구역 복원입니다. 짧게 돌아와도 성장한 흔적을 확인할 수 있도록 설계합니다.",
+          "game.panel1_title": "보호구역 성장",
+          "game.panel1_desc": "보호 포인트를 모아 보호구역 레벨을 올리고, 더 안정적인 회복 환경을 만들어 갑니다.",
+          "game.panel2_title": "회복 지원",
+          "game.panel2_desc": "구조 동물은 회복 단계와 적응 단계를 거치며 보호구역에 안정적으로 머뭅니다.",
+          "game.panel3_title": "야생동물 도감",
+          "game.panel3_desc": "잠김, 발견, 보호 중 상태를 구분하고 보호구역의 기록을 차곡차곡 채웁니다.",
+
+          "loop.heading": "방치 루프",
+          "loop.subtitle": "앱을 오래 붙잡지 않아도 다음 목표가 보이는 MVP 플레이 흐름입니다.",
+          "loop.step1": "앱 접속",
+          "loop.step2": "오프라인 보상 확인",
+          "loop.step3": "보호 포인트 수령",
+          "loop.step4": "회복 지원",
+          "loop.step5": "신규 해금",
+          "loop.step6": "다시 방치",
+
+          "animals.heading": "MVP 동물",
+          "animals.subtitle": "초기 버전은 숲 기반 보호구역에서 시작하는 5종의 구조 동물을 목표로 합니다.",
+          "animals.th_id": "ID",
+          "animals.th_name": "이름",
+          "animals.th_rarity": "희귀도",
+          "animals.th_unlock": "해금 조건",
+          "animals.rabbit_name": "숲토끼",
+          "animals.rabbit_unlock": "최초 시작 시 자동 등록",
+          "animals.fox_name": "붉은여우",
+          "animals.fox_unlock": "carePoint 300 보유",
+          "animals.deer_name": "어린 사슴",
+          "animals.deer_unlock": "숲토끼 회복 단계 5",
+          "animals.owl_name": "밤부엉이",
+          "animals.owl_unlock": "총 생산량 5/sec",
+          "animals.lynx_name": "스라소니",
+          "animals.lynx_unlock": "보호 중 동물 4종",
+
+          "principles.heading": "기본이 윤리",
+          "principles.desc": "MVP는 로그인, 광고, 결제, 분석 SDK, 푸시 알림, 서버 API 없이 로컬 우선으로 설계합니다. 동물 보호 테마를 감정 압박이나 과금 유도에 사용하지 않습니다.",
+
+          "footer.tagline": "로컬 우선 보호구역 복원 방치형 시뮬레이션"
+        },
+        en: {
+          description: "Wild Haven Idle is a local-first Android idle simulation about restoring a small wildlife sanctuary and supporting rescued animals.",
+          "og:description": "A local-first Android idle simulation about restoring a wildlife sanctuary",
+
+          "nav.game": "Game",
+          "nav.loop": "Loop",
+          "nav.animals": "Animals",
+          "nav.principles": "Principles",
+          "nav.download": "Download",
+
+          "hero.eyebrow": "Local-first Android idle simulation",
+          "hero.lead": "A quiet idle growth game where you operate a small wildlife sanctuary, collect care points, support rescued animals, and restore habitats.",
+          "hero.download_apk": "Download APK",
+          "hero.view_github": "View on GitHub",
+          "hero.read_design": "Read Game Design",
+          "hero.cta_note": "The latest signed APK is available on GitHub Releases. To install on your Android device, you need to enable <em>Install unknown apps</em> in system settings.",
+          "hero.stat_animals": "MVP rescued animals",
+          "hero.stat_offline": "offline reward cap",
+          "hero.stat_network": "network-first systems",
+
+          "game.heading": "Sanctuary, not ownership.",
+          "game.subtitle": "The core of Wild Haven Idle is sanctuary restoration, not single character management. It's designed so you can see growth even after a short visit.",
+          "game.panel1_title": "Sanctuary Growth",
+          "game.panel1_desc": "Collect care points to raise your sanctuary level and create a more stable recovery environment.",
+          "game.panel2_title": "Recovery Support",
+          "game.panel2_desc": "Rescued animals go through recovery and adaptation stages, staying safely in the sanctuary.",
+          "game.panel3_title": "Wildlife Field Guide",
+          "game.panel3_desc": "Track locked, discovered, and caring states while filling your sanctuary records one by one.",
+
+          "loop.heading": "Idle Loop",
+          "loop.subtitle": "An MVP play flow where the next goal is always visible, even without staying in the app for long.",
+          "loop.step1": "Open app",
+          "loop.step2": "Check offline rewards",
+          "loop.step3": "Collect care points",
+          "loop.step4": "Support recovery",
+          "loop.step5": "Unlock new content",
+          "loop.step6": "Go idle again",
+
+          "animals.heading": "MVP Animals",
+          "animals.subtitle": "The initial version targets 5 rescued animals starting from a forest-based sanctuary.",
+          "animals.th_id": "ID",
+          "animals.th_name": "Name",
+          "animals.th_rarity": "Rarity",
+          "animals.th_unlock": "Unlock Condition",
+          "animals.rabbit_name": "Forest Rabbit",
+          "animals.rabbit_unlock": "Auto-registered on first start",
+          "animals.fox_name": "Red Fox",
+          "animals.fox_unlock": "Hold 300 carePoints",
+          "animals.deer_name": "Young Deer",
+          "animals.deer_unlock": "Forest Rabbit recovery stage 5",
+          "animals.owl_name": "Night Owl",
+          "animals.owl_unlock": "Total production 5/sec",
+          "animals.lynx_name": "Lynx",
+          "animals.lynx_unlock": "4 animals in care",
+
+          "principles.heading": "Ethical by default",
+          "principles.desc": "MVP is designed local-first with no login, ads, billing, analytics SDK, push notifications, or server APIs. The animal protection theme is never used for emotional pressure or monetization pressure.",
+
+          "footer.tagline": "Local-first sanctuary restoration idle simulation"
+        }
+      };
+
+      var LANG_KEY = 'whi-lang';
+      var currentLang = localStorage.getItem(LANG_KEY);
+      if (!currentLang || (currentLang !== 'ko' && currentLang !== 'en')) {
+        currentLang = 'ko';
+        localStorage.setItem(LANG_KEY, currentLang);
+      }
+
+      function applyLanguage(lang) {
+        document.documentElement.lang = lang === 'ko' ? 'ko' : 'en';
+
+        // Meta tags
+        var metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc && translations[lang].description) {
+          metaDesc.setAttribute('content', translations[lang].description);
+        }
+        var ogDesc = document.querySelector('meta[property="og:description"]');
+        if (ogDesc && translations[lang]['og:description']) {
+          ogDesc.setAttribute('content', translations[lang]['og:description']);
+        }
+
+        // Elements with data-i18n (textContent)
+        var elements = document.querySelectorAll('[data-i18n]');
+        for (var i = 0; i < elements.length; i++) {
+          var el = elements[i];
+          var key = el.getAttribute('data-i18n');
+          if (translations[lang][key]) {
+            el.textContent = translations[lang][key];
+          }
+        }
+
+        // Elements with data-i18n-html (innerHTML, preserves child elements)
+        var htmlElements = document.querySelectorAll('[data-i18n-html]');
+        for (var j = 0; j < htmlElements.length; j++) {
+          var hel = htmlElements[j];
+          var hkey = hel.getAttribute('data-i18n-html');
+          if (translations[lang][hkey]) {
+            hel.innerHTML = translations[lang][hkey];
+          }
+        }
+
+        // Update language toggle button
+        var flag = document.getElementById('lang-flag');
+        var label = document.getElementById('lang-label');
+        if (flag && label) {
+          if (lang === 'ko') {
+            flag.textContent = '🇰🇷';
+            label.textContent = '한국어';
+          } else {
+            flag.textContent = '🇺🇸';
+            label.textContent = 'English';
+          }
+        }
+      }
+
+      function toggleLanguage() {
+        currentLang = currentLang === 'ko' ? 'en' : 'ko';
+        localStorage.setItem(LANG_KEY, currentLang);
+        applyLanguage(currentLang);
+      }
+
+      document.getElementById('lang-toggle').addEventListener('click', toggleLanguage);
+
+      // Apply initial language
+      applyLanguage(currentLang);
+    })();
+  </script>
 </body>
 </html>

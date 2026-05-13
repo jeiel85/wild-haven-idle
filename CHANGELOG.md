@@ -37,3 +37,4 @@
 - `.\gradlew.bat test assembleRelease bundleRelease` 실행 성공
 - `apksigner verify --verbose --print-certs app-release.apk` 실행 성공
 - `jarsigner -verify app-release.aab` 실행 성공
+- GitHub Actions Android CI에서 signed release APK/AAB 생성 및 artifact 업로드 성공

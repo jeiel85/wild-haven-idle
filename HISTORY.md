@@ -95,6 +95,7 @@
   - `.\gradlew.bat test assembleRelease bundleRelease` 실행 성공
   - `apksigner verify --verbose --print-certs app\build\outputs\apk\release\app-release.apk` 실행 성공
   - `jarsigner -verify app\build\outputs\bundle\release\app-release.aab` 실행 성공
+  - GitHub Actions Android CI 실행 성공: test, debug APK, signed release APK/AAB, artifact upload
 - 결과:
   - 동일 release keystore로 로컬 release APK/AAB 생성
   - GitHub Actions Secrets에 동일 keystore와 비밀번호 등록

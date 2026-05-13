@@ -134,3 +134,19 @@
   - 게임 소개, MVP 구현 상태, 핵심 시스템, 기술 스택, 저장소 구조, 빌드/릴리즈, 개발 원칙, 문서 링크를 한눈에 볼 수 있도록 README 재구성
 - 후속 작업:
   - 주요 화면 구현 후 README에 실제 스크린샷 추가
+
+## 2026-05-13
+
+- 작업: GitHub Pages 브랜딩 페이지 추가
+- 변경 파일:
+  - docs/index.html
+  - CHANGELOG.md
+  - HISTORY.md
+- 검증:
+  - `docs/index.html`, `docs/assets/wild-haven-icon-source.png`, `docs/GAME_DESIGN.md` 존재 확인
+  - Python `html.parser`로 `docs/index.html` 구문 확인
+  - GitHub Pages 설정 확인: `main` 브랜치의 `/docs` 경로 사용
+- 결과:
+  - Wild Haven Idle의 게임 정체성, MVP 루프, 구조 동물 목록, 개발 원칙을 소개하는 정적 브랜딩 페이지 추가
+- 후속 작업:
+  - PR 병합 후 `https://jeiel85.github.io/wild-haven-idle/` 반영 확인

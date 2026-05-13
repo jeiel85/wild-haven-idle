@@ -35,6 +35,9 @@
 - Linux CI에서 실행할 수 있도록 `gradlew` 실행 권한 설정
 - GitHub Actions Node.js 20 deprecation 경고 대응을 위해 workflow action 버전 갱신
 
+### Documentation
+- GitHub Pages용 정적 브랜딩 페이지 추가
+
 ### Verification
 - `.\gradlew.bat test assembleRelease bundleRelease` 실행 성공
 - `apksigner verify --verbose --print-certs app-release.apk` 실행 성공

@@ -59,6 +59,7 @@ ANDROID_RELEASE_KEY_PASSWORD
 - Updated GitHub Actions to newer Node 24-compatible action versions.
 - Rewrote `README.md` for GitHub project presentation.
 - Verified CI after the latest README commit.
+- Added `docs/index.html` as a GitHub Pages branding page for the project.
 
 ### Suggested next steps
 
@@ -74,6 +75,8 @@ ANDROID_RELEASE_KEY_PASSWORD
    - feature graphic
    - short and long descriptions
    - data safety / privacy policy materials
+4. After PR #2 is merged, confirm the GitHub Pages branding page at:
+   - https://jeiel85.github.io/wild-haven-idle/
 
 ### Cautions
 

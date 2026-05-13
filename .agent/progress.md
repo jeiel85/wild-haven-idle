@@ -25,9 +25,11 @@
 - Signed release APK and AAB generated locally
 - Signed release APK and AAB generated in GitHub Actions Android CI for PR #2
 - App launcher icon generated and wired into Android resources
+- Release workflow publishes signed APK/AAB to GitHub Releases on `v*` tag push
+- GitHub Pages page surfaces a Download APK call-to-action linking to latest release
 
 ### Not Done
 
 - Remote repository main branch not confirmed
 - Animal recovery list, archive, settings, and reset flow not implemented
-- Separate manual/tag release workflow has not been run from GitHub Actions yet
+- Separate manual/tag release workflow has not been triggered yet (first `v*` tag not pushed)

@@ -24,10 +24,17 @@
 - MVP 도메인 모델, 구조 동물 정의, BalanceCalculator, 홈 화면 초안 추가
 - BalanceCalculator 단위 테스트 추가
 - Gradle Wrapper와 Android 프로젝트용 `.gitignore` 추가
+- DataStore Preferences 기반 GameState 저장/로드 추가
+- 홈 화면 보호 포인트 자동 증가와 오프라인 보상 안내 추가
 
 ### Build / CI
 - AGP 9.2.0, Gradle 9.4.1, Compose BOM 2026.04.01 기반으로 빌드 설정 구성
 - GitHub Actions에서 Android SDK 플랫폼과 빌드 도구를 설치하도록 구성
+- AndroidX DataStore 1.2.1과 Lifecycle ViewModel 2.10.0 의존성 추가
+- Linux CI에서 `./gradlew`를 실행할 수 있도록 Gradle Wrapper 실행 권한 설정
 
 ### Verification
-- `.\gradlew.bat test`를 실행했으나 로컬 Android SDK 위치가 없어 실패
+- `.\gradlew.bat test` 실행 성공
+- `.\gradlew.bat assembleDebug` 실행 성공
+- GitHub Actions 1차 실행은 `./gradlew` 실행 권한 문제로 실패하여 수정 후 재실행
+- GitHub Actions 2차 실행 성공

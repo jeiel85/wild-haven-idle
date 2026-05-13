@@ -60,3 +60,39 @@
   - Android SDK 설치 또는 local.properties 설정
   - `.\gradlew.bat test`, `.\gradlew.bat assembleDebug` 재실행
   - DataStore 저장/로드 구현
+
+## 2026-05-13
+
+- 작업: MVP 저장/로드 및 홈 화면 게임 루프 추가
+- 변경 파일:
+  - gradlew
+  - app/build.gradle.kts
+  - gradle/libs.versions.toml
+  - app/src/main/java/com/jeiel85/wildhavenidle/MainActivity.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/core/time/TimeProvider.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/data/local/GameStateDataStore.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/data/model/GameState.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/data/repository/GameRepository.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/domain/usecase/BuildHomeUiStateUseCase.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeScreen.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeUiState.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeViewModel.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeViewModelFactory.kt
+  - .agent/tasks.md
+  - .agent/progress.md
+  - .agent/decisions.md
+  - CHANGELOG.md
+- 검증:
+  - `.\gradlew.bat test` 실행 성공
+  - `.\gradlew.bat assembleDebug` 실행 성공
+  - GitHub Actions 1차 실행 실패: `./gradlew` 실행 권한 없음
+  - GitHub Actions 2차 실행 성공
+- 결과:
+  - DataStore Preferences 기반으로 GameState를 저장/로드
+  - 앱 시작 시 오프라인 보상을 계산해 보호 포인트에 반영
+  - 홈 화면에서 초당 생산량만큼 보호 포인트가 증가
+  - Linux CI에서 Gradle Wrapper를 실행할 수 있도록 `gradlew` 실행 비트 설정
+- 후속 작업:
+  - 구조 동물 회복 목록 구현
+  - 보호구역 개선 기능 구현
+  - 도감, 설정, 데이터 초기화 화면 구현

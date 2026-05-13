@@ -7,4 +7,18 @@ data class GameState(
     val protectedAnimals: List<ProtectedAnimal> = emptyList(),
     val discoveredAnimalIds: Set<String> = emptySet(),
     val unlockedHabitatIds: Set<String> = setOf("forest_001"),
-)
+) {
+    companion object {
+        fun initial(now: Long): GameState = GameState(
+            lastSavedAt = now,
+            protectedAnimals = listOf(
+                ProtectedAnimal(
+                    animalId = "rabbit_001",
+                    recoveryStage = 1,
+                    protectedAt = now,
+                ),
+            ),
+            discoveredAnimalIds = setOf("rabbit_001"),
+        )
+    }
+}

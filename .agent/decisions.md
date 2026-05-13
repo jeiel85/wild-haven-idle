@@ -49,3 +49,16 @@ These versions match the current official Android and Gradle compatibility guida
 
 Impact:
 AGP 9 uses built-in Kotlin support, so the app module does not apply the deprecated `org.jetbrains.kotlin.android` plugin.
+
+---
+
+## 2026-05-13: MVP persistence implementation
+
+Decision:
+Use AndroidX Preferences DataStore 1.2.1 for the first MVP save/load implementation.
+
+Reason:
+The MVP state is small, local-only, and does not require schema migration before public release.
+
+Impact:
+GameState is persisted locally without network permission, login, cloud sync, or external API integration.

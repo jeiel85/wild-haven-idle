@@ -32,6 +32,7 @@
 - 환경 변수 기반 release signing config 추가
 - GitHub Actions PR/main CI와 수동/태그 릴리즈 워크플로에서 signed release APK/AAB 생성 추가
 - Linux CI에서 실행할 수 있도록 `gradlew` 실행 권한 설정
+- GitHub Actions Node.js 20 deprecation 경고 대응을 위해 workflow action 버전 갱신
 
 ### Verification
 - `.\gradlew.bat test assembleRelease bundleRelease` 실행 성공

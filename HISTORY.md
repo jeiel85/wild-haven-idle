@@ -104,3 +104,19 @@
 - 후속 작업:
   - GitHub Actions release workflow 수동 실행 검증
   - 스토어 등록 전 앱 아이콘 최종 QA 및 필요 시 개선
+
+## 2026-05-13
+
+- 작업: GitHub Actions Node.js 20 deprecation 경고 대응
+- 변경 파일:
+  - .github/workflows/android.yml
+  - .github/workflows/android-release.yml
+  - CHANGELOG.md
+- 검증:
+  - 최신 GitHub Actions 실행 로그 확인
+  - GitHub API로 action 최신 릴리스 태그 확인
+  - PR CI 실행 예정
+- 결과:
+  - `actions/checkout` v6, `actions/setup-java` v5, `gradle/actions/setup-gradle` v6, `android-actions/setup-android` v4, `actions/upload-artifact` v7로 갱신
+- 후속 작업:
+  - PR CI에서 deprecation annotation이 사라졌는지 확인

@@ -12,9 +12,9 @@
 
 ## Next
 
-- [ ] Install/configure Android SDK locally or verify GitHub Actions build environment
-- [ ] Add DataStore save/load
-- [ ] Add offline reward dialog
+- [x] Install/configure Android SDK locally or verify GitHub Actions build environment
+- [x] Add DataStore save/load
+- [x] Add offline reward dialog
 - [ ] Add animal recovery list
 - [ ] Add archive screen
 - [ ] Add settings screen

@@ -10,10 +10,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,9 +27,31 @@ import com.jeiel85.wildhavenidle.core.format.NumberFormatter
 
 @Composable
 fun HomeScreen(
-    uiState: HomeUiState,
+    viewModel: HomeViewModel,
     modifier: Modifier = Modifier,
 ) {
+    val uiState by viewModel.uiState.collectAsState()
+
+    HomeContent(
+        uiState = uiState,
+        onOfflineRewardConfirmed = viewModel::clearOfflineReward,
+        modifier = modifier,
+    )
+}
+
+@Composable
+private fun HomeContent(
+    uiState: HomeUiState,
+    onOfflineRewardConfirmed: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    uiState.offlineReward?.let { reward ->
+        OfflineRewardDialog(
+            reward = reward,
+            onConfirm = onOfflineRewardConfirmed,
+        )
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -85,6 +111,27 @@ fun HomeScreen(
 }
 
 @Composable
+private fun OfflineRewardDialog(
+    reward: Double,
+    onConfirm: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onConfirm,
+        title = {
+            Text(text = "보호구역 활동 보고")
+        },
+        text = {
+            Text(text = "자리를 비운 동안 보호 포인트 ${NumberFormatter.compact(reward)}를 모았습니다.")
+        },
+        confirmButton = {
+            TextButton(onClick = onConfirm) {
+                Text(text = "확인")
+            }
+        },
+    )
+}
+
+@Composable
 private fun MetricPanel(
     title: String,
     value: String,
@@ -130,7 +177,7 @@ private fun SmallMetric(
 @Composable
 private fun HomeScreenPreview() {
     WildHavenTheme {
-        HomeScreen(
+        HomeContent(
             uiState = HomeUiState(
                 carePoint = 0.0,
                 sanctuaryLevel = 1,
@@ -139,6 +186,7 @@ private fun HomeScreenPreview() {
                 discoveredAnimalCount = 1,
                 totalAnimalCount = 5,
             ),
+            onOfflineRewardConfirmed = {},
         )
     }
 }

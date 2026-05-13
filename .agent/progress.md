@@ -16,11 +16,12 @@
 - MVP domain models and animal definitions added
 - BalanceCalculator and unit tests added
 - Simple HomeScreen MVP added
+- Local Android SDK path configured through untracked `local.properties`
+- DataStore save/load added for MVP game state
+- Home screen now ticks care points and shows offline reward on return
 
 ### Not Done
 
 - Remote repository main branch not confirmed
-- Local Android SDK not installed or not configured
-- Gradle test/build not completed locally because SDK location is missing
-- DataStore save/load not implemented
-- Offline reward dialog, animal list, archive, settings, and reset flow not implemented
+- Animal recovery list, archive, settings, and reset flow not implemented
+- GitHub Actions result for the current branch not checked yet

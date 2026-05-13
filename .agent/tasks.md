@@ -21,10 +21,11 @@
 - [x] Install/configure Android SDK locally or verify GitHub Actions build environment
 - [x] Add DataStore save/load
 - [x] Add offline reward dialog
-- [ ] Add animal recovery list
-- [ ] Add archive screen
-- [ ] Add settings screen
-- [ ] Add data reset action
+- [x] Add animal recovery list
+- [x] Add archive screen
+- [x] Add settings screen
+- [x] Add data reset action
+- [x] Add navigation with Compose Navigation
 
 ## Later
 

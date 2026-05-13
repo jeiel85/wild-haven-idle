@@ -11,10 +11,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.TextButton
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -24,10 +26,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jeiel85.wildhavenidle.core.design.WildHavenTheme
 import com.jeiel85.wildhavenidle.core.format.NumberFormatter
+import com.jeiel85.wildhavenidle.presentation.components.SanctuaryHeader
 
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel,
+    onNavigateToAnimals: () -> Unit = {},
+    onNavigateToArchive: () -> Unit = {},
+    onNavigateToSettings: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -35,6 +41,9 @@ fun HomeScreen(
     HomeContent(
         uiState = uiState,
         onOfflineRewardConfirmed = viewModel::clearOfflineReward,
+        onNavigateToAnimals = onNavigateToAnimals,
+        onNavigateToArchive = onNavigateToArchive,
+        onNavigateToSettings = onNavigateToSettings,
         modifier = modifier,
     )
 }
@@ -43,6 +52,9 @@ fun HomeScreen(
 private fun HomeContent(
     uiState: HomeUiState,
     onOfflineRewardConfirmed: () -> Unit,
+    onNavigateToAnimals: () -> Unit,
+    onNavigateToArchive: () -> Unit,
+    onNavigateToSettings: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     uiState.offlineReward?.let { reward ->
@@ -59,6 +71,8 @@ private fun HomeContent(
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
+        SanctuaryHeader()
+
         Text(
             text = "Wild Haven Idle",
             style = MaterialTheme.typography.headlineMedium,
@@ -99,6 +113,38 @@ private fun HomeContent(
             value = "${uiState.discoveredAnimalCount}/${uiState.totalAnimalCount}",
             modifier = Modifier.fillMaxWidth(),
         )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Button(
+                onClick = onNavigateToAnimals,
+                modifier = Modifier.weight(1f),
+            ) {
+                Text("구조 동물")
+            }
+            Button(
+                onClick = onNavigateToArchive,
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.secondary,
+                ),
+            ) {
+                Text("도감")
+            }
+            Button(
+                onClick = onNavigateToSettings,
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.tertiary,
+                ),
+            ) {
+                Text("설정")
+            }
+        }
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -187,6 +233,9 @@ private fun HomeScreenPreview() {
                 totalAnimalCount = 5,
             ),
             onOfflineRewardConfirmed = {},
+            onNavigateToAnimals = {},
+            onNavigateToArchive = {},
+            onNavigateToSettings = {},
         )
     }
 }

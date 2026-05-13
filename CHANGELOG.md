@@ -28,6 +28,12 @@
 - DataStore Preferences 기반 GameState 저장/로드 추가
 - 홈 화면 보호 포인트 자동 증가와 오프라인 보상 안내 추가
 - 게임 정체성을 드러내는 앱 런처 아이콘 추가
+- Compose Navigation (navigation-compose 2.9.0) 추가 및 화면 간 이동 구현
+- 구조 동물 목록 화면: 회복 단계 상승, 보호구역 업그레이드 기능
+- 도감 화면: LOCKED/DISCOVERED/PROTECTED 상태별 동물 정보 표시
+- 설정 화면: 데이터 초기화 (확인 대화상자 포함), 버전 정보
+- 해금 조건 자동 체크: 상태 변경 시마다 신규 동물 해금 확인
+- GameRepository에 supportAnimalRecovery, upgradeSanctuary, resetData 메서드 추가
 
 ### Build / CI
 - AGP 9.2.0, Gradle 9.4.1, Compose BOM 2026.04.01 기반으로 빌드 설정 구성
@@ -54,3 +60,4 @@
 - GitHub Actions 1차 실행은 `./gradlew` 실행 권한 문제로 실패하여 수정 후 재실행
 - GitHub Actions 2차 실행 성공
 - GitHub Actions Android CI에서 signed release APK/AAB 생성 및 artifact 업로드 성공
+- 동물 회복 목록, 도감, 설정 화면 및 네비게이션 빌드/테스트 검증 완료

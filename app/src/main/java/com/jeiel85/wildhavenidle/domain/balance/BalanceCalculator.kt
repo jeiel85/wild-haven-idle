@@ -2,6 +2,7 @@ package com.jeiel85.wildhavenidle.domain.balance
 
 import com.jeiel85.wildhavenidle.data.model.AnimalDefinition
 import com.jeiel85.wildhavenidle.data.model.ProtectedAnimal
+import com.jeiel85.wildhavenidle.data.model.Rarity
 import kotlin.math.pow
 import kotlin.math.roundToLong
 
@@ -71,5 +72,19 @@ object BalanceCalculator {
     fun calculateSanctuaryUpgradeCost(currentLevel: Int): Long {
         require(currentLevel >= 1) { "Sanctuary level must be at least 1." }
         return (200.0 * currentLevel.toDouble().pow(1.6)).roundToLong()
+    }
+
+    fun getRecoveryBaseCost(definition: AnimalDefinition): Double {
+        return when (definition.rarity) {
+            Rarity.COMMON -> when (definition.id) {
+                "rabbit_001" -> 50.0
+                "fox_001" -> 80.0
+                else -> 65.0
+            }
+            Rarity.UNCOMMON -> 150.0
+            Rarity.RARE -> 400.0
+            Rarity.EPIC -> 1000.0
+            Rarity.LEGENDARY -> 2500.0
+        }
     }
 }

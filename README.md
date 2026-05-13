@@ -1,8 +1,10 @@
-# Wild Haven Idle
+# 🏕️ Wild Haven Idle — 와일드 헤이븐
 
 [![Android CI](https://github.com/jeiel85/wild-haven-idle/actions/workflows/android.yml/badge.svg)](https://github.com/jeiel85/wild-haven-idle/actions/workflows/android.yml)
 
-작은 야생동물 보호구역을 복원하고, 구조 동물의 회복을 지원하며, 도감을 채워 나가는 Android 방치형 성장 시뮬레이션입니다.
+> **숲속 보호구역을 복원하고, 다친 야생동물을 돌보는 방치형 힐링 게임**
+
+작은 야생동물 보호구역의 관리자가 되어 보호 포인트를 모으고, 구조 동물의 회복을 지원하며, 도감을 채워 나가는 Android 방치형 성장 시뮬레이션입니다.
 
 Wild Haven Idle is a local-first Android idle simulation about restoring a wildlife sanctuary.
 
@@ -42,15 +44,16 @@ Wild Haven Idle is a local-first Android idle simulation about restoring a wildl
 
 | 기능 | MVP | 현재 상태 |
 |---|---:|---|
-| 보호 포인트 자동 생산 | 포함 | 기초 구현 |
-| 오프라인 보상 계산 | 포함 | 기초 구현 PR 진행 중 |
-| 구조 동물 5종 | 포함 | 정의 완료 |
-| 회복 단계 시스템 | 포함 | 예정 |
-| 보호구역 레벨업 | 포함 | 예정 |
-| 도감 화면 | 포함 | 예정 |
-| 로컬 저장 | 포함 | 기초 구현 PR 진행 중 |
-| 기본 설정 화면 | 포함 | 예정 |
-| 데이터 초기화 | 포함 | 예정 |
+| 보호 포인트 자동 생산 | 포함 | 완료 |
+| 오프라인 보상 계산 | 포함 | 완료 |
+| 구조 동물 5종 | 포함 | 완료 |
+| 회복 단계 시스템 | 포함 | 완료 |
+| 보호구역 레벨업 | 포함 | 완료 |
+| 도감 화면 | 포함 | 완료 |
+| 동물 회복 목록 | 포함 | 완료 |
+| 로컬 저장 | 포함 | 완료 |
+| 설정 화면 + 데이터 초기화 | 포함 | 완료 |
+| 화면 간 이동 (Navigation) | 포함 | 완료 |
 | 로그인/클라우드/서버 | 제외 | 제외 |
 | 광고/결제/분석 SDK | 제외 | 제외 |
 | 푸시 알림 | 제외 | 제외 |

@@ -1,8 +1,11 @@
 # 🏕️ Wild Haven Idle — 와일드 헤이븐
 
 [![Android CI](https://github.com/jeiel85/wild-haven-idle/actions/workflows/android.yml/badge.svg)](https://github.com/jeiel85/wild-haven-idle/actions/workflows/android.yml)
+[![Google Play](https://img.shields.io/badge/Google%20Play-Download-414141?logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.jeiel85.wildhavenidle)
 
 > **숲속 보호구역을 복원하고, 다친 야생동물을 돌보는 방치형 힐링 게임**
+
+📱 **Google Play 스토어에서 다운로드:** <https://play.google.com/store/apps/details?id=com.jeiel85.wildhavenidle>
 
 작은 야생동물 보호구역의 관리자가 되어 보호 포인트를 모으고, 구조 동물의 회복을 지원하며, 도감을 채워 나가는 Android 방치형 성장 시뮬레이션입니다.
 

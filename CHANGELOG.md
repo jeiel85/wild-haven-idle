@@ -12,6 +12,7 @@
 ### Documentation
 - README, AGENTS, GAME_DESIGN, TECH_SPEC, BALANCE, ART_DIRECTION, IP_AND_ETHICS 문서 구조 정의
 - 작업 이력과 의사결정 기록을 위한 `.agent` 문서 구조 정의
+- GitHub 공개 페이지용 README를 게임 소개, MVP 상태, 기술 스택, 빌드/릴리즈, 문서 링크 중심으로 개편
 
 ### Verification
 - 문서 패키지 생성 확인

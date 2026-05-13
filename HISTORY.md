@@ -120,3 +120,17 @@
   - `actions/checkout` v6, `actions/setup-java` v5, `gradle/actions/setup-gradle` v6, `android-actions/setup-android` v4, `actions/upload-artifact` v7로 갱신
 - 후속 작업:
   - PR CI에서 deprecation annotation이 사라졌는지 확인
+
+## 2026-05-13
+
+- 작업: GitHub README 개편
+- 변경 파일:
+  - README.md
+  - CHANGELOG.md
+  - HISTORY.md
+- 검증:
+  - README 링크와 저장소 내 참조 경로 확인
+- 결과:
+  - 게임 소개, MVP 구현 상태, 핵심 시스템, 기술 스택, 저장소 구조, 빌드/릴리즈, 개발 원칙, 문서 링크를 한눈에 볼 수 있도록 README 재구성
+- 후속 작업:
+  - 주요 화면 구현 후 README에 실제 스크린샷 추가

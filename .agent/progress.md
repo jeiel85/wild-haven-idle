@@ -16,6 +16,10 @@
 - MVP domain models and animal definitions added
 - BalanceCalculator and unit tests added
 - Simple HomeScreen MVP added
+- Local Android SDK path configured through untracked `local.properties`
+- DataStore save/load added for MVP game state
+- Home screen now ticks care points and shows offline reward on return
+- GitHub Actions passed for PR #1 after fixing Gradle Wrapper execute permission
 - Release keystore created outside the repository
 - Release signing secrets registered in GitHub Actions
 - Signed release APK and AAB generated locally
@@ -25,8 +29,5 @@
 ### Not Done
 
 - Remote repository main branch not confirmed
-- Local Android SDK not installed or not configured
-- Gradle test/build not completed locally because SDK location is missing
-- DataStore save/load not implemented
-- Offline reward dialog, animal list, archive, settings, and reset flow not implemented
+- Animal recovery list, archive, settings, and reset flow not implemented
 - Separate manual/tag release workflow has not been run from GitHub Actions yet

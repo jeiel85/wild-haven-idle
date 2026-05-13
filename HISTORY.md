@@ -86,6 +86,7 @@
   - `.\gradlew.bat test` 실행 성공
   - `.\gradlew.bat assembleDebug` 실행 성공
   - GitHub Actions 1차 실행 실패: `./gradlew` 실행 권한 없음
+  - GitHub Actions 2차 실행 성공
 - 결과:
   - DataStore Preferences 기반으로 GameState를 저장/로드
   - 앱 시작 시 오프라인 보상을 계산해 보호 포인트에 반영

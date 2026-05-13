@@ -37,3 +37,4 @@
 - `.\gradlew.bat test` 실행 성공
 - `.\gradlew.bat assembleDebug` 실행 성공
 - GitHub Actions 1차 실행은 `./gradlew` 실행 권한 문제로 실패하여 수정 후 재실행
+- GitHub Actions 2차 실행 성공

@@ -207,3 +207,20 @@
 - 후속 작업:
   - `v0.1.0` 태그 푸시로 첫 GitHub Release 생성 검증
   - Release 생성 후 GitHub Pages CTA가 정상 다운로드로 연결되는지 확인
+
+## 2026-05-13
+
+- 작업: Release workflow `contents: write` 권한 추가
+- 변경 파일:
+  - .github/workflows/android-release.yml
+  - HISTORY.md
+- 배경:
+  - v0.1.0 태그 푸시 시 Release workflow 빌드/서명/아티팩트 업로드는 성공했으나, "Publish GitHub Release" 단계가 403 `Resource not accessible by integration`으로 실패
+  - 기본 `GITHUB_TOKEN`은 PR에서 release 생성 권한이 제한되어 있어 명시적 권한 부여 필요
+- 검증:
+  - 워크플로 YAML 구문 확인
+  - 머지 후 v0.1.0 태그를 재푸시하여 Release 자동 생성 검증 예정
+- 결과:
+  - `release` job에 `permissions: contents: write` 추가
+- 후속 작업:
+  - 실패한 v0.1.0 태그 삭제 후 main의 최신 커밋에서 재태그

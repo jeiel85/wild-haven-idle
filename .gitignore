@@ -19,3 +19,9 @@ Thumbs.db
 *.apk
 *.aab
 *.ap_
+
+# Release signing (NEVER commit)
+keystore/
+*.jks
+*.keystore
+release-signing.env

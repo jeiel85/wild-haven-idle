@@ -1,0 +1,29 @@
+# Tasks
+
+## Now
+
+- [ ] Create GitHub repository `wild-haven-idle`
+- [x] Create Android Compose project
+- [x] Set applicationId to `com.jeiel85.wildhavenidle`
+- [x] Add domain models
+- [x] Add BalanceCalculator
+- [x] Add unit tests for BalanceCalculator
+- [x] Add simple HomeScreen MVP
+
+## Next
+
+- [ ] Install/configure Android SDK locally or verify GitHub Actions build environment
+- [ ] Add DataStore save/load
+- [ ] Add offline reward dialog
+- [ ] Add animal recovery list
+- [ ] Add archive screen
+- [ ] Add settings screen
+- [ ] Add data reset action
+
+## Later
+
+- [ ] Add habitat expansion
+- [ ] Add self-made art assets
+- [ ] Add localization resources for Korean and English
+- [ ] Add optional reward ads only after MVP validation
+- [ ] Add cloud sync only after separate approval

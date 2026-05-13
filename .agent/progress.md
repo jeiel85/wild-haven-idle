@@ -16,6 +16,10 @@
 - MVP domain models and animal definitions added
 - BalanceCalculator and unit tests added
 - Simple HomeScreen MVP added
+- Release keystore created outside the repository
+- Release signing secrets registered in GitHub Actions
+- Signed release APK and AAB generated locally
+- App launcher icon generated and wired into Android resources
 
 ### Not Done
 
@@ -24,3 +28,4 @@
 - Gradle test/build not completed locally because SDK location is missing
 - DataStore save/load not implemented
 - Offline reward dialog, animal list, archive, settings, and reset flow not implemented
+- Release workflow has not been run from GitHub Actions yet

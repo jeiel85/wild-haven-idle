@@ -60,3 +60,46 @@
   - Android SDK 설치 또는 local.properties 설정
   - `.\gradlew.bat test`, `.\gradlew.bat assembleDebug` 재실행
   - DataStore 저장/로드 구현
+
+## 2026-05-13
+
+- 작업: 릴리즈 서명, 릴리즈 빌드, 앱 아이콘 준비
+- 변경 파일:
+  - app/build.gradle.kts
+  - app/src/main/AndroidManifest.xml
+  - app/src/main/res/mipmap-*/ic_launcher.png
+  - app/src/main/res/mipmap-*/ic_launcher_round.png
+  - .github/workflows/android.yml
+  - .github/workflows/android-release.yml
+  - gradlew
+  - docs/assets/wild-haven-icon-source.png
+  - docs/ASSET_LICENSES.md
+  - docs/ART_DIRECTION.md
+  - docs/TECH_SPEC.md
+  - .agent/tasks.md
+  - .agent/progress.md
+  - .agent/decisions.md
+  - CHANGELOG.md
+- 로컬 백업:
+  - 키스토어 백업 폴더: `D:\Project\wild-haven-idle-release-backup\20260513-132122`
+  - 키스토어 파일: `D:\Project\wild-haven-idle-release-backup\20260513-132122\wild-haven-release.jks`
+  - 백업 메모: `D:\Project\wild-haven-idle-release-backup\20260513-132122\release-signing.env`
+- GitHub Secrets:
+  - `ANDROID_RELEASE_KEYSTORE_BASE64`
+  - `ANDROID_RELEASE_KEYSTORE_PASSWORD`
+  - `ANDROID_RELEASE_KEY_ALIAS`
+  - `ANDROID_RELEASE_KEY_PASSWORD`
+- 앱 아이콘 생성 프롬프트:
+  - Forest sanctuary shield icon for Wild Haven Idle, centered leaf shield with rescued rabbit/owl silhouettes, warm green haven clearing, no text, no existing IP resemblance, no electronic pet-device visual language.
+- 검증:
+  - `.\gradlew.bat test assembleRelease bundleRelease` 실행 성공
+  - `apksigner verify --verbose --print-certs app\build\outputs\apk\release\app-release.apk` 실행 성공
+  - `jarsigner -verify app\build\outputs\bundle\release\app-release.aab` 실행 성공
+- 결과:
+  - 동일 release keystore로 로컬 release APK/AAB 생성
+  - GitHub Actions Secrets에 동일 keystore와 비밀번호 등록
+  - PR/main CI와 수동 실행 또는 `v*` 태그 푸시로 signed release artifact를 생성하는 워크플로 추가
+  - 보호구역/잎 방패/구조 동물 실루엣 기반 앱 아이콘 추가
+- 후속 작업:
+  - GitHub Actions release workflow 수동 실행 검증
+  - 스토어 등록 전 앱 아이콘 최종 QA 및 필요 시 개선

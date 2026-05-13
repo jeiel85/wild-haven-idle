@@ -67,6 +67,12 @@ Initial recommended commands:
 
 CI is expected to run on GitHub Actions.
 
+Release signing uses local environment variables or GitHub Actions Secrets. The keystore itself must stay outside the repository.
+
+```bash
+./gradlew assembleRelease bundleRelease
+```
+
 ## IP and Ethics
 
 Wild Haven Idle is a wildlife sanctuary restoration idle simulation. It is not an electronic pet clone and does not reference, imitate, or reproduce any existing virtual pet product or third-party IP.

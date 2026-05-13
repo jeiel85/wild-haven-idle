@@ -281,3 +281,27 @@ MVP 저장 방식:
 | 발견한 동물 ID | 저장 |
 | 해금된 서식지 ID | 저장 |
 | 설정값 | 선택 저장 |
+
+---
+
+## 8. 릴리즈 서명
+
+릴리즈 APK/AAB는 로컬 파일이나 GitHub Actions Secrets에서 주입한 keystore로 서명한다.
+
+저장소에 포함하지 않는 값:
+
+```text
+ANDROID_RELEASE_KEYSTORE_PATH
+ANDROID_RELEASE_KEYSTORE_BASE64
+ANDROID_RELEASE_KEYSTORE_PASSWORD
+ANDROID_RELEASE_KEY_ALIAS
+ANDROID_RELEASE_KEY_PASSWORD
+```
+
+로컬 빌드 시에는 위 값을 프로세스 환경 변수로 설정한 뒤 실행한다.
+
+```bash
+./gradlew assembleRelease bundleRelease
+```
+
+GitHub Actions에서는 `ANDROID_RELEASE_KEYSTORE_BASE64`를 임시 파일로 복원한 뒤 동일한 signing config를 사용한다.

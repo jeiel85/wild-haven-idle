@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Wild Haven Idle 개인정보처리방침 — 본 앱은 어떠한 개인정보도 수집하지 않습니다.">
+  <meta name="theme-color" content="#31543d">
+  <title>Privacy Policy — Wild Haven Idle</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --forest: #1f3c2c;
+      --leaf: #4f8a5b;
+      --moss: #dfead1;
+      --paper: #fffaf0;
+      --ink: #17231b;
+      --muted: #5e6d62;
+      --line: rgba(31, 60, 44, 0.16);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #f7f2e6 0%, #eef4e5 44%, #f8f1df 100%);
+      line-height: 1.7;
+    }
+    a { color: var(--leaf); }
+    .shell {
+      width: min(820px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 40px 0 80px;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 0 40px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 36px;
+    }
+    .brand {
+      font-weight: 800;
+      color: var(--forest);
+      text-decoration: none;
+      font-size: 1.05rem;
+    }
+    .lang-switch {
+      display: inline-flex;
+      gap: 4px;
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 240, 0.74);
+    }
+    .lang-switch button {
+      padding: 6px 12px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.88rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .lang-switch button.active {
+      background: var(--forest);
+      color: white;
+    }
+    h1 {
+      margin: 0 0 6px;
+      color: var(--forest);
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      line-height: 1.1;
+    }
+    .meta {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin: 0 0 32px;
+    }
+    h2 {
+      color: var(--forest);
+      margin: 36px 0 12px;
+      font-size: 1.25rem;
+    }
+    p, li { color: #2a3a30; }
+    ul { padding-left: 22px; }
+    .callout {
+      margin: 24px 0;
+      padding: 18px 22px;
+      border-left: 4px solid var(--leaf);
+      background: rgba(223, 234, 209, 0.4);
+      border-radius: 6px;
+    }
+    .callout strong { color: var(--forest); }
+    .lang { display: none; }
+    .lang.active { display: block; }
+    footer {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="nav">
+      <a class="brand" href="index.html">Wild Haven Idle</a>
+      <div class="lang-switch" role="tablist">
+        <button type="button" data-lang="ko" class="active">한국어</button>
+        <button type="button" data-lang="en">English</button>
+      </div>
+    </nav>
+
+    <section class="lang active" data-lang="ko">
+      <h1>개인정보처리방침</h1>
+      <p class="meta">앱: Wild Haven Idle · 패키지명: com.jeiel85.wildhavenidle · 시행일: 2026년 5월 13일</p>
+
+      <div class="callout">
+        <strong>요약.</strong> Wild Haven Idle은 사용자의 개인정보를 수집하지 않습니다. 인터넷 권한을 사용하지 않으며, 광고·분석·로그인·결제 SDK를 포함하지 않습니다. 게임 진행 상황은 사용자의 기기 내부에만 저장됩니다.
+      </div>
+
+      <h2>1. 개발자 정보</h2>
+      <p>본 앱은 개인 개발자 <strong>jeiel85</strong>가 개발 및 운영합니다. 본 방침에 관한 문의는 <a href="mailto:jeiel85@gmail.com">jeiel85@gmail.com</a> 으로 연락 주시기 바랍니다.</p>
+
+      <h2>2. 수집·이용하는 개인정보</h2>
+      <p>본 앱은 다음을 포함한 어떠한 개인정보도 수집하지 않습니다.</p>
+      <ul>
+        <li>이름, 이메일, 전화번호, 주소 등 식별 정보</li>
+        <li>광고 식별자, 기기 고유 식별자(IMEI, MAC 등)</li>
+        <li>위치 정보</li>
+        <li>연락처, 사진, 파일 등 기기 내 데이터</li>
+        <li>마이크, 카메라, 센서 데이터</li>
+        <li>이용 로그, 접속 기록, 쿠키</li>
+      </ul>
+
+      <h2>3. 권한 사용 내역</h2>
+      <p>본 앱은 추가 권한을 요청하지 않습니다. 인터넷 권한(<code>android.permission.INTERNET</code>)을 포함한 네트워크 권한을 매니페스트에 선언하지 않으므로 외부 서버와의 통신이 발생할 수 없습니다.</p>
+
+      <h2>4. 로컬 데이터 저장</h2>
+      <p>게임 진행 상황(보호 동물 목록, 회복 단계, 자원 수치 등)은 Android Jetpack DataStore를 사용하여 사용자의 기기 내부 저장소에만 보관됩니다. 이 데이터는 외부로 전송되지 않으며, 앱을 삭제하면 함께 삭제됩니다.</p>
+
+      <h2>5. 제3자 제공 및 외부 SDK</h2>
+      <p>본 앱은 광고 네트워크, 분석 도구, 충돌 보고, 원격 설정, 인증, 결제 등 어떠한 제3자 SDK도 포함하지 않습니다. 따라서 제3자에게 제공되는 데이터가 존재하지 않습니다.</p>
+
+      <h2>6. 어린이 개인정보</h2>
+      <p>본 앱은 13세 미만 어린이를 주요 대상으로 하지 않지만 모든 연령이 안전하게 이용할 수 있도록 설계되었습니다. 어린이를 포함한 모든 사용자로부터 어떠한 개인정보도 수집하지 않습니다.</p>
+
+      <h2>7. 데이터 보안</h2>
+      <p>수집 및 전송되는 데이터가 없으므로 외부 침해 위험이 발생하지 않습니다. 기기 내부에 저장된 게임 데이터는 Android 운영체제가 제공하는 앱별 샌드박스 보호를 따릅니다.</p>
+
+      <h2>8. 사용자의 권리</h2>
+      <p>본 앱은 사용자 데이터를 보관하지 않으므로 별도의 열람·수정·삭제 절차가 필요하지 않습니다. 기기 내 저장된 게임 데이터를 모두 삭제하려면 앱을 제거하거나 시스템 설정에서 앱 데이터를 삭제하시면 됩니다.</p>
+
+      <h2>9. 방침 변경</h2>
+      <p>법령 또는 앱 기능 변경에 따라 본 방침이 개정될 수 있으며, 변경 시 본 페이지에 즉시 반영하고 시행일을 갱신합니다. 중요한 변경 사항은 앱 업데이트 노트를 통해 안내합니다.</p>
+
+      <h2>10. 문의</h2>
+      <p>개인정보 처리와 관련된 문의는 <a href="mailto:jeiel85@gmail.com">jeiel85@gmail.com</a> 으로 보내주시기 바랍니다.</p>
+    </section>
+
+    <section class="lang" data-lang="en">
+      <h1>Privacy Policy</h1>
+      <p class="meta">App: Wild Haven Idle · Package: com.jeiel85.wildhavenidle · Effective date: May 13, 2026</p>
+
+      <div class="callout">
+        <strong>Summary.</strong> Wild Haven Idle does not collect any personal information. The app does not request the internet permission and includes no advertising, analytics, login, or payment SDKs. Game progress is stored only on the user's device.
+      </div>
+
+      <h2>1. Developer</h2>
+      <p>This app is developed and operated by an individual developer, <strong>jeiel85</strong>. For inquiries about this policy, please contact <a href="mailto:jeiel85@gmail.com">jeiel85@gmail.com</a>.</p>
+
+      <h2>2. Personal data we collect</h2>
+      <p>We do not collect any personal data, including but not limited to:</p>
+      <ul>
+        <li>Names, email addresses, phone numbers, or postal addresses</li>
+        <li>Advertising identifiers or device identifiers (IMEI, MAC, etc.)</li>
+        <li>Location information</li>
+        <li>Contacts, photos, or other files on the device</li>
+        <li>Microphone, camera, or sensor data</li>
+        <li>Usage logs, access logs, or cookies</li>
+      </ul>
+
+      <h2>3. Permissions</h2>
+      <p>The app does not request any additional permissions. It does not declare the internet permission (<code>android.permission.INTERNET</code>) or any other network permission in its manifest, which makes communication with external servers technically impossible.</p>
+
+      <h2>4. Local data storage</h2>
+      <p>Game progress (rescued animals, recovery stages, resource counts, etc.) is stored only on the user's device using Android Jetpack DataStore. This data is never transmitted externally and is removed when the app is uninstalled.</p>
+
+      <h2>5. Third parties and external SDKs</h2>
+      <p>The app contains no third-party SDKs for advertising, analytics, crash reporting, remote configuration, authentication, or payments. No data is shared with any third party.</p>
+
+      <h2>6. Children's privacy</h2>
+      <p>The app is not primarily directed at children under 13, but it is designed to be safe for all ages. We do not collect any personal information from any user, including children.</p>
+
+      <h2>7. Data security</h2>
+      <p>Because no data is collected or transmitted, there is no external exposure risk. Game data stored on the device is protected by Android's per-app sandbox.</p>
+
+      <h2>8. User rights</h2>
+      <p>Since we do not retain any user data, no access, correction, or deletion procedure is required. To remove the locally stored game data, uninstall the app or clear the app data via system settings.</p>
+
+      <h2>9. Changes to this policy</h2>
+      <p>This policy may be revised due to legal or feature changes. Any updates will be reflected on this page with the effective date updated. Material changes will be announced in app release notes.</p>
+
+      <h2>10. Contact</h2>
+      <p>For privacy-related inquiries, please contact <a href="mailto:jeiel85@gmail.com">jeiel85@gmail.com</a>.</p>
+    </section>
+
+    <footer>
+      <p>© 2026 jeiel85 · Wild Haven Idle</p>
+    </footer>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.lang-switch button');
+    const sections = document.querySelectorAll('.lang');
+    const userLang = (navigator.language || 'ko').toLowerCase().startsWith('ko') ? 'ko' : 'en';
+    const initial = new URLSearchParams(location.search).get('lang') || userLang;
+    setLang(initial === 'en' ? 'en' : 'ko');
+    buttons.forEach(btn => btn.addEventListener('click', () => setLang(btn.dataset.lang)));
+    function setLang(lang) {
+      document.documentElement.lang = lang;
+      buttons.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+      sections.forEach(s => s.classList.toggle('active', s.dataset.lang === lang));
+    }
+  </script>
+</body>
+</html>

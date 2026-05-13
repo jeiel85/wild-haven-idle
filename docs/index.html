@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Wild Haven Idle은 작은 야생동물 보호구역을 복원하고 구조 동물의 회복을 지원하는 Android 방치형 성장 시뮬레이션입니다.">
+  <meta name="theme-color" content="#31543d">
+  <meta property="og:title" content="Wild Haven Idle">
+  <meta property="og:description" content="야생동물 보호구역을 복원하는 로컬 우선 Android 방치형 성장 시뮬레이션">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/wild-haven-icon-source.png">
+  <title>Wild Haven Idle</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --forest: #1f3c2c;
+      --leaf: #4f8a5b;
+      --moss: #dfead1;
+      --sun: #f4c96b;
+      --water: #6fa8a4;
+      --soil: #6f5740;
+      --paper: #fffaf0;
+      --ink: #17231b;
+      --muted: #5e6d62;
+      --line: rgba(31, 60, 44, 0.16);
+      --shadow: 0 24px 80px rgba(31, 60, 44, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(244, 201, 107, 0.24), transparent 34rem),
+        linear-gradient(180deg, #f7f2e6 0%, #eef4e5 44%, #f8f1df 100%);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 22px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(31, 60, 44, 0.18);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      padding: 8px 0;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(280px, 0.78fr);
+      gap: clamp(28px, 6vw, 72px);
+      align-items: center;
+      min-height: calc(100vh - 92px);
+      padding: 40px 0 70px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--forest);
+      background: rgba(255, 250, 240, 0.78);
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--leaf);
+      box-shadow: 0 0 0 5px rgba(79, 138, 91, 0.14);
+    }
+
+    h1 {
+      margin: 28px 0 18px;
+      font-size: clamp(3.4rem, 9vw, 7.7rem);
+      line-height: 0.92;
+      letter-spacing: 0;
+      color: var(--forest);
+    }
+
+    .lead {
+      max-width: 660px;
+      margin: 0;
+      color: #34483a;
+      font-size: clamp(1.08rem, 2vw, 1.32rem);
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 8px;
+      font-weight: 800;
+      border: 1px solid transparent;
+    }
+
+    .button.primary {
+      background: var(--forest);
+      color: white;
+      box-shadow: 0 14px 34px rgba(31, 60, 44, 0.24);
+    }
+
+    .button.secondary {
+      background: rgba(255, 250, 240, 0.74);
+      color: var(--forest);
+      border-color: var(--line);
+    }
+
+    .hero-card {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .icon-frame {
+      aspect-ratio: 1;
+      border-radius: 34px;
+      padding: clamp(14px, 3vw, 24px);
+      background:
+        linear-gradient(135deg, rgba(255, 250, 240, 0.72), rgba(223, 234, 209, 0.72)),
+        linear-gradient(135deg, rgba(111, 168, 164, 0.3), rgba(244, 201, 107, 0.22));
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow);
+    }
+
+    .icon-frame img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      border-radius: 24px;
+    }
+
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .stat {
+      min-height: 86px;
+      padding: 14px;
+      border-radius: 8px;
+      background: rgba(255, 250, 240, 0.78);
+      border: 1px solid var(--line);
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--forest);
+      font-size: 1.32rem;
+      line-height: 1.1;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    section {
+      padding: 74px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--forest);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      max-width: 460px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .panel {
+      border-radius: 8px;
+      background: rgba(255, 250, 240, 0.8);
+      border: 1px solid var(--line);
+      padding: 22px;
+      min-height: 190px;
+    }
+
+    .panel h3 {
+      margin: 0 0 12px;
+      color: var(--forest);
+      font-size: 1.2rem;
+    }
+
+    .panel p,
+    .panel li {
+      color: var(--muted);
+    }
+
+    .panel p {
+      margin: 0;
+    }
+
+    .loop {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      counter-reset: loop;
+    }
+
+    .loop-step {
+      min-height: 132px;
+      border-radius: 8px;
+      padding: 16px;
+      background: var(--forest);
+      color: white;
+      counter-increment: loop;
+    }
+
+    .loop-step::before {
+      content: "0" counter(loop);
+      display: block;
+      color: var(--sun);
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .animal-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 8px;
+      background: rgba(255, 250, 240, 0.82);
+      border: 1px solid var(--line);
+    }
+
+    .animal-table th,
+    .animal-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .animal-table th {
+      color: var(--forest);
+      font-size: 0.92rem;
+    }
+
+    .animal-table td {
+      color: var(--muted);
+    }
+
+    .animal-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .principles {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .principle-card {
+      padding: 28px;
+      border-radius: 8px;
+      color: white;
+      background:
+        linear-gradient(135deg, rgba(31, 60, 44, 0.96), rgba(49, 84, 61, 0.92)),
+        var(--forest);
+      box-shadow: var(--shadow);
+    }
+
+    .principle-card h2 {
+      color: white;
+    }
+
+    .principle-card p {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .check-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .check-list li {
+      padding: 14px 16px;
+      border-radius: 8px;
+      background: rgba(255, 250, 240, 0.82);
+      border: 1px solid var(--line);
+      color: var(--forest);
+      font-weight: 700;
+    }
+
+    .footer {
+      padding: 32px 0 50px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+    }
+
+    .footer .shell {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .principles {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .grid,
+      .loop {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+        font-size: 0.88rem;
+      }
+
+      .stat-strip,
+      .grid,
+      .loop,
+      .check-list {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .animal-table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell nav">
+    <a class="brand" href="#top" aria-label="Wild Haven Idle home">
+      <img src="assets/wild-haven-icon-source.png" alt="">
+      <span>Wild Haven Idle</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="#game">Game</a>
+      <a href="#loop">Loop</a>
+      <a href="#animals">Animals</a>
+      <a href="#principles">Principles</a>
+      <a href="https://github.com/jeiel85/wild-haven-idle">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="shell hero">
+      <div>
+        <div class="eyebrow">Local-first Android idle simulation</div>
+        <h1>Wild Haven Idle</h1>
+        <p class="lead">
+          작은 야생동물 보호구역을 운영하며 보호 포인트를 모으고,
+          구조 동물의 회복을 지원하고, 서식지를 복원해 나가는 조용한 방치형 성장 게임입니다.
+        </p>
+        <div class="cta-row">
+          <a class="button primary" href="https://github.com/jeiel85/wild-haven-idle">View on GitHub</a>
+          <a class="button secondary" href="GAME_DESIGN.md">Read Game Design</a>
+        </div>
+      </div>
+
+      <div class="hero-card" aria-label="Wild Haven Idle app icon preview">
+        <div class="icon-frame">
+          <img src="assets/wild-haven-icon-source.png" alt="Forest sanctuary shield with rescued wildlife silhouettes">
+        </div>
+        <div class="stat-strip">
+          <div class="stat">
+            <strong>5</strong>
+            <span>MVP rescued animals</span>
+          </div>
+          <div class="stat">
+            <strong>8h</strong>
+            <span>offline reward cap</span>
+          </div>
+          <div class="stat">
+            <strong>0</strong>
+            <span>network-first systems</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell" id="game">
+      <div class="section-head">
+        <h2>Sanctuary, not ownership.</h2>
+        <p>
+          Wild Haven Idle의 중심은 단일 캐릭터 관리가 아니라 보호구역 복원입니다.
+          짧게 돌아와도 성장한 흔적을 확인할 수 있도록 설계합니다.
+        </p>
+      </div>
+      <div class="grid">
+        <article class="panel">
+          <h3>보호구역 성장</h3>
+          <p>보호 포인트를 모아 보호구역 레벨을 올리고, 더 안정적인 회복 환경을 만들어 갑니다.</p>
+        </article>
+        <article class="panel">
+          <h3>회복 지원</h3>
+          <p>구조 동물은 회복 단계와 적응 단계를 거치며 보호구역에 안정적으로 머뭅니다.</p>
+        </article>
+        <article class="panel">
+          <h3>야생동물 도감</h3>
+          <p>잠김, 발견, 보호 중 상태를 구분하고 보호구역의 기록을 차곡차곡 채웁니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="shell" id="loop">
+      <div class="section-head">
+        <h2>Idle loop</h2>
+        <p>앱을 오래 붙잡지 않아도 다음 목표가 보이는 MVP 플레이 흐름입니다.</p>
+      </div>
+      <div class="loop" aria-label="Core game loop">
+        <div class="loop-step">앱 접속</div>
+        <div class="loop-step">오프라인 보상 확인</div>
+        <div class="loop-step">보호 포인트 수령</div>
+        <div class="loop-step">회복 지원</div>
+        <div class="loop-step">신규 해금</div>
+        <div class="loop-step">다시 방치</div>
+      </div>
+    </section>
+
+    <section class="shell" id="animals">
+      <div class="section-head">
+        <h2>MVP animals</h2>
+        <p>초기 버전은 숲 기반 보호구역에서 시작하는 5종의 구조 동물을 목표로 합니다.</p>
+      </div>
+      <table class="animal-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>이름</th>
+            <th>희귀도</th>
+            <th>해금 조건</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>rabbit_001</code></td>
+            <td>숲토끼</td>
+            <td>COMMON</td>
+            <td>최초 시작 시 자동 등록</td>
+          </tr>
+          <tr>
+            <td><code>fox_001</code></td>
+            <td>붉은여우</td>
+            <td>COMMON</td>
+            <td>carePoint 300 보유</td>
+          </tr>
+          <tr>
+            <td><code>deer_001</code></td>
+            <td>어린 사슴</td>
+            <td>UNCOMMON</td>
+            <td>숲토끼 회복 단계 5</td>
+          </tr>
+          <tr>
+            <td><code>owl_001</code></td>
+            <td>밤부엉이</td>
+            <td>UNCOMMON</td>
+            <td>총 생산량 5/sec</td>
+          </tr>
+          <tr>
+            <td><code>lynx_001</code></td>
+            <td>스라소니</td>
+            <td>RARE</td>
+            <td>보호 중 동물 4종</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="shell" id="principles">
+      <div class="principles">
+        <article class="principle-card">
+          <h2>Ethical by default</h2>
+          <p>
+            MVP는 로그인, 광고, 결제, 분석 SDK, 푸시 알림, 서버 API 없이 로컬 우선으로 설계합니다.
+            동물 보호 테마를 감정 압박이나 과금 유도에 사용하지 않습니다.
+          </p>
+        </article>
+        <ul class="check-list">
+          <li>No login</li>
+          <li>No cloud sync</li>
+          <li>No ads</li>
+          <li>No billing</li>
+          <li>No analytics SDK</li>
+          <li>No push notifications</li>
+          <li>No real donation claims</li>
+          <li>No third-party IP references</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      <span>Wild Haven Idle</span>
+      <span>Local-first sanctuary restoration idle simulation.</span>
+    </div>
+  </footer>
+</body>
+</html>

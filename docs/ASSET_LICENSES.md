@@ -8,7 +8,8 @@
 
 | Asset | File | Source | License | Commercial Use | Modified | Notes |
 |---|---|---|---|---|---|---|
-| App icon placeholder | TBD | Self-made | Owned | Yes | No | Initial placeholder |
+| App icon source | `docs/assets/wild-haven-icon-source.png` | OpenAI image generation via Codex, prompt recorded in HISTORY.md | Project-owned generated asset | Yes | Yes | Forest sanctuary shield icon with rescued wildlife silhouettes |
+| App launcher icons | `app/src/main/res/mipmap-*/ic_launcher*.png` | Derived from `docs/assets/wild-haven-icon-source.png` | Project-owned generated asset | Yes | Yes | Density-specific Android launcher icons |
 | Animal art placeholder | TBD | Self-made | Owned | Yes | No | Replace before release |
 | Font | TBD | TBD | TBD | TBD | TBD | Must verify before release |
 | Sound effects | TBD | TBD | TBD | TBD | TBD | MVP can ship without sound |

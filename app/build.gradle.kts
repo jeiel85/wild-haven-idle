@@ -7,6 +7,11 @@ android {
     namespace = "com.jeiel85.wildhavenidle"
     compileSdk = 36
 
+    val releaseKeystorePath = providers.environmentVariable("ANDROID_RELEASE_KEYSTORE_PATH")
+    val releaseKeystorePassword = providers.environmentVariable("ANDROID_RELEASE_KEYSTORE_PASSWORD")
+    val releaseKeyAlias = providers.environmentVariable("ANDROID_RELEASE_KEY_ALIAS")
+    val releaseKeyPassword = providers.environmentVariable("ANDROID_RELEASE_KEY_PASSWORD")
+
     defaultConfig {
         applicationId = "com.jeiel85.wildhavenidle"
         minSdk = 26
@@ -17,9 +22,33 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            if (
+                releaseKeystorePath.isPresent &&
+                releaseKeystorePassword.isPresent &&
+                releaseKeyAlias.isPresent &&
+                releaseKeyPassword.isPresent
+            ) {
+                storeFile = file(releaseKeystorePath.get())
+                storePassword = releaseKeystorePassword.get()
+                keyAlias = releaseKeyAlias.get()
+                keyPassword = releaseKeyPassword.get()
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
+            if (
+                releaseKeystorePath.isPresent &&
+                releaseKeystorePassword.isPresent &&
+                releaseKeyAlias.isPresent &&
+                releaseKeyPassword.isPresent
+            ) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",

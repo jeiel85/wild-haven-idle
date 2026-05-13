@@ -1,14 +1,14 @@
-name: Android CI
+name: Android Release
 
 on:
+  workflow_dispatch:
   push:
-    branches:
-      - main
-  pull_request:
+    tags:
+      - 'v*'
 
 jobs:
-  build:
-    name: Build and test
+  release:
+    name: Build signed release
     runs-on: ubuntu-latest
 
     steps:
@@ -30,14 +30,7 @@ jobs:
       - name: Install Android SDK components
         run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
 
-      - name: Run tests
-        run: ./gradlew test
-
-      - name: Build debug APK
-        run: ./gradlew assembleDebug
-
       - name: Decode release keystore
-        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
         env:
           ANDROID_RELEASE_KEYSTORE_BASE64: ${{ secrets.ANDROID_RELEASE_KEYSTORE_BASE64 }}
         run: |
@@ -45,8 +38,10 @@ jobs:
           mkdir -p "$RUNNER_TEMP/keystore"
           echo "$ANDROID_RELEASE_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/keystore/wild-haven-release.jks"
 
-      - name: Build signed release APK and AAB
-        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+      - name: Run tests
+        run: ./gradlew test
+
+      - name: Build signed APK and AAB
         env:
           ANDROID_RELEASE_KEYSTORE_PATH: ${{ runner.temp }}/keystore/wild-haven-release.jks
           ANDROID_RELEASE_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_RELEASE_KEYSTORE_PASSWORD }}
@@ -55,7 +50,6 @@ jobs:
         run: ./gradlew assembleRelease bundleRelease
 
       - name: Upload release artifacts
-        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
         uses: actions/upload-artifact@v7
         with:
           name: wild-haven-idle-release

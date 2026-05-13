@@ -62,3 +62,29 @@ The MVP state is small, local-only, and does not require schema migration before
 
 Impact:
 GameState is persisted locally without network permission, login, cloud sync, or external API integration.
+
+---
+
+## 2026-05-13: Release signing storage
+
+Decision:
+Store the Android release keystore outside the repository and inject signing material through GitHub Actions Secrets.
+
+Reason:
+Release keys are sensitive and must not be committed to Git, while local and CI builds must use the same signing identity.
+
+Impact:
+Local backup path is `D:\Project\wild-haven-idle-release-backup\20260513-132122`. Repository secrets are `ANDROID_RELEASE_KEYSTORE_BASE64`, `ANDROID_RELEASE_KEYSTORE_PASSWORD`, `ANDROID_RELEASE_KEY_ALIAS`, and `ANDROID_RELEASE_KEY_PASSWORD`.
+
+---
+
+## 2026-05-13: App icon identity
+
+Decision:
+Use a forest sanctuary shield with leaf and rescued wildlife silhouettes as the first launcher icon.
+
+Reason:
+The icon communicates sanctuary restoration and wildlife protection without referencing electronic pet devices or third-party IP.
+
+Impact:
+The generated source image is tracked under `docs/assets/wild-haven-icon-source.png`, with launcher PNGs derived into `mipmap-*` resources.

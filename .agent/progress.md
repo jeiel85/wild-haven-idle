@@ -20,8 +20,14 @@
 - DataStore save/load added for MVP game state
 - Home screen now ticks care points and shows offline reward on return
 - GitHub Actions passed for PR #1 after fixing Gradle Wrapper execute permission
+- Release keystore created outside the repository
+- Release signing secrets registered in GitHub Actions
+- Signed release APK and AAB generated locally
+- Signed release APK and AAB generated in GitHub Actions Android CI for PR #2
+- App launcher icon generated and wired into Android resources
 
 ### Not Done
 
 - Remote repository main branch not confirmed
 - Animal recovery list, archive, settings, and reset flow not implemented
+- Separate manual/tag release workflow has not been run from GitHub Actions yet

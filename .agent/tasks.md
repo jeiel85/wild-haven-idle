@@ -9,6 +9,10 @@
 - [x] Add BalanceCalculator
 - [x] Add unit tests for BalanceCalculator
 - [x] Add simple HomeScreen MVP
+- [x] Create release keystore backup outside repository
+- [x] Configure signed release APK/AAB builds
+- [x] Add GitHub Actions release workflow using repository secrets
+- [x] Add game identity app icon
 
 ## Next
 

@@ -96,3 +96,93 @@
   - 구조 동물 회복 목록 구현
   - 보호구역 개선 기능 구현
   - 도감, 설정, 데이터 초기화 화면 구현
+
+## 2026-05-13
+
+- 작업: 릴리즈 서명, 릴리즈 빌드, 앱 아이콘 준비
+- 변경 파일:
+  - app/build.gradle.kts
+  - app/src/main/AndroidManifest.xml
+  - app/src/main/res/mipmap-*/ic_launcher.png
+  - app/src/main/res/mipmap-*/ic_launcher_round.png
+  - .github/workflows/android.yml
+  - .github/workflows/android-release.yml
+  - gradlew
+  - docs/assets/wild-haven-icon-source.png
+  - docs/ASSET_LICENSES.md
+  - docs/ART_DIRECTION.md
+  - docs/TECH_SPEC.md
+  - .agent/tasks.md
+  - .agent/progress.md
+  - .agent/decisions.md
+  - CHANGELOG.md
+- 로컬 백업:
+  - 키스토어 백업 폴더: `D:\Project\wild-haven-idle-release-backup\20260513-132122`
+  - 키스토어 파일: `D:\Project\wild-haven-idle-release-backup\20260513-132122\wild-haven-release.jks`
+  - 백업 메모: `D:\Project\wild-haven-idle-release-backup\20260513-132122\release-signing.env`
+- GitHub Secrets:
+  - `ANDROID_RELEASE_KEYSTORE_BASE64`
+  - `ANDROID_RELEASE_KEYSTORE_PASSWORD`
+  - `ANDROID_RELEASE_KEY_ALIAS`
+  - `ANDROID_RELEASE_KEY_PASSWORD`
+- 앱 아이콘 생성 프롬프트:
+  - Forest sanctuary shield icon for Wild Haven Idle, centered leaf shield with rescued rabbit/owl silhouettes, warm green haven clearing, no text, no existing IP resemblance, no electronic pet-device visual language.
+- 검증:
+  - `.\gradlew.bat test assembleRelease bundleRelease` 실행 성공
+  - `apksigner verify --verbose --print-certs app\build\outputs\apk\release\app-release.apk` 실행 성공
+  - `jarsigner -verify app\build\outputs\bundle\release\app-release.aab` 실행 성공
+  - GitHub Actions Android CI 실행 성공: test, debug APK, signed release APK/AAB, artifact upload
+- 결과:
+  - 동일 release keystore로 로컬 release APK/AAB 생성
+  - GitHub Actions Secrets에 동일 keystore와 비밀번호 등록
+  - PR/main CI와 수동 실행 또는 `v*` 태그 푸시로 signed release artifact를 생성하는 워크플로 추가
+  - 보호구역/잎 방패/구조 동물 실루엣 기반 앱 아이콘 추가
+- 후속 작업:
+  - GitHub Actions release workflow 수동 실행 검증
+  - 스토어 등록 전 앱 아이콘 최종 QA 및 필요 시 개선
+
+## 2026-05-13
+
+- 작업: GitHub Actions Node.js 20 deprecation 경고 대응
+- 변경 파일:
+  - .github/workflows/android.yml
+  - .github/workflows/android-release.yml
+  - CHANGELOG.md
+- 검증:
+  - 최신 GitHub Actions 실행 로그 확인
+  - GitHub API로 action 최신 릴리스 태그 확인
+  - PR CI 실행 예정
+- 결과:
+  - `actions/checkout` v6, `actions/setup-java` v5, `gradle/actions/setup-gradle` v6, `android-actions/setup-android` v4, `actions/upload-artifact` v7로 갱신
+- 후속 작업:
+  - PR CI에서 deprecation annotation이 사라졌는지 확인
+
+## 2026-05-13
+
+- 작업: GitHub README 개편
+- 변경 파일:
+  - README.md
+  - CHANGELOG.md
+  - HISTORY.md
+- 검증:
+  - README 링크와 저장소 내 참조 경로 확인
+- 결과:
+  - 게임 소개, MVP 구현 상태, 핵심 시스템, 기술 스택, 저장소 구조, 빌드/릴리즈, 개발 원칙, 문서 링크를 한눈에 볼 수 있도록 README 재구성
+- 후속 작업:
+  - 주요 화면 구현 후 README에 실제 스크린샷 추가
+
+## 2026-05-13
+
+- 작업: GitHub Pages 브랜딩 페이지 추가
+- 변경 파일:
+  - docs/index.html
+  - CHANGELOG.md
+  - HISTORY.md
+- 검증:
+  - `docs/index.html`, `docs/assets/wild-haven-icon-source.png`, `docs/GAME_DESIGN.md` 존재 확인
+  - Python `html.parser`로 `docs/index.html` 구문 확인
+  - GitHub Pages 설정 확인: `main` 브랜치의 `/docs` 경로 사용
+- 결과:
+  - Wild Haven Idle의 게임 정체성, MVP 루프, 구조 동물 목록, 개발 원칙을 소개하는 정적 브랜딩 페이지 추가
+- 후속 작업:
+  - PR 병합 후 `https://jeiel85.github.io/wild-haven-idle/` 반영 확인

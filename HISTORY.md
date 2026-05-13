@@ -65,6 +65,7 @@
 
 - 작업: MVP 저장/로드 및 홈 화면 게임 루프 추가
 - 변경 파일:
+  - gradlew
   - app/build.gradle.kts
   - gradle/libs.versions.toml
   - app/src/main/java/com/jeiel85/wildhavenidle/MainActivity.kt
@@ -84,10 +85,12 @@
 - 검증:
   - `.\gradlew.bat test` 실행 성공
   - `.\gradlew.bat assembleDebug` 실행 성공
+  - GitHub Actions 1차 실행 실패: `./gradlew` 실행 권한 없음
 - 결과:
   - DataStore Preferences 기반으로 GameState를 저장/로드
   - 앱 시작 시 오프라인 보상을 계산해 보호 포인트에 반영
   - 홈 화면에서 초당 생산량만큼 보호 포인트가 증가
+  - Linux CI에서 Gradle Wrapper를 실행할 수 있도록 `gradlew` 실행 비트 설정
 - 후속 작업:
   - 구조 동물 회복 목록 구현
   - 보호구역 개선 기능 구현

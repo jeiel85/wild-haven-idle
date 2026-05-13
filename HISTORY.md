@@ -186,3 +186,24 @@
   - Wild Haven Idle의 게임 정체성, MVP 루프, 구조 동물 목록, 개발 원칙을 소개하는 정적 브랜딩 페이지 추가
 - 후속 작업:
   - PR 병합 후 `https://jeiel85.github.io/wild-haven-idle/` 반영 확인
+
+## 2026-05-13
+
+- 작업: APK 다운로드 경로 노출 (Release workflow 자동 게시 + GitHub Pages CTA)
+- 변경 파일:
+  - .github/workflows/android-release.yml
+  - docs/index.html
+  - .agent/tasks.md
+  - .agent/progress.md
+  - CHANGELOG.md
+  - HISTORY.md
+- 검증:
+  - `docs/index.html` HTML 구문이 깨지지 않는지 미리보기 패널에서 확인
+  - Release workflow는 첫 `v*` 태그 푸시 전까지 실행되지 않음 — 머지 후 v0.1.0 태그 푸시 시 검증 예정
+- 결과:
+  - GitHub Pages 상단 내비게이션과 히어로 CTA에 "Download APK" 진입점 추가
+  - 사이드로드 안내 문구를 CTA 하단에 추가
+  - `v*` 태그 푸시 시 signed APK/AAB가 GitHub Release에 자동 첨부되도록 워크플로 확장
+- 후속 작업:
+  - `v0.1.0` 태그 푸시로 첫 GitHub Release 생성 검증
+  - Release 생성 후 GitHub Pages CTA가 정상 다운로드로 연결되는지 확인

@@ -40,6 +40,10 @@
 
 ### Documentation
 - GitHub Pages용 정적 브랜딩 페이지 추가
+- GitHub Pages 상단 내비게이션과 히어로에 APK 다운로드 CTA 추가
+
+### Build / CI (Releases)
+- 태그 `v*` 푸시 시 GitHub Release를 생성하고 signed APK/AAB를 자동 첨부하도록 Release workflow 확장
 
 ### Verification
 - `.\gradlew.bat test` 실행 성공

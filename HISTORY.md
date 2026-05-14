@@ -2,6 +2,36 @@
 
 ## 2026-05-14
 
+- 작업: Phase 1 P2 — 홈에 단일 추천 다음 행동 카드 도입
+- 변경 파일:
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/RecommendedAction.kt (신규)
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeUiState.kt (recommendedAction 추가)
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeScreen.kt (RecommendedActionCard composable + ActionableBody/WaitForNextBody, formatWaitDuration 헬퍼)
+  - app/src/main/java/com/jeiel85/wildhavenidle/domain/usecase/BuildHomeUiStateUseCase.kt (recommendAction + waitForNext)
+  - app/src/test/java/com/jeiel85/wildhavenidle/domain/usecase/BuildHomeUiStateUseCaseTest.kt (4건 추가)
+  - CHANGELOG.md, .agent/tasks.md, .agent/progress.md
+- 검증:
+  - `./gradlew :app:compileDebugKotlin :app:testDebugUnitTest` 성공
+  - 신규 테스트 4건 모두 통과 (총 7건):
+    - recommendsWaitWhenNothingAffordable
+    - recommendsSanctuaryUpgradeWhenAffordable
+    - recommendsRecoveryWhenUpgradeUnaffordableButRecoveryAvailable
+    - upgradeBeatsRecoveryWhenBothAffordable
+  - 실기기 시각 확인은 수행하지 않음
+- 결과:
+  - 홈 화면에 "지금 추천" 카드 추가 — 사용자가 가장 가치 있는 다음 한 가지 행동을 즉시 인지
+  - 우선순위 알고리즘:
+    1. 보호구역 확장 가능 → 무조건 추천 (기본 +1/sec ROI 가장 안정적)
+    2. 회복 가능 동물 중 supportBonus / recoveryCost 비율 최고 → 그 동물 회복 추천
+    3. 둘 다 불가 → 가장 싼 다음 행동까지 대기 시간(초/분/시간) 안내
+  - 기존 카드(SanctuaryUpgradeCard, AnimalRecoveryCard)는 그대로 유지 — 추천은 *강조*이고 *대체*가 아님
+- 후속 작업:
+  - Phase 1 P3: 작은 화면(360dp) 가독성 정리
+  - Phase 0.5 P4: 카드/버튼 마이크로 폴리시
+  - Phase 0.5 P5: 모션 timing/easing 토큰 통일
+
+## 2026-05-14
+
 - 작업: v0.4.0 릴리즈 준비 — 디자인 토큰화 + 동물 5종 + 보호구역 헤더 PNG 전면 적용 묶음
 - 변경 파일:
   - app/build.gradle.kts (versionCode 3 → 4, versionName 0.3.0 → 0.4.0)

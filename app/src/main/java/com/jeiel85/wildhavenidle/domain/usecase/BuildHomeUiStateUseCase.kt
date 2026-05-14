@@ -9,6 +9,8 @@ import com.jeiel85.wildhavenidle.domain.definitions.AnimalDefinitions
 import com.jeiel85.wildhavenidle.presentation.home.AnimalRecoveryItem
 import com.jeiel85.wildhavenidle.presentation.home.HomeUiState
 import com.jeiel85.wildhavenidle.presentation.home.NextUnlockProgress
+import com.jeiel85.wildhavenidle.presentation.home.RecommendedAction
+import kotlin.math.ceil
 import kotlin.math.max
 
 class BuildHomeUiStateUseCase {
@@ -38,6 +40,7 @@ class BuildHomeUiStateUseCase {
         }
 
         val tapReward = max(1.0, productionPerSecond)
+        val sanctuaryUpgradeCost = upgradeUseCase.getCost(gameState.sanctuaryLevel)
 
         return HomeUiState(
             carePoint = gameState.carePoint,
@@ -47,12 +50,107 @@ class BuildHomeUiStateUseCase {
             discoveredAnimalCount = gameState.discoveredAnimalIds.size,
             totalAnimalCount = animals.size,
             offlineReward = offlineReward,
-            sanctuaryUpgradeCost = upgradeUseCase.getCost(gameState.sanctuaryLevel),
+            sanctuaryUpgradeCost = sanctuaryUpgradeCost,
             tapReward = tapReward,
             animals = recoveryItems,
             protectedAnimalIds = gameState.protectedAnimals.map { it.animalId },
             nextUnlock = buildNextUnlock(gameState, productionPerSecond, animals),
             showOnboarding = !gameState.onboardingCompleted,
+            recommendedAction = recommendAction(
+                carePoint = gameState.carePoint,
+                sanctuaryLevel = gameState.sanctuaryLevel,
+                sanctuaryUpgradeCost = sanctuaryUpgradeCost,
+                recoveryItems = recoveryItems,
+                productionPerSecond = productionPerSecond,
+            ),
+        )
+    }
+
+    /**
+     * 우선순위:
+     * 1. 보호구역 확장 가능 → UpgradeSanctuary
+     * 2. 회복 가능한 동물 중 supportBonus / recoveryCost 비율 최고 → SupportRecovery
+     * 3. 둘 다 불가 → 가장 싼 다음 행동까지 대기 안내 (WaitForNext)
+     *
+     * 비용 0(이미 끝난 동작) 항목은 자동 제외.
+     */
+    private fun recommendAction(
+        carePoint: Double,
+        sanctuaryLevel: Int,
+        sanctuaryUpgradeCost: Long,
+        recoveryItems: List<AnimalRecoveryItem>,
+        productionPerSecond: Double,
+    ): RecommendedAction {
+        val canUpgrade = sanctuaryUpgradeCost > 0L && carePoint >= sanctuaryUpgradeCost
+        if (canUpgrade) {
+            return RecommendedAction.UpgradeSanctuary(
+                nextLevel = sanctuaryLevel + 1,
+                costLabel = "${NumberFormatter.compact(sanctuaryUpgradeCost.toDouble())} 포인트",
+            )
+        }
+
+        val recoverableNow = recoveryItems
+            .filter { item ->
+                val notMaxed = item.protectedAnimal.recoveryStage < item.definition.maxRecoveryStage
+                val affordable = item.recoveryCost > 0L && carePoint >= item.recoveryCost
+                notMaxed && affordable
+            }
+            .maxByOrNull { item ->
+                // 비용 대비 생산량 증가량이 가장 큰 동물 (단순한 ROI 척도).
+                item.supportBonus / item.recoveryCost.toDouble()
+            }
+        if (recoverableNow != null) {
+            return RecommendedAction.SupportRecovery(
+                animalId = recoverableNow.definition.id,
+                animalNameKo = recoverableNow.definition.nameKo,
+                nextStage = recoverableNow.protectedAnimal.recoveryStage + 1,
+                costLabel = "${NumberFormatter.compact(recoverableNow.recoveryCost.toDouble())} 포인트",
+                effectLabel = "생산량 +${NumberFormatter.perSecond(recoverableNow.supportBonus)}",
+            )
+        }
+
+        return waitForNext(
+            carePoint = carePoint,
+            sanctuaryUpgradeCost = sanctuaryUpgradeCost,
+            recoveryItems = recoveryItems,
+            productionPerSecond = productionPerSecond,
+        )
+    }
+
+    private fun waitForNext(
+        carePoint: Double,
+        sanctuaryUpgradeCost: Long,
+        recoveryItems: List<AnimalRecoveryItem>,
+        productionPerSecond: Double,
+    ): RecommendedAction.WaitForNext {
+        // 가능한 다음 행동 후보(아직 못 산 것들) 중 가장 적게 모자란 것을 고른다.
+        val candidates = mutableListOf<Pair<Long, String>>()
+        if (sanctuaryUpgradeCost > 0L) {
+            candidates += sanctuaryUpgradeCost to "보호구역 확장"
+        }
+        recoveryItems.forEach { item ->
+            if (item.recoveryCost > 0L &&
+                item.protectedAnimal.recoveryStage < item.definition.maxRecoveryStage
+            ) {
+                candidates += item.recoveryCost to "${item.definition.nameKo} 회복"
+            }
+        }
+
+        val cheapest = candidates.minByOrNull { it.first }
+            ?: return RecommendedAction.WaitForNext(
+                secondsUntilNext = 0L,
+                targetLabelKo = "다음 보호 행동",
+            )
+
+        val deficit = (cheapest.first - carePoint).coerceAtLeast(0.0)
+        val seconds = if (productionPerSecond > 0.0) {
+            ceil(deficit / productionPerSecond).toLong()
+        } else {
+            Long.MAX_VALUE
+        }
+        return RecommendedAction.WaitForNext(
+            secondsUntilNext = seconds,
+            targetLabelKo = cheapest.second,
         )
     }
 

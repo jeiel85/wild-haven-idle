@@ -1,5 +1,18 @@
 # CHANGELOG.md
 
+## Unreleased - 2026-05-14
+
+### Added
+- 홈에 *지금 추천* 카드 추가: 사용자가 다음에 무엇을 하면 좋은지 한 가지를 강조 표시. 보호구역 확장이 가능하면 우선, 그 다음 회복 비용 대비 생산량 증가량(ROI)이 가장 좋은 동물, 둘 다 불가하면 가장 가까운 다음 행동까지 대기 시간 안내.
+- `RecommendedAction` sealed 인터페이스 (`UpgradeSanctuary` / `SupportRecovery` / `WaitForNext`)와 `BuildHomeUiStateUseCase`의 추천 우선순위 계산.
+
+### Changed
+- `HomeUiState.recommendedAction` 추가, 홈에서 `CarePointPanel` 바로 아래·`MilestoneCard` 위에 추천 카드 노출.
+
+### Verification
+- `./gradlew :app:compileDebugKotlin` 성공
+- `./gradlew :app:testDebugUnitTest` 성공 (BuildHomeUiStateUseCase 4건 추가, 총 7건)
+
 ## v0.4.0 - 2026-05-14
 
 ### Added

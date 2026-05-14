@@ -150,6 +150,12 @@ private fun HomeContentBody(
             tapReward = uiState.tapReward,
         )
 
+        RecommendedActionCard(
+            action = uiState.recommendedAction,
+            onUpgrade = onUpgradeSanctuary,
+            onSupport = onSupportRecovery,
+        )
+
         uiState.nextUnlock?.let { nextUnlock ->
             MilestoneCard(progress = nextUnlock)
         }
@@ -254,6 +260,107 @@ private fun CarePointPanel(
             }
         }
     }
+}
+
+@Composable
+private fun RecommendedActionCard(
+    action: RecommendedAction,
+    onUpgrade: () -> Unit,
+    onSupport: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val spacing = WildHavenTheme.spacing
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.medium,
+        color = MaterialTheme.colorScheme.tertiaryContainer,
+        tonalElevation = WildHavenTheme.elevation.sm,
+    ) {
+        Column(modifier = Modifier.padding(spacing.cardPadding)) {
+            Text(
+                text = "지금 추천",
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onTertiaryContainer,
+            )
+            Spacer(modifier = Modifier.height(spacing.xs + 2.dp))
+
+            when (action) {
+                is RecommendedAction.Actionable -> ActionableBody(
+                    action = action,
+                    onClick = {
+                        when (action) {
+                            is RecommendedAction.UpgradeSanctuary -> onUpgrade()
+                            is RecommendedAction.SupportRecovery -> onSupport(action.animalId)
+                        }
+                    },
+                )
+                is RecommendedAction.WaitForNext -> WaitForNextBody(action)
+            }
+        }
+    }
+}
+
+@Composable
+private fun ActionableBody(
+    action: RecommendedAction.Actionable,
+    onClick: () -> Unit,
+) {
+    val spacing = WildHavenTheme.spacing
+    Text(
+        text = action.titleKo,
+        style = MaterialTheme.typography.titleMedium,
+        fontWeight = FontWeight.SemiBold,
+        color = MaterialTheme.colorScheme.onTertiaryContainer,
+    )
+    Spacer(modifier = Modifier.height(spacing.xs))
+    Text(
+        text = "${action.costLabel} · ${action.effectLabel}",
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onTertiaryContainer,
+    )
+    Spacer(modifier = Modifier.height(spacing.md))
+    val pulse = pulseScale(active = true)
+    Button(
+        onClick = onClick,
+        modifier = Modifier
+            .fillMaxWidth()
+            .graphicsLayer { scaleX = pulse; scaleY = pulse },
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.tertiary,
+        ),
+    ) {
+        Text(action.ctaLabelKo)
+    }
+}
+
+@Composable
+private fun WaitForNextBody(action: RecommendedAction.WaitForNext) {
+    val spacing = WildHavenTheme.spacing
+    Text(
+        text = action.targetLabelKo,
+        style = MaterialTheme.typography.titleMedium,
+        fontWeight = FontWeight.SemiBold,
+        color = MaterialTheme.colorScheme.onTertiaryContainer,
+    )
+    Spacer(modifier = Modifier.height(spacing.xs))
+    val helper = if (action.secondsUntilNext == Long.MAX_VALUE) {
+        "탭으로 보호 포인트를 모아보세요"
+    } else if (action.secondsUntilNext <= 0L) {
+        "곧 다음 행동이 가능합니다"
+    } else {
+        "약 ${formatWaitDuration(action.secondsUntilNext)} 후 가능"
+    }
+    Text(
+        text = helper,
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onTertiaryContainer,
+    )
+}
+
+private fun formatWaitDuration(seconds: Long): String = when {
+    seconds < 60L -> "${seconds}초"
+    seconds < 3_600L -> "${seconds / 60}분 ${seconds % 60}초"
+    else -> "${seconds / 3_600}시간 ${(seconds % 3_600) / 60}분"
 }
 
 @Composable

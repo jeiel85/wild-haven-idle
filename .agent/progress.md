@@ -84,6 +84,15 @@
 - 태그 v0.3.0 푸시 → Android Release 워크플로 성공 → GitHub Release 자동 생성
 - "새 버전 만들기" 워크플로 메모리에 태그 푸시 자동화 단계 추가
 
+### 2026-05-14 (v0.4.0 이후) — Phase 1 P2: 단일 추천 다음 행동 카드
+
+- 홈 `CarePointPanel` 아래에 "지금 추천" 카드 추가
+- 추천 우선순위: 보호구역 확장 > ROI 최고 동물 회복 > 가장 싼 행동까지 대기 시간
+- `RecommendedAction` sealed 인터페이스, `recommendAction`/`waitForNext` 헬퍼
+- 기존 카드는 모두 유지 — 추천은 강조이고 대체가 아님
+- 단위 테스트 4건 추가 (총 7건 통과)
+- compileDebugKotlin / testDebugUnitTest 성공
+
 ### 2026-05-14 (심야 마무리) — v0.4.0 릴리즈 준비
 
 - versionCode 4 / versionName 0.4.0으로 갱신, 설정 화면 표기 동기화

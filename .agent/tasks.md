@@ -55,7 +55,7 @@
 ## Commercialization Phase 1 (per docs/COMMERCIALIZATION_PLAN.md)
 
 - [x] First-run onboarding overlay (3-step intro on Home, shown only for fresh data)
-- [ ] Highlight a single recommended next-action card on Home
+- [x] Highlight a single recommended next-action card on Home (RecommendedActionCard, sealed RecommendedAction with Upgrade/SupportRecovery/WaitForNext)
 - [ ] Tighten care point / production readability on small screens
 
 ## Commercialization Phase 2

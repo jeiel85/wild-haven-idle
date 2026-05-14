@@ -17,6 +17,7 @@ data class HomeUiState(
     val protectedAnimalIds: List<String> = emptyList(),
     val nextUnlock: NextUnlockProgress? = null,
     val showOnboarding: Boolean = false,
+    val recommendedAction: RecommendedAction = RecommendedAction.WaitForNext(0L, "다음 보호 행동"),
 )
 
 data class AnimalRecoveryItem(

@@ -39,9 +39,14 @@
 
 - [x] Pin asset pipeline (AI service selection rules, prompt template, license logging) in `docs/ART_DIRECTION.md` §8~§10
 - [x] P1: Tokenize visual system in `WildHavenTheme` (color/typography/spacing/radius/elevation)
-- [ ] Decide AI image service (Adobe Firefly / OpenAI gpt-image-1 / Imagen on Vertex) — locked once first asset is generated
+- [x] Decide AI image service — **locked: OpenAI gpt-image-1 / DALL·E 3 (ChatGPT Plus)** after rabbit_001 bake-off (2026-05-14)
 - [ ] P2: Replace sanctuary header with one AI-generated landscape PNG (`wh_habitat_forest_001.png`)
-- [ ] P3: Generate 5 animal illustrations (`wh_animal_{rabbit,fox,deer,owl,lynx}_001.png`) and switch `AnimalIllustration` to PNG
+- [ ] P3: Generate 5 animal illustrations and switch `AnimalIllustration` to PNG
+  - [x] `wh_animal_rabbit_001.png` (dalle3-1, 512×512 quantized 218 KB, AnimalIllustration map switch)
+  - [ ] `wh_animal_fox_001.png` (prompt: `docs/assets/prompts/wh_animal_fox_001.txt`)
+  - [ ] `wh_animal_deer_001.png` (prompt: `docs/assets/prompts/wh_animal_deer_001.txt`)
+  - [ ] `wh_animal_owl_001.png` (prompt: `docs/assets/prompts/wh_animal_owl_001.txt`)
+  - [ ] `wh_animal_lynx_001.png` (prompt: `docs/assets/prompts/wh_animal_lynx_001.txt`)
 - [ ] P4: Card/button micro-polish (shadow, radius, spacing, progress typography)
 - [ ] P5: Motion timing/easing tokens unified
 

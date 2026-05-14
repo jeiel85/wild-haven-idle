@@ -84,6 +84,16 @@
 - 태그 v0.3.0 푸시 → Android Release 워크플로 성공 → GitHub Release 자동 생성
 - "새 버전 만들기" 워크플로 메모리에 태그 푸시 자동화 단계 추가
 
+### 2026-05-14 (심야) — Phase 0.5 P2 시작: AI 서비스 잠금 + rabbit_001 PNG 도입
+
+- 사용자의 ChatGPT Plus(DALL·E 3) + Gemini Advanced(Imagen 3) 두 구독으로 rabbit_001 시연 진행
+- 에이전트가 8장 직접 시각 검수 → 5-게이트 평가 → DALL·E 3로 잠금 결정 (톤 일치/4장 일관성에서 우세, Imagen은 4-in-1 그리드/액자 마진으로 카드 시스템 부적합)
+- ART_DIRECTION §8.1에 잠금 기록, ASSET_LICENSES §2에 rabbit_001 메타 추가, bakeoff 결정 기록 완료
+- 채택본 dalle3-1 → PIL LANCZOS 다운샘플(1254→512) + 256-color quantize → 218 KB → `app/src/main/res/drawable-nodpi/wh_animal_rabbit_001.png`
+- `AnimalIllustration`에 `animalDrawableMap` 추가 — 매핑 있으면 PNG, 없으면 절차적 Canvas (점진 교체 패턴)
+- compileDebugKotlin / testDebugUnitTest 모두 성공 (8건)
+- 4종 프롬프트(`wh_animal_{fox,deer,owl,lynx}_001.txt`) 사전 준비 — Subject 슬롯만 교체, 나머지 4슬롯 동일
+
 ### 2026-05-14 (밤) — Phase 0.5 P1 토큰 시스템 도입
 
 - `core/design/`에 5개 토큰 파일 신설 (Color/Typography/Shapes/Spacing/Elevation) + Theme.kt 재작성

@@ -3,6 +3,10 @@
 ## Unreleased - 2026-05-14
 
 ### Added
+- AI 이미지 서비스 잠금: OpenAI gpt-image-1 / DALL·E 3 (ChatGPT Plus) — 사용자의 ChatGPT/Gemini 두 구독으로 시연(bake-off) 후 톤 일치도와 일관성에서 DALL·E 3가 우세하여 잠금 결정 (`docs/assets/bakeoff/rabbit_001-bakeoff.md`).
+- 첫 AI 생성 동물 일러스트 도입: `wh_animal_rabbit_001.png` (숲토끼, 512×512, 256-color quantized 218 KB) — `AnimalIllustration`이 ID 매핑으로 PNG 또는 절차적 Canvas를 선택해 표시.
+- 나머지 4종 (`fox_001`/`deer_001`/`owl_001`/`lynx_001`) 프롬프트 파일 (`docs/assets/prompts/`).
+
 - 디자인 토큰 시스템: `WildHavenTheme`이 컬러/타이포그래피/Shape/Spacing/Elevation 토큰을 한 곳에서 주입
   - `WildHavenColors`: 의미 색상(보호구역 톤, 희귀도) — `WildHavenTheme.colors.rarityRare` 형태로 접근
   - `WildHavenTypography`: 큰 숫자/카드 타이틀/라벨 weight·letterSpacing 조정
@@ -12,6 +16,12 @@
 
 ### Changed
 - HomeScreen, OnboardingOverlay, SettingsScreen, ArchiveScreen, SanctuaryHeader가 토큰만 참조하도록 정리 (하드코딩 `RoundedCornerShape(N.dp)`, `tonalElevation = N.dp`, 주요 padding/spacing 제거)
+- `presentation/components/WildlifeIllustration.kt`의 `AnimalIllustration`이 동물 ID → drawable 리소스 매핑(`animalDrawableMap`)으로 PNG 우선 표시 (없으면 기존 절차적 Canvas로 폴백). `AnimalSilhouette`(LOCKED 상태)은 그레이 통일을 위해 절차적 유지.
+
+### Documentation
+- `docs/ART_DIRECTION.md` §8.1에 AI 서비스 잠금 결정(DALL·E 3) 명시.
+- `docs/ASSET_LICENSES.md` §2에 rabbit_001 메타(서비스/모델/프롬프트 SHA-256/생성일/수정 내역) 한 줄 추가.
+- `docs/assets/bakeoff/rabbit_001-bakeoff.md` 평가 결과·결정 기록.
 
 ### Verification
 - `./gradlew :app:compileDebugKotlin` 성공

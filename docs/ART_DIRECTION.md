@@ -110,9 +110,19 @@ Wild Haven Idle의 시각적 정체성은 전자펫 장난감이나 기존 캐�
 바꾸려면 해당 시점까지의 산출물을 모두 새 서비스로 재생성하는 것을 전제한다
 (부분 혼용 금지).
 
-**추천 기본값:** Adobe Firefly. 이유는 학습 데이터가 라이선스 깨끗한 Adobe Stock
-중심이라 *기존 IP를 우연히 학습해 출력에 섞을 위험*이 가장 낮기 때문 (본작의
-IP/윤리 정책에 가장 잘 맞음). 접근이 어려우면 차선으로 OpenAI gpt-image-1.
+**선정 결과 (잠금, 2026-05-14):** ✅ **OpenAI gpt-image-1 / DALL·E 3
+(via ChatGPT Plus)**.
+
+근거: 본작 사용자가 ChatGPT Plus와 Gemini Advanced를 모두 보유한 상황에서, 첫
+에셋(`wh_animal_rabbit_001`)을 두 서비스로 동일 프롬프트 시연한 결과
+(`docs/assets/bakeoff/rabbit_001-bakeoff.md` 참조), DALL·E 3가
+"wildlife observation journal aesthetic" 톤과 4장 사이 일관성에서
+Imagen 3를 명확히 앞섰다. Imagen 3는 4-in-1 그리드 + 자동 수채 액자 마진 때문에
+카드 시스템에 부적합. 추가 비용 0 (구독 안에서 처리).
+
+이 잠금은 본작의 모든 일러스트(동물 5종 + 보호구역 헤더 + 카드 배경 + 향후 추가
+일러스트)에 적용된다. Adobe Firefly와 Imagen 3는 본 프로젝트 일러스트에 사용하지
+않는다. 변경 시 그 시점까지의 모든 에셋을 DALL·E 3가 아닌 새 서비스로 재생성한다.
 
 ### 8.2 공통 프롬프트 템플릿
 

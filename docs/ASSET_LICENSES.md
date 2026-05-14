@@ -14,7 +14,7 @@
 |---|---|---|---|---|---|---|
 | App icon source | `docs/assets/wild-haven-icon-source.png` | OpenAI image generation via Codex, prompt recorded in HISTORY.md | Project-owned generated asset | Yes | Yes | Forest sanctuary shield icon with rescued wildlife silhouettes |
 | App launcher icons | `app/src/main/res/mipmap-*/ic_launcher*.png` | Derived from `docs/assets/wild-haven-icon-source.png` | Project-owned generated asset | Yes | Yes | Density-specific Android launcher icons |
-| Animal art placeholder | (procedural Compose Canvas in `AnimalIllustration.kt`) | Self-coded | Owned | Yes | No | Replaced by AI-generated PNG before public release (see §2 below) |
+| Animal art placeholder (fox/deer/owl/lynx) | (procedural Compose Canvas in `WildlifeIllustration.kt`) | Self-coded | Owned | Yes | No | rabbit_001은 v0.4.0에서 PNG로 교체됨 (§2 참조). 나머지 4종은 후속 작업으로 같은 절차 적용 예정 |
 | Font | TBD | TBD | TBD | TBD | TBD | Must verify before release |
 | Sound effects | TBD | TBD | TBD | TBD | TBD | MVP can ship without sound |
 
@@ -27,9 +27,7 @@
 
 | Asset | File (in-app) | File (source) | Service | Model/Version | Prompt 요약 또는 SHA-256 prefix | Seed/Reference | Generated At | Modified | License Class |
 |---|---|---|---|---|---|---|---|---|---|
-| (예시) Sanctuary forest header | `app/src/main/res/drawable-nodpi/wh_habitat_forest_001.png` | `docs/assets/source/wh_habitat_forest_001.png` | Adobe Firefly | Image Model 4 (2026-XX) | "Quiet protected forest clearing, soft moss…" / `a3f8c1…` | Reference: `wh_animal_rabbit_001` | 2026-XX-XX | 1024→512 다운샘플, pngquant Q=80 | Project-owned (Firefly commercial-safe) |
-
-(아직 도입된 AI 생성 에셋 없음 — 첫 에셋 생성 시 위 표에 추가)
+| Cottontail rabbit (rabbit_001) card | `app/src/main/res/drawable-nodpi/wh_animal_rabbit_001.png` | `docs/assets/source/wh_animal_rabbit_001.png` (= bakeoff/rabbit_001/dalle3-1.png) | OpenAI ChatGPT Plus | DALL·E 3 / gpt-image-1 (2026-05-14) | `docs/assets/prompts/wh_animal_rabbit_001.txt` (SHA-256 prefix `1cc39e7fea5a`) | None (DALL·E 3는 시드/Reference 미노출 — 동일 프롬프트로 재현) | 2026-05-14 | 1254×1254 → 512×512 LANCZOS 리사이즈, PIL 256-color quantize (218 KB) | Project-owned (OpenAI gpt-image-1) |
 
 ### 2.1 라이선스 분류 정의
 

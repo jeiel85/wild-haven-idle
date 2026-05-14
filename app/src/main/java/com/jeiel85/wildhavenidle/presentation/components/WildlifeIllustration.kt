@@ -1,6 +1,7 @@
 package com.jeiel85.wildhavenidle.presentation.components
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -13,12 +14,24 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Arrangement
+import com.jeiel85.wildhavenidle.R
 import com.jeiel85.wildhavenidle.core.design.WildHavenTheme
+
+/**
+ * AI 생성 PNG로 교체된 동물 ID 매핑.
+ * 매핑에 있으면 [AnimalIllustration]은 PNG를, 없으면 절차적 Canvas를 사용한다.
+ * AnimalSilhouette(LOCKED 상태)은 그레이 톤 통일을 위해 항상 절차적 Canvas 사용.
+ */
+private val animalDrawableMap: Map<String, Int> = mapOf(
+    "rabbit_001" to R.drawable.wh_animal_rabbit_001,
+)
 
 private val InkColor = Color(0xFF3A4F3A)
 private val WarmBrown = Color(0xFF6B5744)
@@ -34,12 +47,22 @@ fun AnimalIllustration(
     size: Dp = 120.dp,
     color: Color = WarmBrown,
 ) {
+    val drawableRes = animalDrawableMap[animalId]
+    if (drawableRes != null) {
+        Image(
+            painter = painterResource(id = drawableRes),
+            contentDescription = null,
+            contentScale = ContentScale.Fit,
+            modifier = modifier.size(size),
+        )
+        return
+    }
+
     Box(modifier = modifier.size(size)) {
         Canvas(modifier = Modifier.size(size)) {
             val w = this.size.width
             val h = this.size.height
             when (animalId) {
-                "rabbit_001" -> drawRabbit(w, h, color)
                 "fox_001" -> drawFox(w, h, color)
                 "deer_001" -> drawDeer(w, h, color)
                 "owl_001" -> drawOwl(w, h, color)

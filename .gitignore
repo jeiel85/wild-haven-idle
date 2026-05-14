@@ -25,3 +25,7 @@ keystore/
 *.jks
 *.keystore
 release-signing.env
+
+# AI 에셋 시연(bake-off) 후보 — 결정만 docs/assets/bakeoff/*.md에 기록.
+# 채택본 원본은 docs/assets/source/wh_*.png에 별도 보존.
+docs/assets/source/bakeoff/

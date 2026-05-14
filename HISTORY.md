@@ -2,6 +2,39 @@
 
 ## 2026-05-14
 
+- 작업: Phase 0.5 P2 시작 — AI 서비스 잠금(DALL·E 3) + 첫 동물 일러스트(rabbit_001) PNG 도입
+- 변경 파일:
+  - docs/assets/bakeoff/rabbit_001-bakeoff.md (평가표 채움 + DALL·E 3 잠금 결정)
+  - docs/ART_DIRECTION.md (§8.1 잠금 기록)
+  - docs/ASSET_LICENSES.md (§2 rabbit_001 메타 한 줄, animal placeholder 항목 갱신)
+  - docs/assets/source/wh_animal_rabbit_001.png (신규, 1254×1254 원본 보존)
+  - app/src/main/res/drawable-nodpi/wh_animal_rabbit_001.png (신규, 512×512 quantized 218 KB)
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/components/WildlifeIllustration.kt (animalDrawableMap, Image 분기)
+  - docs/assets/prompts/wh_animal_fox_001.txt (신규)
+  - docs/assets/prompts/wh_animal_deer_001.txt (신규)
+  - docs/assets/prompts/wh_animal_owl_001.txt (신규)
+  - docs/assets/prompts/wh_animal_lynx_001.txt (신규)
+  - CHANGELOG.md, .agent/tasks.md, .agent/progress.md
+- 검증:
+  - 사용자가 ChatGPT Plus(DALL·E 3)와 Gemini Advanced(Imagen 3) 양쪽에서 같은 프롬프트 시연
+  - 에이전트가 8장(DALL·E 4 + Imagen 4-in-1)을 직접 시각 검수해 5-게이트 평가
+  - DALL·E 3 채택 근거: 톤 일치도 + 4장 사이 일관성 + Imagen은 4-in-1 그리드/액자 마진으로 카드 시스템 부적합
+  - 채택본 dalle3-1을 PIL LANCZOS 다운샘플(1254→512) + 256-color quantize → 218 KB
+  - `./gradlew :app:compileDebugKotlin :app:testDebugUnitTest` 성공
+  - 수동 시각 회귀 확인: 채택본 이미지를 Read 툴로 읽어 수채화 톤·구도 보존 확인
+- 결과:
+  - 본작 일러스트 서비스가 OpenAI gpt-image-1 / DALL·E 3 (ChatGPT Plus)로 잠금 — 추가 비용 0
+  - rabbit_001이 절차적 Canvas → AI 생성 PNG로 1차 교체 (홈/도감의 토끼 카드에 즉시 반영)
+  - `AnimalIllustration`이 ID → drawable 매핑으로 PNG/Canvas 폴백 — 나머지 4종은 매핑 추가만으로 점진 교체 가능
+  - 4종 프롬프트 템플릿 (Subject 슬롯만 교체, 나머지 4슬롯은 rabbit_001과 동일) 사전 준비
+- 후속 작업:
+  - 사용자가 ChatGPT Plus에서 fox/deer/owl/lynx 프롬프트 4개를 순서대로 실행
+  - 결과 PNG를 `docs/assets/source/bakeoff/{animal}_001/dalle3-1..N.png`로 저장 (재생성 후보 여러 장 가능)
+  - 에이전트가 검수 → 채택 → 동일 절차로 도입
+  - 이후 보호구역 헤더(`wh_habitat_forest_001`, 1080×640) 진행
+
+## 2026-05-14
+
 - 작업: Phase 0.5 P1 — `WildHavenTheme` 디자인 토큰 시스템 도입 및 호출부 정리
 - 변경 파일:
   - app/src/main/java/com/jeiel85/wildhavenidle/core/design/Theme.kt (재작성, accessor object 추가)

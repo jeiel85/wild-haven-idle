@@ -2,6 +2,31 @@
 
 ## 2026-05-14
 
+- 작업: v0.3.0 릴리즈 준비 — 버전 갱신, 한/영 Play Store 출시 노트 작성, 로컬 서명 AAB 빌드
+- 변경 파일:
+  - app/build.gradle.kts (versionCode 2 → 3, versionName 0.2.0 → 0.3.0)
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/settings/SettingsScreen.kt (표기 v0.3.0)
+  - CHANGELOG.md (Unreleased → v0.3.0 승격)
+  - store-release-notes/v0.3.0.txt (신규, `<ko-KR>` / `<en-US>` 태그 형식)
+  - HISTORY.md, .agent/progress.md
+- 산출물:
+  - AAB: `D:\Project\wild-haven-idle\app\build\outputs\bundle\release\app-release.aab` (8.8 MB)
+  - 출시 노트: `store-release-notes/v0.3.0.txt` (한국어 493자, 영어 404자 — Play Store 500자 한도 내)
+  - 서명 인증서: `CN=Wild Haven Idle, OU=Release, O=Jeiel85, L=Seoul, ST=Seoul, C=KR` (RSA 4096, SHA384withRSA)
+- 검증:
+  - `./gradlew :app:bundleRelease` 성공 (로컬, 환경변수 기반 release signing 사용)
+  - `jarsigner -verify app-release.aab` → `jar verified.`
+  - AndroidManifest.xml에서 `versionName=0.3.0` 확인
+  - Play Store 업로드 및 실기기 설치 검증은 수행하지 않음
+- 결과:
+  - Play Console에 즉시 업로드 가능한 v0.3.0 AAB와 한/영 출시 노트 1세트 준비 완료
+  - GitHub 태그(`v0.3.0`)는 사용자 명시 요청 시에만 생성 (자동 GitHub Release 트리거 방지)
+- 후속 작업:
+  - 사용자 승인 시 `git tag v0.3.0 && git push origin v0.3.0`로 GitHub Release 생성
+  - Play Console에 AAB 업로드 + `store-release-notes/v0.3.0.txt`의 ko-KR/en-US 블록을 각 언어 출시 노트에 붙여넣기
+
+## 2026-05-14
+
 - 작업: 상용화 Phase 1 P1 — 첫 사용자 온보딩 오버레이 추가, 상용화 계획 문서화
 - 변경 파일:
   - docs/COMMERCIALIZATION_PLAN.md (신규)

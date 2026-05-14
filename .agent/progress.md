@@ -73,3 +73,12 @@
 - 작은 화면 가독성 정리 (Phase 1 P3)
 - 일일 접속 보상, 회복 마일스톤 축하 다이얼로그 (Phase 2)
 - 일일 과제, 도감 진척 카드, 보호구역 마일스톤 보상 (Phase 3)
+
+### 2026-05-14 (오후) — v0.3.0 릴리즈 준비
+
+- versionCode 3 / versionName 0.3.0으로 갱신, 설정 화면 표기 동기화
+- CHANGELOG의 Unreleased를 v0.3.0으로 승격
+- `store-release-notes/v0.3.0.txt` 신규: `<ko-KR>`, `<en-US>` 태그 형식 (Play Console 다국어 출시 노트)
+- 로컬 서명 AAB 빌드: `app/build/outputs/bundle/release/app-release.aab` (8.8 MB)
+- `jarsigner -verify` 결과 `jar verified.`
+- 태그/푸시 자동화 없음(사용자 명시 요청 시에만 태그)

@@ -84,6 +84,14 @@
 - 태그 v0.3.0 푸시 → Android Release 워크플로 성공 → GitHub Release 자동 생성
 - "새 버전 만들기" 워크플로 메모리에 태그 푸시 자동화 단계 추가
 
+### 2026-05-14 (작은 화면) — Phase 1 P3: 360dp 가독성 보호
+
+- 홈 + 도감의 모든 사용자 노출 텍스트에 maxLines + overflow=Ellipsis 적용
+- 좌·우 Row(SpaceBetween) 패턴: 좌측에 weight(1f, fill=false) + 우측에 padding(start) → 우측 라벨이 절대 잘리지 않음
+- 도감 카드 동물 설명: maxLines=3로 카드 높이 일관성
+- 큰 숫자 시나리오 Preview 추가 (widthDp=360, Lv.99, 1.5M 포인트, 999/sec)
+- compileDebugKotlin / testDebugUnitTest 성공 (회귀 없음)
+
 ### 2026-05-14 (R8) — R8 활성화: 가독화 파일 + 크기 절반
 
 - Play Console "가독화 파일 없음" 경고 대응

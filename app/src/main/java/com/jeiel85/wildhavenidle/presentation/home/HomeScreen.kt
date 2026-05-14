@@ -37,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jeiel85.wildhavenidle.core.design.WildHavenTheme
@@ -136,11 +137,15 @@ private fun HomeContentBody(
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onBackground,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
             )
             Text(
                 text = "보호구역 Lv.${uiState.sanctuaryLevel} · 도감 ${uiState.discoveredAnimalCount}/${uiState.totalAnimalCount}",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.secondary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
             )
         }
 
@@ -243,6 +248,9 @@ private fun CarePointPanel(
                 text = NumberFormatter.compact(animatedCarePoint.toDouble()),
                 style = MaterialTheme.typography.displaySmall,
                 fontWeight = FontWeight.Bold,
+                maxLines = 1,
+                softWrap = false,
+                overflow = TextOverflow.Ellipsis,
             )
             Spacer(modifier = Modifier.height(spacing.xs))
             Row(
@@ -252,10 +260,16 @@ private fun CarePointPanel(
                 Text(
                     text = NumberFormatter.perSecond(productionPerSecond),
                     style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f, fill = false),
                 )
                 Text(
                     text = "탭 +${NumberFormatter.compact(tapReward)}",
                     style = MaterialTheme.typography.bodySmall,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.padding(start = spacing.sm),
                 )
             }
         }
@@ -311,12 +325,16 @@ private fun ActionableBody(
         style = MaterialTheme.typography.titleMedium,
         fontWeight = FontWeight.SemiBold,
         color = MaterialTheme.colorScheme.onTertiaryContainer,
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis,
     )
     Spacer(modifier = Modifier.height(spacing.xs))
     Text(
         text = "${action.costLabel} · ${action.effectLabel}",
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onTertiaryContainer,
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis,
     )
     Spacer(modifier = Modifier.height(spacing.md))
     val pulse = pulseScale(active = true)
@@ -329,7 +347,11 @@ private fun ActionableBody(
             containerColor = MaterialTheme.colorScheme.tertiary,
         ),
     ) {
-        Text(action.ctaLabelKo)
+        Text(
+            text = action.ctaLabelKo,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
     }
 }
 
@@ -341,6 +363,8 @@ private fun WaitForNextBody(action: RecommendedAction.WaitForNext) {
         style = MaterialTheme.typography.titleMedium,
         fontWeight = FontWeight.SemiBold,
         color = MaterialTheme.colorScheme.onTertiaryContainer,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
     )
     Spacer(modifier = Modifier.height(spacing.xs))
     val helper = if (action.secondsUntilNext == Long.MAX_VALUE) {
@@ -354,6 +378,8 @@ private fun WaitForNextBody(action: RecommendedAction.WaitForNext) {
         text = helper,
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onTertiaryContainer,
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis,
     )
 }
 
@@ -389,12 +415,17 @@ private fun MilestoneCard(
                     text = "다음 해금",
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.secondary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f, fill = false),
                 )
                 Text(
                     text = "${(animatedProgress * 100).toInt()}%",
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    modifier = Modifier.padding(start = spacing.sm),
                 )
             }
             Spacer(modifier = Modifier.height(spacing.xs + 2.dp))
@@ -402,6 +433,8 @@ private fun MilestoneCard(
                 text = progress.animalNameKo,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
             )
             Spacer(modifier = Modifier.height(spacing.sm))
             LinearProgressIndicator(
@@ -414,6 +447,8 @@ private fun MilestoneCard(
                 text = progress.helperText,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.secondary,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
             )
         }
     }
@@ -442,16 +477,20 @@ private fun SanctuaryUpgradeCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Column {
+                Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = "보호구역 확장",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                     )
                     Text(
                         text = "Lv.$level → Lv.${level + 1}",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.secondary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                     )
                 }
                 Text(
@@ -459,6 +498,8 @@ private fun SanctuaryUpgradeCard(
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    modifier = Modifier.padding(start = spacing.sm),
                 )
             }
             Spacer(modifier = Modifier.height(spacing.md))
@@ -469,7 +510,11 @@ private fun SanctuaryUpgradeCard(
                     .fillMaxWidth()
                     .graphicsLayer { scaleX = pulse; scaleY = pulse },
             ) {
-                Text("업그레이드 — ${NumberFormatter.compact(cost.toDouble())}")
+                Text(
+                    text = "업그레이드 — ${NumberFormatter.compact(cost.toDouble())}",
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
             }
         }
     }
@@ -516,11 +561,16 @@ private fun AnimalRecoveryCard(
                         text = item.definition.nameKo,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f, fill = false),
                     )
                     Text(
                         text = NumberFormatter.perSecond(item.supportBonus),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.primary,
+                        maxLines = 1,
+                        modifier = Modifier.padding(start = spacing.sm),
                     )
                 }
 
@@ -530,6 +580,8 @@ private fun AnimalRecoveryCard(
                     text = "회복 Lv.$stage · $stageLabel",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.secondary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                 )
 
                 Spacer(modifier = Modifier.height(spacing.sm))
@@ -545,13 +597,19 @@ private fun AnimalRecoveryCard(
                             containerColor = MaterialTheme.colorScheme.secondary,
                         ),
                     ) {
-                        Text("회복 지원 — ${NumberFormatter.compact(item.recoveryCost.toDouble())}")
+                        Text(
+                            text = "회복 지원 — ${NumberFormatter.compact(item.recoveryCost.toDouble())}",
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
                     }
                 } else {
                     Text(
                         text = "최대 회복 단계 도달",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.primary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                     )
                 }
             }
@@ -617,6 +675,40 @@ private fun HomeScreenPreview() {
                 onUpgradeSanctuary = {},
                 onSupportRecovery = {},
                 onTapSanctuary = { 1.2 },
+                onCompleteOnboarding = {},
+                onNavigateToArchive = {},
+                onNavigateToSettings = {},
+            )
+        }
+    }
+}
+
+/**
+ * 360dp 좁은 화면 + 큰 숫자(보호구역 Lv.99, 1.5M 보호 포인트, 999/sec 생산) 시나리오.
+ * 이 프리뷰가 잘림/오버플로 없이 보이면 v0.4.0 이후 도입한 카드 스택이 360dp에서
+ * 안전하다는 신호. 디자인 회귀 점검용.
+ */
+@Preview(name = "Home / 360dp / 큰 숫자", widthDp = 360, heightDp = 800)
+@Composable
+private fun HomeScreenSmallScreenPreview() {
+    WildHavenTheme {
+        Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
+            HomeContent(
+                uiState = HomeUiState(
+                    carePoint = 1_543_210.0,
+                    sanctuaryLevel = 99,
+                    productionPerSecond = 999.99,
+                    protectedAnimalCount = 5,
+                    discoveredAnimalCount = 5,
+                    totalAnimalCount = 5,
+                    sanctuaryUpgradeCost = 9_999_999L,
+                    tapReward = 999.99,
+                    protectedAnimalIds = listOf("rabbit_001", "fox_001", "deer_001", "owl_001", "lynx_001"),
+                ),
+                onOfflineRewardConfirmed = {},
+                onUpgradeSanctuary = {},
+                onSupportRecovery = {},
+                onTapSanctuary = { 999.99 },
                 onCompleteOnboarding = {},
                 onNavigateToArchive = {},
                 onNavigateToSettings = {},

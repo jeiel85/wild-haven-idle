@@ -5,9 +5,11 @@
 ### Added
 - 홈에 *지금 추천* 카드 추가: 사용자가 다음에 무엇을 하면 좋은지 한 가지를 강조 표시. 보호구역 확장이 가능하면 우선, 그 다음 회복 비용 대비 생산량 증가량(ROI)이 가장 좋은 동물, 둘 다 불가하면 가장 가까운 다음 행동까지 대기 시간 안내.
 - `RecommendedAction` sealed 인터페이스 (`UpgradeSanctuary` / `SupportRecovery` / `WaitForNext`)와 `BuildHomeUiStateUseCase`의 추천 우선순위 계산.
+- 홈 360dp(좁은 화면) + 큰 숫자(보호구역 Lv.99, 1.5M 보호 포인트, 999/sec 등) 시나리오용 Compose Preview 추가 (`HomeScreenSmallScreenPreview`) — 디자인 회귀 점검용.
 
 ### Changed
 - `HomeUiState.recommendedAction` 추가, 홈에서 `CarePointPanel` 바로 아래·`MilestoneCard` 위에 추천 카드 노출.
+- 360dp 좁은 화면에서 잘림/오버플로 방지: 홈 화면 모든 카드(`CarePointPanel`/`RecommendedActionCard`/`MilestoneCard`/`SanctuaryUpgradeCard`/`AnimalRecoveryCard`)와 도감 카드의 텍스트에 `maxLines` + `overflow = Ellipsis` 일괄 적용. 좌·우 분리 `Row(SpaceBetween)`은 좌측에 `weight(1f)`를 줘 우측이 잘리지 않도록 보호.
 
 ### Build / CI
 - R8 코드 축소·난독화·최적화 활성화 (`isMinifyEnabled = true`).

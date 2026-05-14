@@ -56,7 +56,7 @@
 
 - [x] First-run onboarding overlay (3-step intro on Home, shown only for fresh data)
 - [x] Highlight a single recommended next-action card on Home (RecommendedActionCard, sealed RecommendedAction with Upgrade/SupportRecovery/WaitForNext)
-- [ ] Tighten care point / production readability on small screens
+- [x] Tighten care point / production readability on small screens (maxLines/overflow + Row weight 보호, 360dp 큰 숫자 Preview)
 
 ## Commercialization Phase 2
 

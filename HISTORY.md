@@ -2,6 +2,27 @@
 
 ## 2026-05-14
 
+- 작업: Phase 1 P3 — 작은 화면(360dp) 가독성 정리 + 큰 숫자 시나리오 Preview
+- 변경 파일:
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeScreen.kt (모든 카드 텍스트에 maxLines/overflow, Row weight 보호, 360dp 큰 숫자 Preview 추가)
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/archive/ArchiveScreen.kt (도감 카드 텍스트 maxLines, 발견 라벨 maxLines)
+  - CHANGELOG.md, .agent/tasks.md, .agent/progress.md
+- 검증:
+  - `./gradlew :app:compileDebugKotlin :app:testDebugUnitTest` 성공 (총 7건 통과 — 회귀 없음)
+  - 새 Compose Preview `HomeScreenSmallScreenPreview` (widthDp=360, heightDp=800) 추가로 Android Studio에서 시각 회귀 빠르게 점검 가능
+  - 실기기 360dp 화면 수동 확인은 미수행
+- 결과:
+  - 모든 사용자 노출 텍스트가 maxLines + overflow=Ellipsis 보호 → 어떤 숫자/문자가 들어와도 카드가 깨지지 않음
+  - 좌·우 분리 `Row(SpaceBetween)` 패턴은 좌측에 `weight(1f, fill = false)` + 우측에 `padding(start)` 적용으로 우측 라벨이 잘리지 않도록 보호
+  - 도감 그리드 카드에서 동물 설명(긴 한글)도 `maxLines = 3`으로 제한해 카드 높이 일관성 유지
+  - 큰 숫자 Preview는 보호구역 Lv.99, 1.5M 포인트, 999/sec 생산량 등 상한 시나리오를 한눈에 점검
+- 후속 작업:
+  - Phase 0.5 P4: 카드/버튼 마이크로 폴리시 (그림자, 모서리, 위계 정리)
+  - Phase 0.5 P5: 모션 timing/easing 토큰 통일
+  - Phase 2 (일일 보상, 회복 마일스톤 축하, 오프라인 다이얼로그 개선)
+
+## 2026-05-14
+
 - 작업: R8 코드/리소스 축소 활성화 — Play Console "가독화 파일 없음" 경고 대응
 - 변경 파일:
   - app/build.gradle.kts (`isMinifyEnabled = true`, `isShrinkResources = true`)

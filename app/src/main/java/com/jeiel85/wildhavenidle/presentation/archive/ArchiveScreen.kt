@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.jeiel85.wildhavenidle.core.design.WildHavenTheme
 import com.jeiel85.wildhavenidle.core.format.NumberFormatter
@@ -68,6 +69,8 @@ fun ArchiveScreen(
             text = "발견: ${uiState.discoveredCount}/${uiState.totalCount} · 보호 중: ${uiState.protectedCount}",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.secondary,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
         )
 
         Spacer(modifier = Modifier.height(spacing.lg))
@@ -129,12 +132,16 @@ private fun ArchiveCard(
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                     )
                     Text(
                         text = item.definition.descriptionKo,
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.secondary,
                         textAlign = TextAlign.Center,
+                        maxLines = 3,
+                        overflow = TextOverflow.Ellipsis,
                     )
                 }
                 ArchiveState.PROTECTED -> {
@@ -145,21 +152,28 @@ private fun ArchiveCard(
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                     )
                     val stage = item.protectedAnimal?.recoveryStage ?: 1
                     Text(
                         text = RecoveryStageLabel.of(stage),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.primary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                     )
                     Text(
                         text = "Lv.$stage",
                         style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 1,
                     )
                     Text(
                         text = NumberFormatter.perSecond(item.supportBonus),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.secondary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                     )
                 }
             }

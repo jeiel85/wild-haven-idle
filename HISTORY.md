@@ -2,6 +2,36 @@
 
 ## 2026-05-14
 
+- 작업: 상용화 Phase 1 P1 — 첫 사용자 온보딩 오버레이 추가, 상용화 계획 문서화
+- 변경 파일:
+  - docs/COMMERCIALIZATION_PLAN.md (신규)
+  - app/src/main/java/com/jeiel85/wildhavenidle/data/model/GameState.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/data/local/GameStateDataStore.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/data/repository/GameRepository.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/domain/usecase/BuildHomeUiStateUseCase.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeUiState.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeViewModel.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeScreen.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/onboarding/OnboardingOverlay.kt (신규)
+  - app/src/test/java/com/jeiel85/wildhavenidle/domain/usecase/BuildHomeUiStateUseCaseTest.kt (신규)
+  - .agent/tasks.md
+  - .agent/progress.md
+  - CHANGELOG.md
+- 검증:
+  - `./gradlew :app:compileDebugKotlin` 성공
+  - `./gradlew :app:testDebugUnitTest` 성공 (신규 BuildHomeUiStateUseCase 테스트 3건 포함)
+  - 실기기/에뮬레이터 수동 검증은 수행하지 않음
+- 결과:
+  - 상용화 단계별 우선순위와 비목표를 정리한 `docs/COMMERCIALIZATION_PLAN.md` 추가
+  - 신규 데이터에서만 노출되는 3-step 온보딩 오버레이 추가 (환영 → 탭 안내 → 다음 해금 안내)
+  - DataStore 마이그레이션 기본값을 통해 기존 사용자에게는 오버레이가 다시 뜨지 않도록 보장
+- 후속 작업:
+  - Phase 1 P2: 홈에 단일 추천 다음 행동 카드
+  - Phase 1 P3: 작은 화면 가독성 정리
+  - 실기기/에뮬레이터에서 신규/기존 사용자 시나리오 수동 확인
+
+## 2026-05-14
+
 - 작업: v0.2.0 홈 화면 통합과 스토어 그래픽 준비
 - 변경 파일:
   - app/build.gradle.kts

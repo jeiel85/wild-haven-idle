@@ -3,6 +3,7 @@ package com.jeiel85.wildhavenidle.data.local
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
@@ -51,6 +52,7 @@ class GameStateDataStore(
             preferences[Keys.protectedAnimals] = encodeProtectedAnimals(gameState.protectedAnimals)
             preferences[Keys.discoveredAnimalIds] = gameState.discoveredAnimalIds.joinToString(LIST_SEPARATOR)
             preferences[Keys.unlockedHabitatIds] = gameState.unlockedHabitatIds.joinToString(LIST_SEPARATOR)
+            preferences[Keys.onboardingCompleted] = gameState.onboardingCompleted
         }
     }
 
@@ -59,6 +61,10 @@ class GameStateDataStore(
             return GameState.initial(now)
         }
 
+        // 기존 사용자(저장 데이터는 있지만 온보딩 키가 없음)는 이미 게임에 익숙하므로
+        // 온보딩을 다시 띄우지 않는다. 신규 키 도입 시 마이그레이션 기본값.
+        val onboardingCompleted = this[Keys.onboardingCompleted] ?: true
+
         return GameState(
             carePoint = this[Keys.carePoint] ?: 0.0,
             sanctuaryLevel = this[Keys.sanctuaryLevel] ?: 1,
@@ -66,6 +72,7 @@ class GameStateDataStore(
             protectedAnimals = decodeProtectedAnimals(this[Keys.protectedAnimals].orEmpty()),
             discoveredAnimalIds = decodeStringSet(this[Keys.discoveredAnimalIds]).ifEmpty { setOf("rabbit_001") },
             unlockedHabitatIds = decodeStringSet(this[Keys.unlockedHabitatIds]).ifEmpty { setOf("forest_001") },
+            onboardingCompleted = onboardingCompleted,
         )
     }
 
@@ -108,5 +115,6 @@ class GameStateDataStore(
         val protectedAnimals = stringPreferencesKey("protected_animals")
         val discoveredAnimalIds = stringPreferencesKey("discovered_animal_ids")
         val unlockedHabitatIds = stringPreferencesKey("unlocked_habitat_ids")
+        val onboardingCompleted = booleanPreferencesKey("onboarding_completed")
     }
 }

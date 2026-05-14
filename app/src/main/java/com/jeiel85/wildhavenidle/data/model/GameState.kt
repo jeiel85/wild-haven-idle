@@ -7,6 +7,7 @@ data class GameState(
     val protectedAnimals: List<ProtectedAnimal> = emptyList(),
     val discoveredAnimalIds: Set<String> = emptySet(),
     val unlockedHabitatIds: Set<String> = setOf("forest_001"),
+    val onboardingCompleted: Boolean = false,
 ) {
     companion object {
         fun initial(now: Long): GameState = GameState(
@@ -19,6 +20,7 @@ data class GameState(
                 ),
             ),
             discoveredAnimalIds = setOf("rabbit_001"),
+            onboardingCompleted = false,
         )
     }
 }

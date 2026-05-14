@@ -52,6 +52,7 @@ class BuildHomeUiStateUseCase {
             animals = recoveryItems,
             protectedAnimalIds = gameState.protectedAnimals.map { it.animalId },
             nextUnlock = buildNextUnlock(gameState, productionPerSecond, animals),
+            showOnboarding = !gameState.onboardingCompleted,
         )
     }
 

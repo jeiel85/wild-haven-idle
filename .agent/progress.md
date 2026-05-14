@@ -50,3 +50,26 @@
 - Art assets are placeholder/generated; self-made art not yet created
 - Localization resources (Korean/English) not yet added
 - Unit tests for new screens/use cases not yet added
+
+## 2026-05-14
+
+### Done
+
+- 상용화 개선 계획 문서 추가: `docs/COMMERCIALIZATION_PLAN.md` (Phase 1/2/3 우선순위와 비목표 정리)
+- Phase 1 P1: 첫 사용자 온보딩 오버레이 구현
+  - `GameState.onboardingCompleted` 플래그 추가
+  - DataStore 키 `onboarding_completed` 추가, 기존 사용자 마이그레이션 기본값 = true (재노출 방지)
+  - `GameRepository.markOnboardingCompleted()` 추가
+  - `HomeUiState.showOnboarding` 추가, `BuildHomeUiStateUseCase`에서 플래그 전파
+  - `OnboardingOverlay` (3-step) 컴포저블 추가, `HomeScreen`에서 신규 데이터 시 1회 노출
+  - 단위 테스트 3개 추가: `BuildHomeUiStateUseCaseTest`
+- 검증: `./gradlew :app:compileDebugKotlin` / `./gradlew :app:testDebugUnitTest` 모두 성공
+  - 신규 테스트 3개 통과 확인 (`BuildHomeUiStateUseCaseTest`)
+  - 실기기/에뮬레이터 시각 확인은 이번 작업에서 수행하지 않음
+
+### Not Done
+
+- 추천 다음 행동 단일 카드 (Phase 1 P2)
+- 작은 화면 가독성 정리 (Phase 1 P3)
+- 일일 접속 보상, 회복 마일스톤 축하 다이얼로그 (Phase 2)
+- 일일 과제, 도감 진척 카드, 보호구역 마일스톤 보상 (Phase 3)

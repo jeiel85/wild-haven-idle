@@ -68,4 +68,10 @@ class HomeViewModel(
         }
         return reward
     }
+
+    fun completeOnboarding() {
+        viewModelScope.launch {
+            gameRepository.markOnboardingCompleted()
+        }
+    }
 }

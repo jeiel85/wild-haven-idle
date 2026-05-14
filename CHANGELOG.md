@@ -1,5 +1,24 @@
 # CHANGELOG.md
 
+## Unreleased - 2026-05-14
+
+### Added
+- 첫 사용자 온보딩 오버레이: 신규 데이터에서만 1회 노출되는 3-step 환영 가이드 (보호 포인트 자동 누적, 보호구역 탭 보상, "다음 해금" 카드 안내) — `OnboardingOverlay`
+- 상용화 개선 계획 문서 추가: `docs/COMMERCIALIZATION_PLAN.md` (Phase 1/2/3 우선순위와 비목표 명시)
+
+### Changed
+- `GameState`에 `onboardingCompleted` 플래그 추가
+- `HomeUiState.showOnboarding`을 추가하고, `BuildHomeUiStateUseCase`에서 신규 데이터일 때만 true로 전파
+- `HomeViewModel.completeOnboarding()`이 `GameRepository.markOnboardingCompleted()`를 호출하도록 추가
+
+### Migration
+- `GameStateDataStore`: `onboarding_completed` 키가 없는 기존 저장 데이터는 `onboardingCompleted = true`로 읽어 들여, 이미 게임에 익숙한 기존 사용자에게 환영 오버레이가 다시 뜨지 않도록 한다. 신규 설치(저장 데이터 없음)는 `false`로 시작해 한 번 노출 후 저장한다.
+
+### Verification
+- `./gradlew :app:compileDebugKotlin` 성공
+- `./gradlew :app:testDebugUnitTest` 성공 (신규 `BuildHomeUiStateUseCaseTest` 3건 포함)
+- 실기기/에뮬레이터 수동 확인은 이번 작업에서 수행하지 않음
+
 ## v0.2.0 - 2026-05-13
 
 ### Added

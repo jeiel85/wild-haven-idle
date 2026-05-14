@@ -133,6 +133,18 @@ class GameRepository(
         localDataStore.save(GameState.initial(timeProvider.nowMillis()))
     }
 
+    suspend fun markOnboardingCompleted() {
+        val current = gameState.first()
+        if (current.onboardingCompleted) return
+
+        localDataStore.save(
+            current.copy(
+                onboardingCompleted = true,
+                lastSavedAt = timeProvider.nowMillis(),
+            ),
+        )
+    }
+
     private fun applyUnlocks(state: GameState, now: Long): GameState {
         val productionPerSecond = BalanceCalculator.calculateTotalProductionPerSecond(
             sanctuaryLevel = state.sanctuaryLevel,

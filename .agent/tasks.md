@@ -34,3 +34,21 @@
 - [ ] Add localization resources for Korean and English
 - [ ] Add optional reward ads only after MVP validation
 - [ ] Add cloud sync only after separate approval
+
+## Commercialization Phase 1 (per docs/COMMERCIALIZATION_PLAN.md)
+
+- [x] First-run onboarding overlay (3-step intro on Home, shown only for fresh data)
+- [ ] Highlight a single recommended next-action card on Home
+- [ ] Tighten care point / production readability on small screens
+
+## Commercialization Phase 2
+
+- [ ] Local daily login bonus (no ads, no network)
+- [ ] First-recovery milestone celebration dialog (per animal, once)
+- [ ] Offline reward dialog: append a 1-line next-step suggestion
+
+## Commercialization Phase 3
+
+- [ ] Daily missions (3 rolling, local) with progress and reward
+- [ ] Archive progress card on Home
+- [ ] Sanctuary milestone rewards (Lv.5/10/20 once)

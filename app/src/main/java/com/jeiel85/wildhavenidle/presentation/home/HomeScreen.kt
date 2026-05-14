@@ -45,6 +45,7 @@ import com.jeiel85.wildhavenidle.core.format.NumberFormatter
 import com.jeiel85.wildhavenidle.presentation.components.AnimalIllustration
 import com.jeiel85.wildhavenidle.presentation.components.RecoveryStageLabel
 import com.jeiel85.wildhavenidle.presentation.components.SanctuaryHeader
+import com.jeiel85.wildhavenidle.presentation.onboarding.OnboardingOverlay
 
 @Composable
 fun HomeScreen(
@@ -61,6 +62,7 @@ fun HomeScreen(
         onUpgradeSanctuary = viewModel::upgradeSanctuary,
         onSupportRecovery = viewModel::supportRecovery,
         onTapSanctuary = viewModel::tapSanctuary,
+        onCompleteOnboarding = viewModel::completeOnboarding,
         onNavigateToArchive = onNavigateToArchive,
         onNavigateToSettings = onNavigateToSettings,
         modifier = modifier,
@@ -74,9 +76,37 @@ private fun HomeContent(
     onUpgradeSanctuary: () -> Unit,
     onSupportRecovery: (String) -> Unit,
     onTapSanctuary: () -> Double,
+    onCompleteOnboarding: () -> Unit,
     onNavigateToArchive: () -> Unit,
     onNavigateToSettings: () -> Unit,
     modifier: Modifier = Modifier,
+) {
+    Box(modifier = modifier.fillMaxSize()) {
+        HomeContentBody(
+            uiState = uiState,
+            onOfflineRewardConfirmed = onOfflineRewardConfirmed,
+            onUpgradeSanctuary = onUpgradeSanctuary,
+            onSupportRecovery = onSupportRecovery,
+            onTapSanctuary = onTapSanctuary,
+            onNavigateToArchive = onNavigateToArchive,
+            onNavigateToSettings = onNavigateToSettings,
+        )
+
+        if (uiState.showOnboarding) {
+            OnboardingOverlay(onComplete = onCompleteOnboarding)
+        }
+    }
+}
+
+@Composable
+private fun HomeContentBody(
+    uiState: HomeUiState,
+    onOfflineRewardConfirmed: () -> Unit,
+    onUpgradeSanctuary: () -> Unit,
+    onSupportRecovery: (String) -> Unit,
+    onTapSanctuary: () -> Double,
+    onNavigateToArchive: () -> Unit,
+    onNavigateToSettings: () -> Unit,
 ) {
     uiState.offlineReward?.let { reward ->
         OfflineRewardDialog(
@@ -86,7 +116,7 @@ private fun HomeContent(
     }
 
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
             .windowInsetsPadding(WindowInsets.safeDrawing)
@@ -476,6 +506,7 @@ private fun HomeScreenPreview() {
                 onUpgradeSanctuary = {},
                 onSupportRecovery = {},
                 onTapSanctuary = { 1.2 },
+                onCompleteOnboarding = {},
                 onNavigateToArchive = {},
                 onNavigateToSettings = {},
             )

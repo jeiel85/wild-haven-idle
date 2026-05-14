@@ -16,6 +16,7 @@ data class HomeUiState(
     val animals: List<AnimalRecoveryItem> = emptyList(),
     val protectedAnimalIds: List<String> = emptyList(),
     val nextUnlock: NextUnlockProgress? = null,
+    val showOnboarding: Boolean = false,
 )
 
 data class AnimalRecoveryItem(

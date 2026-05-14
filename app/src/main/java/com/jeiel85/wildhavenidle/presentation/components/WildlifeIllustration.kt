@@ -31,6 +31,10 @@ import com.jeiel85.wildhavenidle.core.design.WildHavenTheme
  */
 private val animalDrawableMap: Map<String, Int> = mapOf(
     "rabbit_001" to R.drawable.wh_animal_rabbit_001,
+    "fox_001" to R.drawable.wh_animal_fox_001,
+    "deer_001" to R.drawable.wh_animal_deer_001,
+    "owl_001" to R.drawable.wh_animal_owl_001,
+    "lynx_001" to R.drawable.wh_animal_lynx_001,
 )
 
 private val InkColor = Color(0xFF3A4F3A)
@@ -45,7 +49,6 @@ fun AnimalIllustration(
     animalId: String,
     modifier: Modifier = Modifier,
     size: Dp = 120.dp,
-    color: Color = WarmBrown,
 ) {
     val drawableRes = animalDrawableMap[animalId]
     if (drawableRes != null) {
@@ -55,20 +58,9 @@ fun AnimalIllustration(
             contentScale = ContentScale.Fit,
             modifier = modifier.size(size),
         )
-        return
-    }
-
-    Box(modifier = modifier.size(size)) {
-        Canvas(modifier = Modifier.size(size)) {
-            val w = this.size.width
-            val h = this.size.height
-            when (animalId) {
-                "fox_001" -> drawFox(w, h, color)
-                "deer_001" -> drawDeer(w, h, color)
-                "owl_001" -> drawOwl(w, h, color)
-                "lynx_001" -> drawLynx(w, h, color)
-            }
-        }
+    } else {
+        // 매핑되지 않은 신규 동물용 폴백 — 빌드 시점에 모든 동물이 매핑돼 있어야 한다.
+        Box(modifier = modifier.size(size))
     }
 }
 

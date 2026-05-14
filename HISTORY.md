@@ -2,6 +2,31 @@
 
 ## 2026-05-14
 
+- 작업: Phase 0.5 P3 완료 — fox/deer/owl/lynx 4종 PNG 도입으로 동물 일러스트 5종 전면 교체
+- 변경 파일:
+  - app/src/main/res/drawable-nodpi/wh_animal_{fox,deer,owl,lynx}_001.png (신규)
+  - docs/assets/source/wh_animal_{fox,deer,owl,lynx}_001.png (신규, 1254×1254 원본 보존)
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/components/WildlifeIllustration.kt
+    (animalDrawableMap에 4종 추가, color 파라미터 제거, 폴백 단순화)
+  - docs/ASSET_LICENSES.md (§2에 4종 메타 한 줄씩 추가, placeholder 항목을 silhouettes로 대체)
+  - CHANGELOG.md, .agent/tasks.md, .agent/progress.md
+- 검증:
+  - 사용자가 ChatGPT Plus(DALL·E 3)에서 4종 각 1장씩 생성 (재시도 불필요)
+  - 에이전트가 4장을 직접 시각 검수: 5-게이트 모두 ✅, 시리즈 톤 일관성 매우 우수 (rabbit과 동일 작가 시리즈 인상)
+  - PIL LANCZOS 다운샘플(1254→512) + 256-color quantize → 191~219 KB
+  - `./gradlew :app:compileDebugKotlin :app:testDebugUnitTest` 성공 (8건)
+  - 양자화 후 수채화 톤·구도 보존 확인 (Read 툴로 fox/owl 재확인)
+- 결과:
+  - 동물 5종(rabbit/fox/deer/owl/lynx) 모두 절차적 Canvas → AI 생성 PNG 교체 완료
+  - 홈/도감의 모든 동물 일러스트가 통일된 자연관찰노트 톤의 수채화로 표시
+  - `AnimalIllustration`이 사실상 PNG 전용 컴포저블로 정리됨 (color 파라미터 제거)
+  - `AnimalSilhouette` (LOCKED 상태)은 그레이 통일감을 위해 절차적 Canvas 의도적 유지
+- 후속 작업:
+  - Phase 0.5 P2: 보호구역 헤더 PNG (`wh_habitat_forest_001`, 1080×640) — 같은 시리즈 톤으로 풀폭 풍경 1장
+  - 그 후 카드 배경 등 세부 에셋
+
+## 2026-05-14
+
 - 작업: Phase 0.5 P2 시작 — AI 서비스 잠금(DALL·E 3) + 첫 동물 일러스트(rabbit_001) PNG 도입
 - 변경 파일:
   - docs/assets/bakeoff/rabbit_001-bakeoff.md (평가표 채움 + DALL·E 3 잠금 결정)

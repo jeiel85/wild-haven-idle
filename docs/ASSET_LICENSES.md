@@ -14,7 +14,7 @@
 |---|---|---|---|---|---|---|
 | App icon source | `docs/assets/wild-haven-icon-source.png` | OpenAI image generation via Codex, prompt recorded in HISTORY.md | Project-owned generated asset | Yes | Yes | Forest sanctuary shield icon with rescued wildlife silhouettes |
 | App launcher icons | `app/src/main/res/mipmap-*/ic_launcher*.png` | Derived from `docs/assets/wild-haven-icon-source.png` | Project-owned generated asset | Yes | Yes | Density-specific Android launcher icons |
-| Animal art placeholder (fox/deer/owl/lynx) | (procedural Compose Canvas in `WildlifeIllustration.kt`) | Self-coded | Owned | Yes | No | rabbit_001은 v0.4.0에서 PNG로 교체됨 (§2 참조). 나머지 4종은 후속 작업으로 같은 절차 적용 예정 |
+| Animal silhouettes (LOCKED state) | (procedural Compose Canvas in `WildlifeIllustration.kt` `AnimalSilhouette`) | Self-coded | Owned | Yes | No | 도감 LOCKED 상태에서 그레이 통일감을 위해 절차적 Canvas 유지. 카드 일러스트(`AnimalIllustration`)는 5종 모두 §2의 AI 생성 PNG 사용 |
 | Font | TBD | TBD | TBD | TBD | TBD | Must verify before release |
 | Sound effects | TBD | TBD | TBD | TBD | TBD | MVP can ship without sound |
 
@@ -28,6 +28,10 @@
 | Asset | File (in-app) | File (source) | Service | Model/Version | Prompt 요약 또는 SHA-256 prefix | Seed/Reference | Generated At | Modified | License Class |
 |---|---|---|---|---|---|---|---|---|---|
 | Cottontail rabbit (rabbit_001) card | `app/src/main/res/drawable-nodpi/wh_animal_rabbit_001.png` | `docs/assets/source/wh_animal_rabbit_001.png` (= bakeoff/rabbit_001/dalle3-1.png) | OpenAI ChatGPT Plus | DALL·E 3 / gpt-image-1 (2026-05-14) | `docs/assets/prompts/wh_animal_rabbit_001.txt` (SHA-256 prefix `1cc39e7fea5a`) | None (DALL·E 3는 시드/Reference 미노출 — 동일 프롬프트로 재현) | 2026-05-14 | 1254×1254 → 512×512 LANCZOS 리사이즈, PIL 256-color quantize (218 KB) | Project-owned (OpenAI gpt-image-1) |
+| Red fox (fox_001) card | `app/src/main/res/drawable-nodpi/wh_animal_fox_001.png` | `docs/assets/source/wh_animal_fox_001.png` (= bakeoff/fox_001/dalle3-1.png) | OpenAI ChatGPT Plus | DALL·E 3 / gpt-image-1 (2026-05-14) | `docs/assets/prompts/wh_animal_fox_001.txt` (SHA-256 prefix `dbb5185aa8e7`) | None (Subject 슬롯만 교체, 나머지 4슬롯은 rabbit_001과 동일) | 2026-05-14 | 1254×1254 → 512×512 LANCZOS 리사이즈, PIL 256-color quantize (211 KB) | Project-owned (OpenAI gpt-image-1) |
+| Fawn deer (deer_001) card | `app/src/main/res/drawable-nodpi/wh_animal_deer_001.png` | `docs/assets/source/wh_animal_deer_001.png` (= bakeoff/deer_001/dalle3-1.png) | OpenAI ChatGPT Plus | DALL·E 3 / gpt-image-1 (2026-05-14) | `docs/assets/prompts/wh_animal_deer_001.txt` (SHA-256 prefix `2e00b6cce744`) | None (Subject 슬롯만 교체) | 2026-05-14 | 1254×1254 → 512×512 LANCZOS 리사이즈, PIL 256-color quantize (212 KB) | Project-owned (OpenAI gpt-image-1) |
+| Tawny owl (owl_001) card | `app/src/main/res/drawable-nodpi/wh_animal_owl_001.png` | `docs/assets/source/wh_animal_owl_001.png` (= bakeoff/owl_001/dalle3-1.png) | OpenAI ChatGPT Plus | DALL·E 3 / gpt-image-1 (2026-05-14) | `docs/assets/prompts/wh_animal_owl_001.txt` (SHA-256 prefix `1f7cfb1108dd`) | None (Subject 슬롯만 교체, 황혼 라벤더 톤 추가) | 2026-05-14 | 1254×1254 → 512×512 LANCZOS 리사이즈, PIL 256-color quantize (191 KB) | Project-owned (OpenAI gpt-image-1) |
+| Eurasian lynx (lynx_001) card | `app/src/main/res/drawable-nodpi/wh_animal_lynx_001.png` | `docs/assets/source/wh_animal_lynx_001.png` (= bakeoff/lynx_001/dalle3-1.png) | OpenAI ChatGPT Plus | DALL·E 3 / gpt-image-1 (2026-05-14) | `docs/assets/prompts/wh_animal_lynx_001.txt` (SHA-256 prefix `4aac16b3ede8`) | None (Subject 슬롯만 교체, 초겨울 침엽수림 톤) | 2026-05-14 | 1254×1254 → 512×512 LANCZOS 리사이즈, PIL 256-color quantize (219 KB) | Project-owned (OpenAI gpt-image-1) |
 
 ### 2.1 라이선스 분류 정의
 

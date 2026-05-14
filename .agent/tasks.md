@@ -41,12 +41,14 @@
 - [x] P1: Tokenize visual system in `WildHavenTheme` (color/typography/spacing/radius/elevation)
 - [x] Decide AI image service — **locked: OpenAI gpt-image-1 / DALL·E 3 (ChatGPT Plus)** after rabbit_001 bake-off (2026-05-14)
 - [ ] P2: Replace sanctuary header with one AI-generated landscape PNG (`wh_habitat_forest_001.png`)
-- [ ] P3: Generate 5 animal illustrations and switch `AnimalIllustration` to PNG
-  - [x] `wh_animal_rabbit_001.png` (dalle3-1, 512×512 quantized 218 KB, AnimalIllustration map switch)
-  - [ ] `wh_animal_fox_001.png` (prompt: `docs/assets/prompts/wh_animal_fox_001.txt`)
-  - [ ] `wh_animal_deer_001.png` (prompt: `docs/assets/prompts/wh_animal_deer_001.txt`)
-  - [ ] `wh_animal_owl_001.png` (prompt: `docs/assets/prompts/wh_animal_owl_001.txt`)
-  - [ ] `wh_animal_lynx_001.png` (prompt: `docs/assets/prompts/wh_animal_lynx_001.txt`)
+- [x] P3: Generate 5 animal illustrations and switch `AnimalIllustration` to PNG
+  - [x] `wh_animal_rabbit_001.png` (dalle3-1, 512×512 quantized 218 KB)
+  - [x] `wh_animal_fox_001.png` (211 KB)
+  - [x] `wh_animal_deer_001.png` (212 KB)
+  - [x] `wh_animal_owl_001.png` (191 KB)
+  - [x] `wh_animal_lynx_001.png` (219 KB)
+  - [x] `AnimalIllustration` map switch: 5종 모두 PNG, `color` 파라미터 제거 (절차적 호출 폐기)
+  - [x] `AnimalSilhouette` (LOCKED) 절차적 Canvas 유지 — 그레이 통일감 위해 의도적 보존
 - [ ] P4: Card/button micro-polish (shadow, radius, spacing, progress typography)
 - [ ] P5: Motion timing/easing tokens unified
 

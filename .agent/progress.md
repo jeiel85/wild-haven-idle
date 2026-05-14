@@ -84,6 +84,16 @@
 - 태그 v0.3.0 푸시 → Android Release 워크플로 성공 → GitHub Release 자동 생성
 - "새 버전 만들기" 워크플로 메모리에 태그 푸시 자동화 단계 추가
 
+### 2026-05-14 (심야 후속) — Phase 0.5 P3 완료: 동물 5종 PNG 전면 교체
+
+- 사용자가 ChatGPT Plus에서 fox/deer/owl/lynx 각 1장 생성 (한 번에 통과)
+- 에이전트 검수: 5-게이트 모두 ✅, rabbit과 동일 작가 시리즈로 보일 정도의 일관성
+- PIL LANCZOS + 256-color quantize → 4장 모두 191~219 KB
+- animalDrawableMap에 4개 추가, color 파라미터 제거(모든 호출부 기본값만 사용)
+- AnimalSilhouette(LOCKED)은 그레이 통일감을 위해 절차적 Canvas 유지
+- compileDebugKotlin / testDebugUnitTest 성공
+- 다음: Phase 0.5 P2 (보호구역 헤더 PNG) → 카드 배경
+
 ### 2026-05-14 (심야) — Phase 0.5 P2 시작: AI 서비스 잠금 + rabbit_001 PNG 도입
 
 - 사용자의 ChatGPT Plus(DALL·E 3) + Gemini Advanced(Imagen 3) 두 구독으로 rabbit_001 시연 진행

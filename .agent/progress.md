@@ -84,6 +84,15 @@
 - 태그 v0.3.0 푸시 → Android Release 워크플로 성공 → GitHub Release 자동 생성
 - "새 버전 만들기" 워크플로 메모리에 태그 푸시 자동화 단계 추가
 
+### 2026-05-14 (심야 마무리) — v0.4.0 릴리즈 준비
+
+- versionCode 4 / versionName 0.4.0으로 갱신, 설정 화면 표기 동기화
+- CHANGELOG의 Unreleased를 v0.4.0으로 승격
+- store-release-notes/v0.4.0.txt 신규: ko-KR 209자 / en-US 417자 (한도 내)
+- 로컬 서명 AAB: app-release.aab (10.2 MB, versionName 0.4.0)
+- jarsigner -verify → jar verified.
+- 다음: 커밋·푸시 → 태그 v0.4.0 푸시 → Android Release 워크플로 자동 트리거 → GitHub Release 자동 생성
+
 ### 2026-05-14 (심야, 헤더) — Phase 0.5 P2 완료: 보호구역 헤더 PNG 도입
 
 - 사용자가 ChatGPT Plus에서 헤더 풍경 1장 생성 (재시도 불필요)

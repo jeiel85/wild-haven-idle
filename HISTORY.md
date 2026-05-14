@@ -2,6 +2,37 @@
 
 ## 2026-05-14
 
+- 작업: v0.4.0 릴리즈 준비 — 디자인 토큰화 + 동물 5종 + 보호구역 헤더 PNG 전면 적용 묶음
+- 변경 파일:
+  - app/build.gradle.kts (versionCode 3 → 4, versionName 0.3.0 → 0.4.0)
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/settings/SettingsScreen.kt (표기 v0.4.0)
+  - CHANGELOG.md (Unreleased → v0.4.0 승격, Build/CI · Verification 항목 추가)
+  - store-release-notes/v0.4.0.txt (신규, ko-KR 209자 / en-US 417자)
+  - HISTORY.md, .agent/progress.md
+- 산출물:
+  - AAB: `D:\Project\wild-haven-idle\app\build\outputs\bundle\release\app-release.aab` (10.2 MB, versionName=0.4.0, versionCode=4)
+  - 출시 노트: `store-release-notes/v0.4.0.txt`
+  - 서명 인증서: `CN=Wild Haven Idle, OU=Release, O=Jeiel85, L=Seoul, ST=Seoul, C=KR` (RSA 4096)
+- 검증:
+  - `./gradlew :app:bundleRelease` 로컬 서명 성공 (release signing 환경변수 사용)
+  - `jarsigner -verify` → `jar verified.`
+  - AAB 매니페스트에서 `versionName=0.4.0` 확인
+  - 출시 노트 글자수: ko-KR 209자, en-US 417자 (Play Store 500자 한도 안)
+  - 실기기/Play Console 업로드는 사용자 수동 단계
+- 결과:
+  - v0.3.0 대비 차이점:
+    1. WildHavenTheme 디자인 토큰 시스템 (컬러/타이포/Shape/Spacing/Elevation)
+    2. 동물 5종 절차적 Canvas → AI 생성 PNG 전면 교체
+    3. 보호구역 헤더 절차적 캔버스 → PNG 풀폭 풍경
+    4. 5개 화면 토큰 참조로 정리 (RoundedCornerShape/tonalElevation 하드코딩 제거)
+  - APK/AAB 크기 +1.4 MB (PNG 6장 도입 영향)
+- 후속 작업:
+  - 태그 v0.4.0 푸시 → Android Release 워크플로 자동 트리거 → GitHub Release 자동 생성
+  - Play Console에 AAB 업로드 + 출시 노트 ko-KR/en-US 블록 붙여넣기
+  - 실기기 시각 회귀 확인 (헤더 PNG 위 동물 산책 자연스러움)
+
+## 2026-05-14
+
 - 작업: Phase 0.5 P2 완료 — 보호구역 헤더(`wh_habitat_forest_001`) PNG 도입, SanctuaryHeader 절차적 캔버스 폐기
 - 변경 파일:
   - app/src/main/res/drawable-nodpi/wh_habitat_forest_001.png (신규, 960×540, 395 KB)

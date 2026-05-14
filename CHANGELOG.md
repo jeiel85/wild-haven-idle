@@ -1,6 +1,6 @@
 # CHANGELOG.md
 
-## Unreleased - 2026-05-14
+## v0.4.0 - 2026-05-14
 
 ### Added
 - AI 이미지 서비스 잠금: OpenAI gpt-image-1 / DALL·E 3 (ChatGPT Plus) — 사용자의 ChatGPT/Gemini 두 구독으로 시연(bake-off) 후 톤 일치도와 일관성에서 DALL·E 3가 우세하여 잠금 결정 (`docs/assets/bakeoff/rabbit_001-bakeoff.md`).
@@ -23,6 +23,18 @@
 ### Removed
 - `SanctuaryHeader`의 절차적 풍경 코드 약 110줄 (헤더 PNG 도입으로 불필요).
 - 보호구역 Lv별 *나무 수 동적 변화* 시각 효과는 사라짐 — 후속 작업으로 Lv별 헤더 PNG 변형(예: 묘목→성숙림) 검토 가능.
+
+### Build / CI
+- `versionCode` 3 → 4, `versionName` 0.3.0 → 0.4.0
+- 한국어/영어 Play Store 출시 노트: `store-release-notes/v0.4.0.txt`
+
+### Verification
+- `./gradlew :app:compileDebugKotlin` 성공
+- `./gradlew :app:testDebugUnitTest` 성공 (8건)
+- `./gradlew :app:bundleRelease` 로컬 서명 성공
+- `jarsigner -verify app-release.aab` → `jar verified.`
+- 양자화 후 6장 PNG(동물 5종 + 헤더 1장) 시각 회귀 확인 (Read 툴)
+- 실기기/에뮬레이터 수동 시각 확인은 수행하지 않음
 
 ### Documentation
 - `docs/ART_DIRECTION.md` §8.1에 AI 서비스 잠금 결정(DALL·E 3) 명시.

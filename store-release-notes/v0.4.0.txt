@@ -1,0 +1,18 @@
+<ko-KR>
+보호구역 인상이 크게 달라졌습니다.
+
+• 구조 동물 5종(숲토끼·붉은여우·어린사슴·밤부엉이·스라소니)을 따뜻한 자연관찰노트 풍 수채 일러스트로 다시 그렸습니다.
+• 홈 상단 풍경도 같은 톤의 풀폭 일러스트로 교체. 보호 동물이 그 위에서 자연스럽게 산책합니다.
+• 색·간격·모서리·그림자를 디자인 토큰으로 정리해 더 차분한 인상을 줍니다.
+
+진행 데이터는 그대로 보존됩니다.
+</ko-KR>
+<en-US>
+The sanctuary looks and feels brand new.
+
+• Five rescue species (rabbit, fox, fawn, owl, lynx) are now warm watercolor illustrations in a wildlife journal style.
+• The forest header is replaced with a matching wide landscape, and your protected animals stroll across it naturally.
+• Colors, spacing, corners, and shadows are unified into one design token system for a calmer look.
+
+All existing progress is preserved.
+</en-US>

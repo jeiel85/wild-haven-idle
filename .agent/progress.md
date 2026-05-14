@@ -84,6 +84,16 @@
 - 태그 v0.3.0 푸시 → Android Release 워크플로 성공 → GitHub Release 자동 생성
 - "새 버전 만들기" 워크플로 메모리에 태그 푸시 자동화 단계 추가
 
+### 2026-05-14 (심야, 헤더) — Phase 0.5 P2 완료: 보호구역 헤더 PNG 도입
+
+- 사용자가 ChatGPT Plus에서 헤더 풍경 1장 생성 (재시도 불필요)
+- 5-게이트 모두 ✅, 동물 5종과 시리즈 일관성 매우 높음
+- 1672×941 → 960×540 LANCZOS + 256-color quantize → 395 KB
+- SanctuaryHeader 절차적 풍경 코드 약 110줄 제거, Image로 교체
+- 동물 스프라이트/Floater/Lv 라벨/탭 제스처는 그대로 유지
+- 트레이드오프: Lv별 나무 증가 시각 효과·미세 모션(구름/태양/나무 흔들림) 사라짐
+- compileDebugKotlin / testDebugUnitTest 성공
+
 ### 2026-05-14 (심야 후속) — Phase 0.5 P3 완료: 동물 5종 PNG 전면 교체
 
 - 사용자가 ChatGPT Plus에서 fox/deer/owl/lynx 각 1장 생성 (한 번에 통과)

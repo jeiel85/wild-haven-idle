@@ -5,6 +5,7 @@
 ### Added
 - AI 이미지 서비스 잠금: OpenAI gpt-image-1 / DALL·E 3 (ChatGPT Plus) — 사용자의 ChatGPT/Gemini 두 구독으로 시연(bake-off) 후 톤 일치도와 일관성에서 DALL·E 3가 우세하여 잠금 결정 (`docs/assets/bakeoff/rabbit_001-bakeoff.md`).
 - 동물 5종 AI 생성 일러스트 전면 도입: `wh_animal_{rabbit,fox,deer,owl,lynx}_001.png` (각 512×512, 191~219 KB) — `AnimalIllustration`이 ID 매핑으로 모두 PNG 표시.
+- 보호구역 헤더 일러스트 도입: `wh_habitat_forest_001.png` (가로 풀폭 960×540, 395 KB) — 동물 5종과 같은 시리즈 톤의 자연관찰노트 풍 풍경.
 - 5종 프롬프트 파일 (`docs/assets/prompts/wh_animal_*_001.txt`) — Subject 슬롯만 다르고 Style/Palette/Negative는 동일하게 잠가 시리즈 톤 일관성 확보.
 
 - 디자인 토큰 시스템: `WildHavenTheme`이 컬러/타이포그래피/Shape/Spacing/Elevation 토큰을 한 곳에서 주입
@@ -17,6 +18,11 @@
 ### Changed
 - HomeScreen, OnboardingOverlay, SettingsScreen, ArchiveScreen, SanctuaryHeader가 토큰만 참조하도록 정리 (하드코딩 `RoundedCornerShape(N.dp)`, `tonalElevation = N.dp`, 주요 padding/spacing 제거)
 - `presentation/components/WildlifeIllustration.kt`의 `AnimalIllustration`이 동물 ID → drawable 리소스 매핑(`animalDrawableMap`)으로 5종 모두 PNG 표시. 모든 호출부가 기본값만 사용해 `color` 파라미터를 제거. 매핑되지 않은 ID는 빈 박스로 폴백. `AnimalSilhouette`(LOCKED 상태)은 그레이 통일을 위해 절차적 Canvas 유지.
+- `presentation/components/SanctuaryHeader.kt`의 절차적 풍경 캔버스(태양/구름/나무/풀/꽃을 매 프레임 그리던 `drawScenery`/`computeTrees`/`computeFlowers`/`drawCloud`/`Tree`/`Flower`)를 모두 제거하고 PNG 한 장으로 교체. 동물 산책 스프라이트, 보상 플로터, Lv 라벨, 탭 제스처는 그대로 유지. 결과: 헤더 시각 인상 대폭 향상 + Compose 매 프레임 캔버스 드로잉 부담 감소.
+
+### Removed
+- `SanctuaryHeader`의 절차적 풍경 코드 약 110줄 (헤더 PNG 도입으로 불필요).
+- 보호구역 Lv별 *나무 수 동적 변화* 시각 효과는 사라짐 — 후속 작업으로 Lv별 헤더 PNG 변형(예: 묘목→성숙림) 검토 가능.
 
 ### Documentation
 - `docs/ART_DIRECTION.md` §8.1에 AI 서비스 잠금 결정(DALL·E 3) 명시.

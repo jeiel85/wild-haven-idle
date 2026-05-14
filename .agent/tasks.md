@@ -40,7 +40,7 @@
 - [x] Pin asset pipeline (AI service selection rules, prompt template, license logging) in `docs/ART_DIRECTION.md` §8~§10
 - [x] P1: Tokenize visual system in `WildHavenTheme` (color/typography/spacing/radius/elevation)
 - [x] Decide AI image service — **locked: OpenAI gpt-image-1 / DALL·E 3 (ChatGPT Plus)** after rabbit_001 bake-off (2026-05-14)
-- [ ] P2: Replace sanctuary header with one AI-generated landscape PNG (`wh_habitat_forest_001.png`)
+- [x] P2: Replace sanctuary header with one AI-generated landscape PNG (`wh_habitat_forest_001.png`, 960×540, 395 KB) — SanctuaryHeader의 절차적 풍경 캔버스 제거, 동물 스프라이트/Floater/Lv 라벨 유지
 - [x] P3: Generate 5 animal illustrations and switch `AnimalIllustration` to PNG
   - [x] `wh_animal_rabbit_001.png` (dalle3-1, 512×512 quantized 218 KB)
   - [x] `wh_animal_fox_001.png` (211 KB)

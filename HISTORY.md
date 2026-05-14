@@ -2,6 +2,39 @@
 
 ## 2026-05-14
 
+- 작업: Phase 0.5 P2 완료 — 보호구역 헤더(`wh_habitat_forest_001`) PNG 도입, SanctuaryHeader 절차적 캔버스 폐기
+- 변경 파일:
+  - app/src/main/res/drawable-nodpi/wh_habitat_forest_001.png (신규, 960×540, 395 KB)
+  - docs/assets/source/wh_habitat_forest_001.png (신규, 1672×941 원본)
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/components/SanctuaryHeader.kt
+    (drawScenery/computeTrees/computeFlowers/drawCloud/Tree/Flower 제거, Image 교체)
+  - docs/ART_DIRECTION.md §9.2 (DALL·E 3 실제 출력 사이즈 반영, 헤더 960×540 명시)
+  - docs/ASSET_LICENSES.md §2 habitat 메타 한 줄 추가
+  - CHANGELOG.md, .agent/tasks.md, .agent/progress.md
+- 검증:
+  - 사용자가 ChatGPT Plus(DALL·E 3)에서 1장 생성 (재시도 불필요)
+  - 에이전트가 시각 검수: 5-게이트 모두 ✅, 동물 5종과 동일 작가 시리즈 인상
+  - 제약 충족: 동물·사람·건물 없음, 좌상단 비움, 우상단 햇살, 중앙·하단 빈 풀밭 띠
+  - 1672×941 → 960×540 LANCZOS 다운샘플 + 256-color quantize → 395 KB
+  - `./gradlew :app:compileDebugKotlin :app:testDebugUnitTest` 성공 (8건)
+  - 양자화 후 PNG를 Read 툴로 재확인 → 수채화 톤·구도 보존
+- 결과:
+  - 홈 화면 상단 보호구역 헤더가 절차적 머큐리 캔버스에서 자연관찰노트 풍의 풀폭 풍경 PNG로 전환
+  - 동물 산책 스프라이트는 PNG 위에서 그대로 좌우 산책 + 상하 보빙
+  - 탭 보상 플로터, Lv 라벨, 탭 제스처 모두 보존
+  - 절차적 풍경 코드 약 110줄 제거 — 매 프레임 Canvas 드로잉 부담 감소
+- 트레이드오프:
+  - 보호구역 Lv에 따라 *나무가 늘어나는* 시각 보상이 사라짐
+  - 떠다니는 구름/태양 글로우/나무 흔들림 미세 모션도 사라짐
+  - 후속 작업으로 Lv별 헤더 PNG 변형(묘목→성숙림 등) 또는 PNG 위 미세 오버레이 모션 검토 가능
+- 후속 작업:
+  - Phase 0.5 P4: 카드/버튼 마이크로 폴리시 (작은 spacing 토큰화, 그림자/위계 정리)
+  - Phase 0.5 P5: 모션 timing/easing 토큰 통일
+  - 또는 기능 트랙으로 전환: Phase 1 P2 (홈 단일 추천 다음 행동 카드)
+  - 실기기에서 동물 스프라이트가 헤더 PNG 위에서 자연스럽게 산책하는지 수동 확인
+
+## 2026-05-14
+
 - 작업: Phase 0.5 P3 완료 — fox/deer/owl/lynx 4종 PNG 도입으로 동물 일러스트 5종 전면 교체
 - 변경 파일:
   - app/src/main/res/drawable-nodpi/wh_animal_{fox,deer,owl,lynx}_001.png (신규)

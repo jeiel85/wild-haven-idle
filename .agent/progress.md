@@ -84,6 +84,15 @@
 - 태그 v0.3.0 푸시 → Android Release 워크플로 성공 → GitHub Release 자동 생성
 - "새 버전 만들기" 워크플로 메모리에 태그 푸시 자동화 단계 추가
 
+### 2026-05-14 (밤) — Phase 0.5 P1 토큰 시스템 도입
+
+- `core/design/`에 5개 토큰 파일 신설 (Color/Typography/Shapes/Spacing/Elevation) + Theme.kt 재작성
+- 머티리얼3 토큰(ColorScheme/Typography/Shapes)과 본작 고유 토큰(WildHavenColors/Spacing/Elevation/TextStyles)을 한 번에 주입
+- `WildHavenTheme` 함수와 같은 이름의 object 접근자 공존 (머티리얼3 패턴) — `WildHavenTheme.spacing.lg` 형태 접근
+- 5개 화면(HomeScreen, OnboardingOverlay, SettingsScreen, ArchiveScreen, SanctuaryHeader)을 토큰 참조로 전환
+- 시각 출력은 같은 값을 토큰 경유로만 바꿈 — 회귀 위험 최소화
+- 검증: compileDebugKotlin / testDebugUnitTest 모두 성공 (8건)
+
 ### 2026-05-14 (저녁) — Phase 0.5 디자인 트랙 개시
 
 - 비주얼 인상이 "절차적 Compose Canvas + 머티리얼 기본값"으로 졸업작품 톤에 머무름을 인지

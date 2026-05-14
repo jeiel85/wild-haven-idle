@@ -38,7 +38,7 @@
 ## Commercialization Phase 0.5 — Design Polish (per docs/COMMERCIALIZATION_PLAN.md §0.5)
 
 - [x] Pin asset pipeline (AI service selection rules, prompt template, license logging) in `docs/ART_DIRECTION.md` §8~§10
-- [ ] P1: Tokenize visual system in `WildHavenTheme` (color/typography/spacing/radius)
+- [x] P1: Tokenize visual system in `WildHavenTheme` (color/typography/spacing/radius/elevation)
 - [ ] Decide AI image service (Adobe Firefly / OpenAI gpt-image-1 / Imagen on Vertex) — locked once first asset is generated
 - [ ] P2: Replace sanctuary header with one AI-generated landscape PNG (`wh_habitat_forest_001.png`)
 - [ ] P3: Generate 5 animal illustrations (`wh_animal_{rabbit,fox,deer,owl,lynx}_001.png`) and switch `AnimalIllustration` to PNG

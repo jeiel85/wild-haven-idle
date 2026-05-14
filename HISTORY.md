@@ -2,6 +2,38 @@
 
 ## 2026-05-14
 
+- 작업: Phase 0.5 P1 — `WildHavenTheme` 디자인 토큰 시스템 도입 및 호출부 정리
+- 변경 파일:
+  - app/src/main/java/com/jeiel85/wildhavenidle/core/design/Theme.kt (재작성, accessor object 추가)
+  - app/src/main/java/com/jeiel85/wildhavenidle/core/design/WildHavenColor.kt (신규)
+  - app/src/main/java/com/jeiel85/wildhavenidle/core/design/WildHavenTypography.kt (신규)
+  - app/src/main/java/com/jeiel85/wildhavenidle/core/design/WildHavenShapes.kt (신규)
+  - app/src/main/java/com/jeiel85/wildhavenidle/core/design/WildHavenSpacing.kt (신규)
+  - app/src/main/java/com/jeiel85/wildhavenidle/core/design/WildHavenElevation.kt (신규)
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeScreen.kt (Shapes/Elevation/Spacing 토큰 적용)
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/onboarding/OnboardingOverlay.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/settings/SettingsScreen.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/archive/ArchiveScreen.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/components/SanctuaryHeader.kt
+  - CHANGELOG.md, .agent/tasks.md, .agent/progress.md
+- 검증:
+  - `./gradlew :app:compileDebugKotlin` 성공
+  - `./gradlew :app:testDebugUnitTest` 성공 (5+3=8건 통과)
+  - 토큰 도입은 같은 값을 토큰 경유로 바꾸는 식으로 진행 — 시각 출력 회귀는 의도적으로 최소화
+  - 실기기/에뮬레이터 수동 확인은 수행하지 않음
+- 결과:
+  - `WildHavenTheme` 진입점이 머티리얼3 토큰(ColorScheme/Typography/Shapes)과 본작 고유 토큰(WildHavenColors/Spacing/Elevation/TextStyles)을 함께 주입
+  - 5개 화면이 `RoundedCornerShape(N.dp)` 하드코딩, 임의 `tonalElevation = N.dp`, 주요 padding/spacing 하드코딩에서 토큰 참조로 전환
+  - 의미 색상(희귀도, 보호구역 톤)이 화면 코드와 분리돼, 이후 도감/희귀도 표시 통일 작업의 토대 마련
+  - typography는 머티리얼 기본을 게임 톤(SemiBold/Bold, letterSpacing)에 맞춰 보정
+  - "Kotlin은 함수와 object를 다른 네임스페이스로 본다"는 머티리얼 패턴을 그대로 적용 — `WildHavenTheme(...)` 함수와 `WildHavenTheme.spacing` 접근자 공존
+- 후속 작업:
+  - Phase 0.5의 다음 항목: AI 이미지 서비스 결정 → P2 (보호구역 헤더 PNG 1장)
+  - 또는 Phase 1 P2: 홈 단일 추천 다음 행동 카드
+  - Phase 0.5 P4 (마이크로 폴리시) 단계에서 작은 spacing(2/4/6 dp)도 토큰화 정리
+
+## 2026-05-14
+
 - 작업: 디자인 트랙 개시 — AI 에셋 생성 파이프라인 결정 문서화 (Phase 0.5 P0)
 - 변경 파일:
   - docs/ART_DIRECTION.md (§8 AI 에셋 생성 파이프라인, §9 디렉터리 규약, §10 생성 후 워크플로 신설)

@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -115,14 +114,15 @@ private fun HomeContentBody(
         )
     }
 
+    val spacing = WildHavenTheme.spacing
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
             .windowInsetsPadding(WindowInsets.safeDrawing)
             .verticalScroll(rememberScrollState())
-            .padding(20.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+            .padding(spacing.screenPadding),
+        verticalArrangement = Arrangement.spacedBy(spacing.cardGap),
     ) {
         SanctuaryHeader(
             sanctuaryLevel = uiState.sanctuaryLevel,
@@ -223,21 +223,22 @@ private fun CarePointPanel(
         label = "care-point",
     )
 
+    val spacing = WildHavenTheme.spacing
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp),
+        shape = MaterialTheme.shapes.medium,
         color = MaterialTheme.colorScheme.primary,
         contentColor = MaterialTheme.colorScheme.onPrimary,
     ) {
-        Column(modifier = Modifier.padding(20.dp)) {
+        Column(modifier = Modifier.padding(spacing.xl)) {
             Text(text = "보호 포인트", style = MaterialTheme.typography.labelLarge)
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(spacing.xs + 2.dp))
             Text(
                 text = NumberFormatter.compact(animatedCarePoint.toDouble()),
                 style = MaterialTheme.typography.displaySmall,
                 fontWeight = FontWeight.Bold,
             )
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(spacing.xs))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -265,13 +266,14 @@ private fun MilestoneCard(
         animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing),
         label = "milestone",
     )
+    val spacing = WildHavenTheme.spacing
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp),
+        shape = MaterialTheme.shapes.medium,
         color = MaterialTheme.colorScheme.surface,
-        tonalElevation = 1.dp,
+        tonalElevation = WildHavenTheme.elevation.sm,
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.padding(spacing.cardPadding)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -288,19 +290,19 @@ private fun MilestoneCard(
                     fontWeight = FontWeight.SemiBold,
                 )
             }
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(spacing.xs + 2.dp))
             Text(
                 text = progress.animalNameKo,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(spacing.sm))
             LinearProgressIndicator(
                 progress = { animatedProgress },
                 modifier = Modifier.fillMaxWidth(),
                 color = MaterialTheme.colorScheme.primary,
             )
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(spacing.xs + 2.dp))
             Text(
                 text = progress.helperText,
                 style = MaterialTheme.typography.bodySmall,
@@ -321,12 +323,13 @@ private fun SanctuaryUpgradeCard(
     val canUpgrade = carePoint >= cost && cost > 0L
     val pulse = pulseScale(active = canUpgrade)
 
+    val spacing = WildHavenTheme.spacing
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp),
+        shape = MaterialTheme.shapes.medium,
         color = MaterialTheme.colorScheme.primaryContainer,
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.padding(spacing.cardPadding)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -351,7 +354,7 @@ private fun SanctuaryUpgradeCard(
                     fontWeight = FontWeight.SemiBold,
                 )
             }
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(spacing.md))
             Button(
                 onClick = onUpgrade,
                 enabled = canUpgrade,
@@ -379,15 +382,16 @@ private fun AnimalRecoveryCard(
     val canSupport = carePoint >= item.recoveryCost && item.recoveryCost > 0L && stage < maxStage
     val pulse = pulseScale(active = canSupport)
 
+    val spacing = WildHavenTheme.spacing
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp),
+        shape = MaterialTheme.shapes.medium,
         color = MaterialTheme.colorScheme.surface,
-        tonalElevation = 2.dp,
+        tonalElevation = WildHavenTheme.elevation.md,
     ) {
         Row(
-            modifier = Modifier.padding(12.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.padding(spacing.md),
+            horizontalArrangement = Arrangement.spacedBy(spacing.md),
         ) {
             AnimalIllustration(
                 animalId = item.definition.id,
@@ -421,7 +425,7 @@ private fun AnimalRecoveryCard(
                     color = MaterialTheme.colorScheme.secondary,
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(spacing.sm))
 
                 if (stage < maxStage) {
                     Button(

@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -28,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.jeiel85.wildhavenidle.core.design.WildHavenTheme
 import com.jeiel85.wildhavenidle.core.format.NumberFormatter
 import com.jeiel85.wildhavenidle.data.model.ArchiveState
 import com.jeiel85.wildhavenidle.presentation.components.AnimalIllustration
@@ -42,11 +42,12 @@ fun ArchiveScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
+    val spacing = WildHavenTheme.spacing
     Column(
         modifier = modifier
             .fillMaxSize()
             .windowInsetsPadding(WindowInsets.safeDrawing)
-            .padding(20.dp),
+            .padding(spacing.screenPadding),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -69,13 +70,13 @@ fun ArchiveScreen(
             color = MaterialTheme.colorScheme.secondary,
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(spacing.lg))
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(0.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(spacing.md),
+            verticalArrangement = Arrangement.spacedBy(spacing.md),
         ) {
             items(uiState.items, key = { it.definition.id }) { item ->
                 ArchiveCard(item = item)
@@ -95,14 +96,15 @@ private fun ArchiveCard(
         ArchiveState.LOCKED -> MaterialTheme.colorScheme.surfaceVariant
     }
 
+    val spacing = WildHavenTheme.spacing
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp),
+        shape = MaterialTheme.shapes.medium,
         color = color,
-        tonalElevation = 2.dp,
+        tonalElevation = WildHavenTheme.elevation.md,
     ) {
         Column(
-            modifier = Modifier.padding(12.dp),
+            modifier = Modifier.padding(spacing.md),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             val animalId = item.definition.id

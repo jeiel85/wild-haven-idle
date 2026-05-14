@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -67,6 +66,7 @@ fun OnboardingOverlay(
     var stepIndex by remember { mutableIntStateOf(0) }
     val step = onboardingSteps[stepIndex]
     val isLast = stepIndex == onboardingSteps.lastIndex
+    val spacing = WildHavenTheme.spacing
 
     Box(
         modifier = modifier
@@ -77,21 +77,21 @@ fun OnboardingOverlay(
     ) {
         Surface(
             modifier = Modifier
-                .padding(24.dp)
+                .padding(spacing.xxl)
                 .widthIn(max = 360.dp),
-            shape = RoundedCornerShape(20.dp),
+            shape = MaterialTheme.shapes.extraLarge,
             color = MaterialTheme.colorScheme.surface,
-            tonalElevation = 4.dp,
+            tonalElevation = WildHavenTheme.elevation.lg,
         ) {
             Column(
-                modifier = Modifier.padding(24.dp),
+                modifier = Modifier.padding(spacing.xxl),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
                     text = step.emoji,
                     style = MaterialTheme.typography.displaySmall,
                 )
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(spacing.md))
                 Text(
                     text = step.title,
                     style = MaterialTheme.typography.titleLarge,
@@ -99,19 +99,19 @@ fun OnboardingOverlay(
                     color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center,
                 )
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(spacing.md))
                 Text(
                     text = step.body,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center,
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(spacing.xl))
                 StepIndicator(
                     total = onboardingSteps.size,
                     current = stepIndex,
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(spacing.xl))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -148,7 +148,7 @@ private fun StepIndicator(
 ) {
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        horizontalArrangement = Arrangement.spacedBy(WildHavenTheme.spacing.xs + 2.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         repeat(total) { index ->

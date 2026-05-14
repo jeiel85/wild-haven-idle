@@ -1,44 +1,67 @@
 package com.jeiel85.wildhavenidle.core.design
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 
-private val LightColors = lightColorScheme(
-    primary = Color(0xFF2F7D57),
-    onPrimary = Color.White,
-    secondary = Color(0xFF376A7A),
-    tertiary = Color(0xFF8A6A32),
-    background = Color(0xFFF7F9F4),
-    surface = Color(0xFFFFFFFF),
-    onBackground = Color(0xFF17201B),
-    onSurface = Color(0xFF17201B),
-)
-
-private val DarkColors = darkColorScheme(
-    primary = Color(0xFF79D0A2),
-    onPrimary = Color(0xFF08351F),
-    secondary = Color(0xFF86C7D7),
-    tertiary = Color(0xFFD5B56D),
-    background = Color(0xFF101612),
-    surface = Color(0xFF19221C),
-    onBackground = Color(0xFFE6EFE7),
-    onSurface = Color(0xFFE6EFE7),
-)
-
+/**
+ * Wild Haven Idle 테마 진입점.
+ *
+ * 머티리얼3 토큰(ColorScheme, Typography, Shapes)과 본작 고유 토큰
+ * (의미 색상, spacing, elevation, 텍스트 스타일)을 함께 주입한다.
+ *
+ * 호출부에서는 다음 두 가지 경로로 토큰에 접근한다.
+ * - 머티리얼 호환: `MaterialTheme.colorScheme.primary`, `MaterialTheme.shapes.medium`
+ * - 본작 고유:    `WildHavenTheme.colors.rarityRare`, `WildHavenTheme.spacing.lg`
+ */
 @Composable
 fun WildHavenTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
-    val colorScheme: ColorScheme = if (darkTheme) DarkColors else LightColors
+    val materialColorScheme = if (darkTheme) WildHavenDarkColorScheme else WildHavenLightColorScheme
+    val haveColors = if (darkTheme) WildHavenDarkColors else WildHavenLightColors
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        content = content,
-    )
+    CompositionLocalProvider(
+        LocalWildHavenColors provides haveColors,
+        LocalWildHavenTextStyles provides WildHavenLightTextStyles,
+        LocalSpacing provides WildHavenSpacingDefault,
+        LocalElevation provides WildHavenElevationDefault,
+    ) {
+        MaterialTheme(
+            colorScheme = materialColorScheme,
+            typography = WildHavenTypography,
+            shapes = WildHavenShapes,
+            content = content,
+        )
+    }
+}
+
+/**
+ * 토큰 접근자. 함수 [WildHavenTheme]와 같은 이름의 object — Kotlin은 함수와
+ * 클래시파이어를 다른 네임스페이스로 보므로 공존 가능하다 (머티리얼의
+ * `MaterialTheme`과 동일한 패턴).
+ */
+object WildHavenTheme {
+    val colors: WildHavenColors
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalWildHavenColors.current
+
+    val textStyles: WildHavenTextStyles
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalWildHavenTextStyles.current
+
+    val spacing: WildHavenSpacing
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalSpacing.current
+
+    val elevation: WildHavenElevation
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalElevation.current
 }

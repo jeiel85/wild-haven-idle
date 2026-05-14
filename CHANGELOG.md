@@ -1,5 +1,23 @@
 # CHANGELOG.md
 
+## Unreleased - 2026-05-14
+
+### Added
+- 디자인 토큰 시스템: `WildHavenTheme`이 컬러/타이포그래피/Shape/Spacing/Elevation 토큰을 한 곳에서 주입
+  - `WildHavenColors`: 의미 색상(보호구역 톤, 희귀도) — `WildHavenTheme.colors.rarityRare` 형태로 접근
+  - `WildHavenTypography`: 큰 숫자/카드 타이틀/라벨 weight·letterSpacing 조정
+  - `WildHavenShapes`: extraSmall(4) → extraLarge(20) 5단계 라운딩
+  - `WildHavenSpacing`: T-shirt 스케일 + `cardPadding`/`cardGap`/`screenPadding` 의미 별칭
+  - `WildHavenElevation`: none/sm/md/lg 4단계 tonalElevation 토큰
+
+### Changed
+- HomeScreen, OnboardingOverlay, SettingsScreen, ArchiveScreen, SanctuaryHeader가 토큰만 참조하도록 정리 (하드코딩 `RoundedCornerShape(N.dp)`, `tonalElevation = N.dp`, 주요 padding/spacing 제거)
+
+### Verification
+- `./gradlew :app:compileDebugKotlin` 성공
+- `./gradlew :app:testDebugUnitTest` 성공 (8건)
+- 시각 출력은 같은 값에서 토큰 경유로만 바뀜 — 회귀 위험 낮음
+
 ## v0.3.0 - 2026-05-14
 
 ### Added

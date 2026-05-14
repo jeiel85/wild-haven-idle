@@ -8,6 +8,11 @@ data class GameState(
     val discoveredAnimalIds: Set<String> = emptySet(),
     val unlockedHabitatIds: Set<String> = setOf("forest_001"),
     val onboardingCompleted: Boolean = false,
+    /**
+     * 마지막 일일 보너스 수령 시각 (epoch millis). null이면 아직 수령한 적이 없음.
+     * 자격 판정은 시각이 아니라 *로컬 자정 경계로 나뉜 달력 날짜* 기준.
+     */
+    val lastDailyBonusClaimedAtMillis: Long? = null,
 ) {
     companion object {
         fun initial(now: Long): GameState = GameState(
@@ -21,6 +26,7 @@ data class GameState(
             ),
             discoveredAnimalIds = setOf("rabbit_001"),
             onboardingCompleted = false,
+            lastDailyBonusClaimedAtMillis = null,
         )
     }
 }

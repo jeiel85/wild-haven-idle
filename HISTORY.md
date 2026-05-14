@@ -2,6 +2,40 @@
 
 ## 2026-05-14
 
+- 작업: Phase 2 P1 — 일일 보호 활동 보상 (로컬 자정 경계 1일 1회)
+- 변경 파일:
+  - app/src/main/java/com/jeiel85/wildhavenidle/data/model/GameState.kt (lastDailyBonusClaimedAtMillis 추가)
+  - app/src/main/java/com/jeiel85/wildhavenidle/data/local/GameStateDataStore.kt (키 추가, 마이그레이션)
+  - app/src/main/java/com/jeiel85/wildhavenidle/data/repository/GameRepository.kt (claimDailyBonus)
+  - app/src/main/java/com/jeiel85/wildhavenidle/domain/dailybonus/DailyBonus.kt (신규: DailyBonusRules)
+  - app/src/main/java/com/jeiel85/wildhavenidle/domain/usecase/BuildHomeUiStateUseCase.kt (자격 판정 + DailyBonusOffer 채움, invoke에 nowMillis 인자)
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/DailyBonusOffer.kt (신규)
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeUiState.kt (dailyBonus 필드)
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeViewModel.kt (claimDailyBonus 메서드)
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeScreen.kt (DailyBonusCard, 콜백 와이어링)
+  - app/src/test/java/com/jeiel85/wildhavenidle/domain/dailybonus/DailyBonusRulesTest.kt (신규, 6건)
+  - app/src/test/java/com/jeiel85/wildhavenidle/domain/usecase/BuildHomeUiStateUseCaseTest.kt (2건 추가)
+  - CHANGELOG.md, .agent/tasks.md, .agent/progress.md
+- 검증:
+  - `./gradlew :app:compileDebugKotlin :app:testDebugUnitTest` 성공
+  - 총 20건 통과 (BalanceCalculator 5 + DailyBonusRules 6 + BuildHomeUiStateUseCase 9)
+  - 신규 테스트: 자정 경계 자격, 시간대 영향, 생산량 스케일링, 0 생산량 하한 클램프, UiState 자격 통과/차단
+  - 1차 시도에서 0.1/sec 케이스의 보상 가정이 잘못돼 한 건 실패 → 수정 후 재실행 성공
+  - 실기기 동작 확인은 미수행 — 다음 새 버전 만들기 전 사이드로드 권장 (자정 직후 카드 노출 회복 시나리오 포함)
+- 결과:
+  - 광고/결제/네트워크 없는 순수 로컬 일일 접속 보상 도입
+  - 보상량은 현재 생산량 × 3시간 (오프라인 보상 8시간 상한보다 작아 일관성), 매우 초반에는 50pt 하한
+  - 자격 판정은 LocalDate 기반 자정 경계 비교 (시간대 변경에도 정확)
+  - 다이얼로그가 아닌 카드 형태 — 사용자 자율성 존중, 무시 가능, 능동 수령 (감정 압박형 강제 회피)
+  - 기존 사용자 마이그레이션: lastDailyBonusClaimedAtMillis가 키 없음 → null로 읽음 → 다음 진입 시 자동 자격 부여
+- 후속 작업:
+  - Phase 2 P2: 첫 회복 마일스톤 축하 다이얼로그
+  - Phase 2 P3: 오프라인 보상 다이얼로그에 다음 행동 1줄 추가
+  - 또는 Phase 0.5 P4 디자인 마이크로 폴리시
+  - 다음 새 버전 만들기 시 v0.5.0 자연스러운 후보
+
+## 2026-05-14
+
 - 작업: Phase 1 P3 — 작은 화면(360dp) 가독성 정리 + 큰 숫자 시나리오 Preview
 - 변경 파일:
   - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeScreen.kt (모든 카드 텍스트에 maxLines/overflow, Row weight 보호, 360dp 큰 숫자 Preview 추가)

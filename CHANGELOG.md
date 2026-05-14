@@ -6,6 +6,10 @@
 - 홈에 *지금 추천* 카드 추가: 사용자가 다음에 무엇을 하면 좋은지 한 가지를 강조 표시. 보호구역 확장이 가능하면 우선, 그 다음 회복 비용 대비 생산량 증가량(ROI)이 가장 좋은 동물, 둘 다 불가하면 가장 가까운 다음 행동까지 대기 시간 안내.
 - `RecommendedAction` sealed 인터페이스 (`UpgradeSanctuary` / `SupportRecovery` / `WaitForNext`)와 `BuildHomeUiStateUseCase`의 추천 우선순위 계산.
 - 홈 360dp(좁은 화면) + 큰 숫자(보호구역 Lv.99, 1.5M 보호 포인트, 999/sec 등) 시나리오용 Compose Preview 추가 (`HomeScreenSmallScreenPreview`) — 디자인 회귀 점검용.
+- 일일 보호 활동 보상(`DailyBonusCard`) — 로컬 자정 경계로 1일 1회 자격 부여, 보상은 *현재 생산량 × 3시간* (최소 50pt). 광고/결제 없이 순수 로컬. 자격이 있을 때만 홈에 카드가 노출되며, 수령 후 자정까지 사라짐. 다이얼로그가 아닌 카드 형태로 사용자 자율성 존중 (감정 압박형 강제 노출 회피).
+- `domain/dailybonus/DailyBonusRules` 도메인 객체 (eligibility + computeReward).
+- `GameState.lastDailyBonusClaimedAtMillis` (nullable) — DataStore 키 `last_daily_bonus_claimed_at`로 직렬화. 키가 없는 *기존 사용자*는 한 번도 받지 않은 것으로 간주되어 다음 진입 시 자격 부여 (혜택만 늘어나므로 안전).
+- `HomeUiState.dailyBonus: DailyBonusOffer?` + `HomeViewModel.claimDailyBonus()`.
 
 ### Changed
 - `HomeUiState.recommendedAction` 추가, 홈에서 `CarePointPanel` 바로 아래·`MilestoneCard` 위에 추천 카드 노출.
@@ -20,7 +24,8 @@
 
 ### Verification
 - `./gradlew :app:compileDebugKotlin` 성공
-- `./gradlew :app:testDebugUnitTest` 성공 (BuildHomeUiStateUseCase 4건 추가, 총 7건)
+- `./gradlew :app:testDebugUnitTest` 성공 (총 20건: BalanceCalculator 5 + DailyBonusRules 6 + BuildHomeUiStateUseCase 9)
+- 신규 테스트: 자정 경계 자격, 시간대 영향, 생산량 기반 보상 스케일링, 0 생산량 하한 클램프 등
 - `./gradlew :app:bundleRelease` (R8 활성화) 성공 — `minifyReleaseWithR8` 통과, AAB 4.8 MB, jarsigner verify OK
 - ⚠️ **R8 활성화 후 release 빌드 실기기 동작 확인은 미수행** — 다음 릴리즈 출시 전 사이드로드 테스트 필수
 

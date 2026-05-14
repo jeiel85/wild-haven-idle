@@ -5,6 +5,7 @@ import com.jeiel85.wildhavenidle.data.local.GameStateDataStore
 import com.jeiel85.wildhavenidle.data.model.GameState
 import com.jeiel85.wildhavenidle.data.model.ProtectedAnimal
 import com.jeiel85.wildhavenidle.domain.balance.BalanceCalculator
+import com.jeiel85.wildhavenidle.domain.dailybonus.DailyBonusRules
 import com.jeiel85.wildhavenidle.domain.definitions.AnimalDefinitions
 import com.jeiel85.wildhavenidle.domain.usecase.CheckUnlockConditionsUseCase
 import kotlinx.coroutines.flow.Flow
@@ -143,6 +144,35 @@ class GameRepository(
                 lastSavedAt = timeProvider.nowMillis(),
             ),
         )
+    }
+
+    /**
+     * 오늘의 일일 보호 활동 보상을 수령한다. 자격이 없으면 0.0 반환(아무 변화 없음).
+     * 보상량은 현재 생산량 기반으로 계산되며 carePoint에 즉시 추가된다.
+     */
+    suspend fun claimDailyBonus(): Double {
+        val current = gameState.first()
+        val now = timeProvider.nowMillis()
+        if (!DailyBonusRules.isEligible(current.lastDailyBonusClaimedAtMillis, now)) {
+            return 0.0
+        }
+
+        val productionPerSecond = BalanceCalculator.calculateTotalProductionPerSecond(
+            sanctuaryLevel = current.sanctuaryLevel,
+            protectedAnimals = current.protectedAnimals,
+            definitions = AnimalDefinitions.mvpAnimals,
+        )
+        val reward = DailyBonusRules.computeReward(productionPerSecond)
+
+        val updated = current.copy(
+            carePoint = current.carePoint + reward,
+            lastDailyBonusClaimedAtMillis = now,
+            lastSavedAt = now,
+        )
+        val final = applyUnlocks(updated, now)
+        localDataStore.save(final)
+
+        return reward
     }
 
     private fun applyUnlocks(state: GameState, now: Long): GameState {

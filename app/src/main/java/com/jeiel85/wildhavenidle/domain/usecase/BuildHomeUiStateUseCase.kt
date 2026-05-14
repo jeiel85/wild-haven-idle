@@ -6,7 +6,9 @@ import com.jeiel85.wildhavenidle.data.model.GameState
 import com.jeiel85.wildhavenidle.data.model.UnlockCondition
 import com.jeiel85.wildhavenidle.domain.balance.BalanceCalculator
 import com.jeiel85.wildhavenidle.domain.definitions.AnimalDefinitions
+import com.jeiel85.wildhavenidle.domain.dailybonus.DailyBonusRules
 import com.jeiel85.wildhavenidle.presentation.home.AnimalRecoveryItem
+import com.jeiel85.wildhavenidle.presentation.home.DailyBonusOffer
 import com.jeiel85.wildhavenidle.presentation.home.HomeUiState
 import com.jeiel85.wildhavenidle.presentation.home.NextUnlockProgress
 import com.jeiel85.wildhavenidle.presentation.home.RecommendedAction
@@ -20,6 +22,7 @@ class BuildHomeUiStateUseCase {
     operator fun invoke(
         gameState: GameState,
         offlineReward: Double?,
+        nowMillis: Long = System.currentTimeMillis(),
     ): HomeUiState {
         val animals = AnimalDefinitions.mvpAnimals
         val productionPerSecond = BalanceCalculator.calculateTotalProductionPerSecond(
@@ -63,6 +66,11 @@ class BuildHomeUiStateUseCase {
                 recoveryItems = recoveryItems,
                 productionPerSecond = productionPerSecond,
             ),
+            dailyBonus = if (DailyBonusRules.isEligible(gameState.lastDailyBonusClaimedAtMillis, nowMillis)) {
+                DailyBonusOffer(rewardAmount = DailyBonusRules.computeReward(productionPerSecond))
+            } else {
+                null
+            },
         )
     }
 

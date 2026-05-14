@@ -5,6 +5,8 @@ import com.jeiel85.wildhavenidle.data.model.ProtectedAnimal
 import com.jeiel85.wildhavenidle.presentation.home.RecommendedAction
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -103,5 +105,30 @@ class BuildHomeUiStateUseCaseTest {
         val ui = useCase(gameState = state, offlineReward = null)
 
         assertTrue(ui.recommendedAction is RecommendedAction.UpgradeSanctuary)
+    }
+
+    @Test
+    fun dailyBonusOfferedWhenNeverClaimed() {
+        val state = freshState() // lastDailyBonusClaimedAtMillis = null
+        val now = 1_000L
+
+        val ui = useCase(gameState = state, offlineReward = null, nowMillis = now)
+
+        assertNotNull("한 번도 받은 적 없으면 자격 부여", ui.dailyBonus)
+    }
+
+    @Test
+    fun dailyBonusHiddenSameCalendarDay() {
+        // 마지막 수령과 now가 같은 달력 날짜
+        val zone = java.time.ZoneId.systemDefault()
+        val today = java.time.LocalDate.now(zone)
+        val noon = today.atTime(12, 0).atZone(zone).toInstant().toEpochMilli()
+        val evening = today.atTime(20, 0).atZone(zone).toInstant().toEpochMilli()
+
+        val state = freshState().copy(lastDailyBonusClaimedAtMillis = noon)
+
+        val ui = useCase(gameState = state, offlineReward = null, nowMillis = evening)
+
+        assertNull("같은 날 두 번째 수령 차단", ui.dailyBonus)
     }
 }

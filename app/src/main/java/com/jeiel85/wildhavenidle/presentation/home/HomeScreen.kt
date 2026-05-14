@@ -63,6 +63,7 @@ fun HomeScreen(
         onSupportRecovery = viewModel::supportRecovery,
         onTapSanctuary = viewModel::tapSanctuary,
         onCompleteOnboarding = viewModel::completeOnboarding,
+        onClaimDailyBonus = viewModel::claimDailyBonus,
         onNavigateToArchive = onNavigateToArchive,
         onNavigateToSettings = onNavigateToSettings,
         modifier = modifier,
@@ -77,6 +78,7 @@ private fun HomeContent(
     onSupportRecovery: (String) -> Unit,
     onTapSanctuary: () -> Double,
     onCompleteOnboarding: () -> Unit,
+    onClaimDailyBonus: () -> Unit,
     onNavigateToArchive: () -> Unit,
     onNavigateToSettings: () -> Unit,
     modifier: Modifier = Modifier,
@@ -88,6 +90,7 @@ private fun HomeContent(
             onUpgradeSanctuary = onUpgradeSanctuary,
             onSupportRecovery = onSupportRecovery,
             onTapSanctuary = onTapSanctuary,
+            onClaimDailyBonus = onClaimDailyBonus,
             onNavigateToArchive = onNavigateToArchive,
             onNavigateToSettings = onNavigateToSettings,
         )
@@ -105,6 +108,7 @@ private fun HomeContentBody(
     onUpgradeSanctuary: () -> Unit,
     onSupportRecovery: (String) -> Unit,
     onTapSanctuary: () -> Double,
+    onClaimDailyBonus: () -> Unit,
     onNavigateToArchive: () -> Unit,
     onNavigateToSettings: () -> Unit,
 ) {
@@ -154,6 +158,13 @@ private fun HomeContentBody(
             productionPerSecond = uiState.productionPerSecond,
             tapReward = uiState.tapReward,
         )
+
+        uiState.dailyBonus?.let { offer ->
+            DailyBonusCard(
+                offer = offer,
+                onClaim = onClaimDailyBonus,
+            )
+        }
 
         RecommendedActionCard(
             action = uiState.recommendedAction,
@@ -270,6 +281,65 @@ private fun CarePointPanel(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.padding(start = spacing.sm),
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun DailyBonusCard(
+    offer: DailyBonusOffer,
+    onClaim: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val spacing = WildHavenTheme.spacing
+    val pulse = pulseScale(active = true)
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.medium,
+        color = MaterialTheme.colorScheme.secondaryContainer,
+        tonalElevation = WildHavenTheme.elevation.sm,
+    ) {
+        Column(modifier = Modifier.padding(spacing.cardPadding)) {
+            Text(
+                text = "오늘의 보호 활동 보상",
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+            Spacer(modifier = Modifier.height(spacing.xs + 2.dp))
+            Text(
+                text = "보호 포인트 +${NumberFormatter.compact(offer.rewardAmount)}",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+            Spacer(modifier = Modifier.height(spacing.xs))
+            Text(
+                text = "자정이 지나면 다시 받을 수 있습니다",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+            )
+            Spacer(modifier = Modifier.height(spacing.md))
+            Button(
+                onClick = onClaim,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .graphicsLayer { scaleX = pulse; scaleY = pulse },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.secondary,
+                ),
+            ) {
+                Text(
+                    text = "수령하기",
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                 )
             }
         }
@@ -676,6 +746,7 @@ private fun HomeScreenPreview() {
                 onSupportRecovery = {},
                 onTapSanctuary = { 1.2 },
                 onCompleteOnboarding = {},
+                onClaimDailyBonus = {},
                 onNavigateToArchive = {},
                 onNavigateToSettings = {},
             )
@@ -710,6 +781,7 @@ private fun HomeScreenSmallScreenPreview() {
                 onSupportRecovery = {},
                 onTapSanctuary = { 999.99 },
                 onCompleteOnboarding = {},
+                onClaimDailyBonus = {},
                 onNavigateToArchive = {},
                 onNavigateToSettings = {},
             )

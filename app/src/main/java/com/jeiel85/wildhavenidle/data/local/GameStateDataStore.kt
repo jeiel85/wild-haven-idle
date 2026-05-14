@@ -53,6 +53,12 @@ class GameStateDataStore(
             preferences[Keys.discoveredAnimalIds] = gameState.discoveredAnimalIds.joinToString(LIST_SEPARATOR)
             preferences[Keys.unlockedHabitatIds] = gameState.unlockedHabitatIds.joinToString(LIST_SEPARATOR)
             preferences[Keys.onboardingCompleted] = gameState.onboardingCompleted
+            val claimedAt = gameState.lastDailyBonusClaimedAtMillis
+            if (claimedAt != null) {
+                preferences[Keys.lastDailyBonusClaimedAt] = claimedAt
+            } else {
+                preferences.remove(Keys.lastDailyBonusClaimedAt)
+            }
         }
     }
 
@@ -65,6 +71,10 @@ class GameStateDataStore(
         // 온보딩을 다시 띄우지 않는다. 신규 키 도입 시 마이그레이션 기본값.
         val onboardingCompleted = this[Keys.onboardingCompleted] ?: true
 
+        // 일일 보너스 키가 없는 기존 사용자는 한 번도 받은 적 없는 것으로 간주
+        // → 다음 진입 시 자동으로 자격 부여. 사용자에게 혜택만 늘어나므로 안전.
+        val lastDailyBonus = this[Keys.lastDailyBonusClaimedAt]
+
         return GameState(
             carePoint = this[Keys.carePoint] ?: 0.0,
             sanctuaryLevel = this[Keys.sanctuaryLevel] ?: 1,
@@ -73,6 +83,7 @@ class GameStateDataStore(
             discoveredAnimalIds = decodeStringSet(this[Keys.discoveredAnimalIds]).ifEmpty { setOf("rabbit_001") },
             unlockedHabitatIds = decodeStringSet(this[Keys.unlockedHabitatIds]).ifEmpty { setOf("forest_001") },
             onboardingCompleted = onboardingCompleted,
+            lastDailyBonusClaimedAtMillis = lastDailyBonus,
         )
     }
 
@@ -116,5 +127,6 @@ class GameStateDataStore(
         val discoveredAnimalIds = stringPreferencesKey("discovered_animal_ids")
         val unlockedHabitatIds = stringPreferencesKey("unlocked_habitat_ids")
         val onboardingCompleted = booleanPreferencesKey("onboarding_completed")
+        val lastDailyBonusClaimedAt = longPreferencesKey("last_daily_bonus_claimed_at")
     }
 }

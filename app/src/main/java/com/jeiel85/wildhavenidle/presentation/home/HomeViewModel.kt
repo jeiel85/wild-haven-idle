@@ -74,4 +74,10 @@ class HomeViewModel(
             gameRepository.markOnboardingCompleted()
         }
     }
+
+    fun claimDailyBonus() {
+        viewModelScope.launch {
+            gameRepository.claimDailyBonus()
+        }
+    }
 }

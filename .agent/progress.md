@@ -84,6 +84,18 @@
 - 태그 v0.3.0 푸시 → Android Release 워크플로 성공 → GitHub Release 자동 생성
 - "새 버전 만들기" 워크플로 메모리에 태그 푸시 자동화 단계 추가
 
+### 2026-05-14 (일일 보상) — Phase 2 P1: 일일 보호 활동 보상
+
+- GameState에 lastDailyBonusClaimedAtMillis 추가 (nullable)
+- DataStore 키 last_daily_bonus_claimed_at, 키 없는 기존 사용자는 자동 자격 부여
+- domain/dailybonus/DailyBonusRules: 자정 경계 자격 판정 + 생산량 × 3시간 보상 (50pt 하한)
+- GameRepository.claimDailyBonus(), HomeViewModel.claimDailyBonus()
+- BuildHomeUiStateUseCase invoke에 nowMillis 인자 추가, dailyBonus 채움
+- DailyBonusCard composable (RecommendedActionCard 위에 노출, 자격 있을 때만)
+- 카드 형태로 사용자 자율성 존중 — 무시·능동 수령 가능 (다이얼로그 회피)
+- 단위 테스트 8건 추가 (DailyBonusRules 6 + UiState 자격 2), 총 20건 통과
+- compileDebugKotlin / testDebugUnitTest 성공
+
 ### 2026-05-14 (작은 화면) — Phase 1 P3: 360dp 가독성 보호
 
 - 홈 + 도감의 모든 사용자 노출 텍스트에 maxLines + overflow=Ellipsis 적용

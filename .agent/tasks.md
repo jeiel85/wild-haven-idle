@@ -60,7 +60,7 @@
 
 ## Commercialization Phase 2
 
-- [ ] Local daily login bonus (no ads, no network)
+- [x] Local daily login bonus (DailyBonusRules + DailyBonusCard, 자정 경계 기준 1일 1회, 보상 = 생산량 × 3시간 with 50pt 하한)
 - [ ] First-recovery milestone celebration dialog (per animal, once)
 - [ ] Offline reward dialog: append a 1-line next-step suggestion
 

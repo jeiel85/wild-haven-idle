@@ -18,6 +18,7 @@ data class HomeUiState(
     val nextUnlock: NextUnlockProgress? = null,
     val showOnboarding: Boolean = false,
     val recommendedAction: RecommendedAction = RecommendedAction.WaitForNext(0L, "다음 보호 행동"),
+    val dailyBonus: DailyBonusOffer? = null,
 )
 
 data class AnimalRecoveryItem(

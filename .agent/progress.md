@@ -81,4 +81,19 @@
 - `store-release-notes/v0.3.0.txt` 신규: `<ko-KR>`, `<en-US>` 태그 형식 (Play Console 다국어 출시 노트)
 - 로컬 서명 AAB 빌드: `app/build/outputs/bundle/release/app-release.aab` (8.8 MB)
 - `jarsigner -verify` 결과 `jar verified.`
-- 태그/푸시 자동화 없음(사용자 명시 요청 시에만 태그)
+- 태그 v0.3.0 푸시 → Android Release 워크플로 성공 → GitHub Release 자동 생성
+- "새 버전 만들기" 워크플로 메모리에 태그 푸시 자동화 단계 추가
+
+### 2026-05-14 (저녁) — Phase 0.5 디자인 트랙 개시
+
+- 비주얼 인상이 "절차적 Compose Canvas + 머티리얼 기본값"으로 졸업작품 톤에 머무름을 인지
+- 에셋 확보 경로 비교 후 *AI 생성 + 사람 검수* 방식으로 결정 (Kenney 등 CC0 팩으로는 "야생동물 5종 + 보호구역" 일관 톤 확보 어려움)
+- `docs/ART_DIRECTION.md`에 §8~§10 신설:
+  - 사용 가능 서비스 3종 비교 (Adobe Firefly 추천), 한 번에 하나만 사용 원칙
+  - 5-슬롯 프롬프트 템플릿, 고정 스타일 앵커, 고정 네거티브
+  - 시드/Reference 운영, Play Console 공시, 사람 검수 5단계 게이트
+  - 디렉터리 규약 (`docs/assets/source/`, `app/src/main/res/drawable-nodpi/`, `wh_*` 명명), 해상도 가이드
+- `docs/ASSET_LICENSES.md`에 AI 생성 에셋 메타 컬럼(§2) 추가, 라이선스 분류 정의, 프롬프트 SHA-256 기록 방식 도입
+- `docs/COMMERCIALIZATION_PLAN.md`에 §0.5 Design Polish 트랙 5개 항목(P1~P5) 추가
+- `.agent/tasks.md`에 Phase 0.5 태스크 등록 (파이프라인 문서화는 완료 표시)
+- 코드 변경 없음 — 빌드/테스트 영향 없음

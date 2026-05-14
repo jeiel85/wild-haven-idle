@@ -2,6 +2,29 @@
 
 ## 2026-05-14
 
+- 작업: 디자인 트랙 개시 — AI 에셋 생성 파이프라인 결정 문서화 (Phase 0.5 P0)
+- 변경 파일:
+  - docs/ART_DIRECTION.md (§8 AI 에셋 생성 파이프라인, §9 디렉터리 규약, §10 생성 후 워크플로 신설)
+  - docs/ASSET_LICENSES.md (§2 AI 생성 에셋 메타 컬럼 추가, 라이선스 분류 정의, 프롬프트 기록 방법 명문화)
+  - docs/COMMERCIALIZATION_PLAN.md (§0.5 Design Polish 트랙 5개 항목 추가, 현재 상태 갱신)
+  - .agent/tasks.md (Phase 0.5 디자인 폴리시 태스크 6개 등록, 파이프라인 문서화는 완료 표시)
+  - .agent/progress.md
+- 검증:
+  - 코드 변경 없음 — 빌드/테스트 영향 없음
+  - 문서 상호 참조 일관성 확인 (ART_DIRECTION ↔ ASSET_LICENSES ↔ COMMERCIALIZATION_PLAN)
+- 결과:
+  - 사용 가능한 AI 이미지 서비스 3종(Adobe Firefly / OpenAI gpt-image-1 / Imagen on Vertex)을 상업 사용 가능 기준으로 명시, Firefly를 기본 추천
+  - 모든 일러스트 프롬프트가 따라야 할 5-슬롯 템플릿(Subject/Setting/Style/Palette/Negative) 정의
+  - 스타일 앵커와 네거티브 프롬프트를 고정 문자열로 잠금 (재생성 시 톤 일관성 확보)
+  - 시드/Reference Image 운영, Play Console 공시 가이드, 사람 검수 게이트 5단계 명시
+  - 에셋 디렉터리/파일명/해상도 가이드와 ASSET_LICENSES 기록 절차 표준화
+  - 한 번에 하나의 AI 서비스만 사용한다는 "혼용 금지" 원칙 명문화
+- 후속 작업:
+  - Phase 0.5 P1: WildHavenTheme 토큰화 (AI 서비스 결정 없이도 시작 가능)
+  - 또는 사용자가 AI 서비스를 결정하면 Phase 0.5 P2 (보호구역 헤더 PNG 1장) 시범 도입
+
+## 2026-05-14
+
 - 작업: v0.3.0 릴리즈 준비 — 버전 갱신, 한/영 Play Store 출시 노트 작성, 로컬 서명 AAB 빌드
 - 변경 파일:
   - app/build.gradle.kts (versionCode 2 → 3, versionName 0.2.0 → 0.3.0)

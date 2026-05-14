@@ -40,7 +40,11 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            // R8 코드 축소·난독화·최적화. AAB의 리소스도 함께 축소.
+            // mapping.txt는 AGP가 자동으로 AAB 메타데이터에 포함하므로 Play Console이
+            // 별도 업로드 없이 디오브퓨스케이션에 사용한다.
+            isMinifyEnabled = true
+            isShrinkResources = true
             if (
                 releaseKeystorePath.isPresent &&
                 releaseKeystorePassword.isPresent &&

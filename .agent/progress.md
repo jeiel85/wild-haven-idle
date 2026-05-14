@@ -84,6 +84,17 @@
 - 태그 v0.3.0 푸시 → Android Release 워크플로 성공 → GitHub Release 자동 생성
 - "새 버전 만들기" 워크플로 메모리에 태그 푸시 자동화 단계 추가
 
+### 2026-05-14 (R8) — R8 활성화: 가독화 파일 + 크기 절반
+
+- Play Console "가독화 파일 없음" 경고 대응
+- isMinifyEnabled=true + isShrinkResources=true
+- proguard-rules.pro에 SourceFile/LineNumberTable 보존
+- AAB 크기 10.2 → 4.8 MB (~53% 감소)
+- mapping.txt 24 MB가 AAB BUNDLE-METADATA에 자동 포함 → Play Console 인식
+- baseline.prof도 함께 포함 (보너스)
+- bundleRelease 성공, jarsigner verified
+- ⚠️ release APK 실기기 동작 확인 미수행 — 다음 릴리즈 전 필수
+
 ### 2026-05-14 (v0.4.0 이후) — Phase 1 P2: 단일 추천 다음 행동 카드
 
 - 홈 `CarePointPanel` 아래에 "지금 추천" 카드 추가

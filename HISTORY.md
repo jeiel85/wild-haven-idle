@@ -2,6 +2,28 @@
 
 ## 2026-05-14
 
+- 작업: R8 코드/리소스 축소 활성화 — Play Console "가독화 파일 없음" 경고 대응
+- 변경 파일:
+  - app/build.gradle.kts (`isMinifyEnabled = true`, `isShrinkResources = true`)
+  - app/proguard-rules.pro (줄 번호/소스 파일 보존 + 프로젝트 고유 메모)
+  - CHANGELOG.md, .agent/progress.md
+- 검증:
+  - `./gradlew :app:bundleRelease` 성공 — `minifyReleaseWithR8` 통과
+  - AAB 크기: 10.2 MB → 4.8 MB (약 53% 감소)
+  - mapping.txt가 `BUNDLE-METADATA/com.android.tools.build.obfuscation/proguard.map`로 AAB에 자동 포함 (24 MB) → Play Console이 별도 업로드 없이 인식
+  - baseline.prof도 함께 포함 (첫 실행 속도 개선 보너스)
+  - jarsigner -verify → jar verified.
+  - **⚠️ minified release APK 실기기 동작 확인 미수행** — 다음 릴리즈 전 필수
+- 결과:
+  - Play Console "이 App Bundle 유형과 연결된 가독화 파일이 없습니다" 경고가 다음 릴리즈부터 사라질 것으로 기대
+  - 부수 효과: APK/AAB 크기 절반으로 축소 (사용자 다운로드 부담 감소)
+- 주의 사항 (사용자 수동 확인 필요):
+  - 다음 새 버전 만들기 전에 release APK를 실기기에 설치해 한 번 돌려볼 것
+  - 의심 시나리오: 앱 시작, 홈 진입, 보호구역 탭, 회복 지원, 보호구역 확장, 도감 진입, 설정 진입
+  - R8가 잘못 제거한 클래스로 인한 ClassNotFoundException/NoSuchMethodError가 출시 전에 잡혀야 함
+
+## 2026-05-14
+
 - 작업: Phase 1 P2 — 홈에 단일 추천 다음 행동 카드 도입
 - 변경 파일:
   - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/RecommendedAction.kt (신규)

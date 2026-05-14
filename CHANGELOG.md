@@ -9,9 +9,18 @@
 ### Changed
 - `HomeUiState.recommendedAction` 추가, 홈에서 `CarePointPanel` 바로 아래·`MilestoneCard` 위에 추천 카드 노출.
 
+### Build / CI
+- R8 코드 축소·난독화·최적화 활성화 (`isMinifyEnabled = true`).
+- 리소스 축소 활성화 (`isShrinkResources = true`).
+- `proguard-rules.pro`에 줄 번호/소스 파일 보존 (`-keepattributes SourceFile,LineNumberTable`) 추가 — 스택 트레이스 가독성 유지.
+- mapping.txt가 AGP에 의해 AAB의 `BUNDLE-METADATA/com.android.tools.build.obfuscation/proguard.map`로 자동 포함되어 Play Console이 별도 업로드 없이 디오브퓨스케이션에 사용.
+- AAB 크기 약 53% 감소 (10.2 MB → 4.8 MB) 예상 (로컬 빌드 기준).
+
 ### Verification
 - `./gradlew :app:compileDebugKotlin` 성공
 - `./gradlew :app:testDebugUnitTest` 성공 (BuildHomeUiStateUseCase 4건 추가, 총 7건)
+- `./gradlew :app:bundleRelease` (R8 활성화) 성공 — `minifyReleaseWithR8` 통과, AAB 4.8 MB, jarsigner verify OK
+- ⚠️ **R8 활성화 후 release 빌드 실기기 동작 확인은 미수행** — 다음 릴리즈 출시 전 사이드로드 테스트 필수
 
 ## v0.4.0 - 2026-05-14
 

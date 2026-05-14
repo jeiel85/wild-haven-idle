@@ -1,5 +1,33 @@
 # CHANGELOG.md
 
+## v0.2.0 - 2026-05-13
+
+### Added
+- 메인 화면에 인라인 업그레이드 통합: 보호구역 확장과 동물 회복 지원을 한 화면에서 처리 (별도 "구조 동물" 화면 제거)
+- 다음 해금 진척률 카드: 미해금 동물의 잠금 해제 조건(포인트/회복단계/생산량/보호종 수) 기반 진행률 표시
+- 헤더 보호구역 탭 인터랙션: 탭 1회당 `max(1, 초당 생산량)` 만큼 즉시 보상 + 탭 위치에서 `+N` 플로팅 텍스트
+- 보호한 동물 산책 애니메이션: 헤더에서 보호 동물 일러스트가 좌우 산책 + 상하 보빙 + 방향 반전
+- 보호구역 성장 시각화: 보호구역 레벨에 따라 추가 나무·들꽃이 결정적으로 늘어남
+- 헤더 환경 디테일: 태양 글로우, 흘러가는 구름, 나무 흔들림
+- 보호 포인트 카운터 보간 애니메이션 (`animateFloatAsState`)
+- 구매 가능한 업그레이드/회복 버튼 펄스 효과 (1.0 ↔ 1.04 스케일)
+
+### Changed
+- HomeUiState에 `sanctuaryUpgradeCost`, `animals`, `protectedAnimalIds`, `nextUnlock`, `tapReward` 통합
+- BuildHomeUiStateUseCase에서 동물 회복 항목과 다음 해금 진척률 계산 일원화
+- HomeViewModel에 `upgradeSanctuary()`, `supportRecovery(id)`, `tapSanctuary()` 액션 추가
+- 네비게이션에서 `ANIMALS` 라우트 제거, 홈 → 도감/설정만 유지
+
+### Fixed
+- Android 15+ 강제 edge-to-edge 환경에서 펀치홀/노치 유무에 따라 상단바와 콘텐츠가 겹치는 정도가 달라지던 문제: `MainActivity.enableEdgeToEdge()` 적용 + 모든 화면 루트에 `Modifier.windowInsetsPadding(WindowInsets.safeDrawing)` 적용
+
+### Removed
+- `AnimalListScreen`, `AnimalListViewModel`, `AnimalListViewModelFactory`, `AnimalListUiState` 4파일과 `presentation.animals` 패키지 제거 (홈 화면으로 통합됨)
+
+### Verification
+- `./gradlew :app:compileDebugKotlin` 성공
+- `./gradlew :app:testDebugUnitTest` 성공
+
 ## v0.1.0 - 2026-05-13
 
 ### Added

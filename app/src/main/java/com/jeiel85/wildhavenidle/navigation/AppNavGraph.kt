@@ -6,8 +6,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.jeiel85.wildhavenidle.data.repository.GameRepository
-import com.jeiel85.wildhavenidle.presentation.animals.AnimalListScreen
-import com.jeiel85.wildhavenidle.presentation.animals.AnimalListViewModelFactory
 import com.jeiel85.wildhavenidle.presentation.archive.ArchiveScreen
 import com.jeiel85.wildhavenidle.presentation.archive.ArchiveViewModelFactory
 import com.jeiel85.wildhavenidle.presentation.home.HomeScreen
@@ -25,15 +23,8 @@ fun AppNavGraph(gameRepository: GameRepository) {
         composable(Routes.HOME) {
             HomeScreen(
                 viewModel = viewModel(factory = HomeViewModelFactory(gameRepository)),
-                onNavigateToAnimals = { navController.navigate(Routes.ANIMALS) },
                 onNavigateToArchive = { navController.navigate(Routes.ARCHIVE) },
                 onNavigateToSettings = { navController.navigate(Routes.SETTINGS) },
-            )
-        }
-        composable(Routes.ANIMALS) {
-            AnimalListScreen(
-                viewModel = viewModel(factory = AnimalListViewModelFactory(gameRepository)),
-                onNavigateBack = { navController.popBackStack() },
             )
         }
         composable(Routes.ARCHIVE) {

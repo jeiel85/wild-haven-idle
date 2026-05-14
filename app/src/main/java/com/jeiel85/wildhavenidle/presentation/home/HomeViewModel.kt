@@ -48,4 +48,24 @@ class HomeViewModel(
     fun clearOfflineReward() {
         offlineReward.value = null
     }
+
+    fun upgradeSanctuary() {
+        viewModelScope.launch {
+            gameRepository.upgradeSanctuary()
+        }
+    }
+
+    fun supportRecovery(animalId: String) {
+        viewModelScope.launch {
+            gameRepository.supportAnimalRecovery(animalId)
+        }
+    }
+
+    fun tapSanctuary(): Double {
+        val reward = uiState.value.tapReward
+        viewModelScope.launch {
+            gameRepository.addCarePoint(reward)
+        }
+        return reward
+    }
 }

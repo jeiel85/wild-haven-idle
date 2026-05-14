@@ -1,0 +1,6 @@
+• Inline upgrades on the home screen: expand the sanctuary and support animal recovery from one place.
+• Rescued animals now stroll across the top of the screen.
+• Tap the sanctuary for bonus care points — a floating +amount appears where you tapped.
+• A new milestone card shows progress toward your next species unlock.
+• Affordable upgrades pulse gently so they stand out.
+• Fixed top-bar overlap on devices with notches and punch-hole cameras.

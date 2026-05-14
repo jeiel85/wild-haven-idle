@@ -1,5 +1,33 @@
 # HISTORY.md
 
+## 2026-05-14
+
+- 작업: v0.2.0 홈 화면 통합과 스토어 그래픽 준비
+- 변경 파일:
+  - app/build.gradle.kts
+  - app/src/main/java/com/jeiel85/wildhavenidle/MainActivity.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/domain/usecase/BuildHomeUiStateUseCase.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/navigation/AppNavGraph.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/navigation/Routes.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/archive/ArchiveScreen.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/components/SanctuaryHeader.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeScreen.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeUiState.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeViewModel.kt
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/settings/SettingsScreen.kt
+  - store-graphics/**
+  - CHANGELOG.md
+- 검증:
+  - `.\gradlew.bat :app:compileDebugKotlin` 실행 성공
+  - `.\gradlew.bat :app:testDebugUnitTest` 실행 성공
+- 결과:
+  - 홈 화면에서 보호구역 확장, 동물 회복 지원, 다음 해금 진척률, 탭 보상을 통합
+  - 별도 구조 동물 목록 화면을 제거하고 홈 중심 플레이 흐름으로 정리
+  - 앱 버전을 0.2.0으로 갱신하고 스토어 그래픽/릴리즈 노트 초안을 추가
+- 후속 작업:
+  - 상용화 개선 계획을 `docs/COMMERCIALIZATION_PLAN.md`와 `.agent/tasks.md`에 정리
+  - 온보딩, 다음 목표 카드, 일일 과제 기초 구조 구현
+
 ## 2026-05-13
 
 - 작업: Wild Haven Idle 프로젝트 기획 및 개발 규칙 초기화

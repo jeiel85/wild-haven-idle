@@ -2,6 +2,40 @@
 
 ## 2026-05-14
 
+- 작업: v0.5.0 릴리즈 준비 — 추천 카드 + 가독성 + R8 + 일일 보상을 한 릴리즈로 묶음
+- 변경 파일:
+  - app/build.gradle.kts (versionCode 4 → 5, versionName 0.4.0 → 0.5.0)
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/settings/SettingsScreen.kt (표기 v0.5.0)
+  - CHANGELOG.md (Unreleased → v0.5.0 승격, Build/CI · Verification 추가)
+  - store-release-notes/v0.5.0.txt (신규, ko-KR 222자 / en-US 405자)
+  - HISTORY.md, .agent/progress.md
+- 산출물:
+  - AAB: `D:\Project\wild-haven-idle\app\build\outputs\bundle\release\app-release.aab` (4.85 MB, versionName=0.5.0, versionCode=5)
+  - 출시 노트: `store-release-notes/v0.5.0.txt`
+  - 서명 인증서: `CN=Wild Haven Idle, OU=Release, O=Jeiel85` (RSA 4096)
+- 검증:
+  - `./gradlew :app:bundleRelease` 성공 — `minifyReleaseWithR8` 통과
+  - `jarsigner -verify` → `jar verified.`
+  - AAB 매니페스트 versionName=0.5.0 확인
+  - `BUNDLE-METADATA/com.android.tools.build.obfuscation/proguard.map` (24 MB) 자동 포함 → Play Console 디오브퓨스케이션 준비 완료
+  - `baseline.prof`도 자동 포함 (첫 실행 속도 보너스)
+  - 출시 노트 글자수 (Python 유니코드 카운트): ko-KR 222 / en-US 405 (한도 500 안)
+  - 실기기/Play Console 업로드는 사용자 수동 단계
+- 결과:
+  - v0.4.0 대비 차이점:
+    1. 홈에 *지금 추천* 단일 다음 행동 카드 (Phase 1 P2)
+    2. 360dp 좁은 화면 가독성 보호 + 큰 숫자 시나리오 Preview (Phase 1 P3)
+    3. R8 코드/리소스 축소 활성화 — Play Console 가독화 파일 자동 인식, AAB 절반 크기 (10.2 MB → 4.85 MB)
+    4. 로컬 일일 보호 활동 보상 카드 (Phase 2 P1) — 자정 경계 1일 1회, 광고/결제 없음
+- ⚠️ 사용자 검증 권고:
+  - 다음 출시 전에 release APK를 실기기에 사이드로드해서 한 번 돌려봐 주세요 (R8 활성화 후 첫 사용자 노출 릴리즈)
+  - 시나리오: 앱 시작 / 홈 진입 / 보호구역 탭 / 회복 지원 / 보호구역 확장 / 도감 / 설정 / **일일 보상 수령** / **추천 카드 누르기**
+- 후속 작업:
+  - 태그 v0.5.0 푸시 → Android Release 워크플로 자동 트리거 → GitHub Release 자동 생성
+  - Play Console에 AAB 업로드 + 출시 노트 ko-KR/en-US 블록 붙여넣기
+
+## 2026-05-14
+
 - 작업: Phase 2 P1 — 일일 보호 활동 보상 (로컬 자정 경계 1일 1회)
 - 변경 파일:
   - app/src/main/java/com/jeiel85/wildhavenidle/data/model/GameState.kt (lastDailyBonusClaimedAtMillis 추가)

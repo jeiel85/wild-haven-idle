@@ -84,6 +84,14 @@
 - 태그 v0.3.0 푸시 → Android Release 워크플로 성공 → GitHub Release 자동 생성
 - "새 버전 만들기" 워크플로 메모리에 태그 푸시 자동화 단계 추가
 
+### 2026-05-14 (v0.5.0 묶음 릴리즈)
+
+- versionCode 5 / versionName 0.5.0
+- CHANGELOG Unreleased → v0.5.0 승격 (추천 카드 + 가독성 + R8 + 일일 보상 묶음)
+- store-release-notes/v0.5.0.txt 신규 (ko 222 / en 405자)
+- 로컬 서명 AAB: 4.85 MB (R8 활성, mapping/baseline.prof 자동 포함, jarsigner verified)
+- 다음: 커밋·푸시 → 태그 v0.5.0 푸시 → Android Release 워크플로 자동 트리거 → GitHub Release 자동 생성
+
 ### 2026-05-14 (일일 보상) — Phase 2 P1: 일일 보호 활동 보상
 
 - GameState에 lastDailyBonusClaimedAtMillis 추가 (nullable)

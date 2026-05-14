@@ -1,6 +1,6 @@
 # CHANGELOG.md
 
-## Unreleased - 2026-05-14
+## v0.5.0 - 2026-05-14
 
 ### Added
 - 홈에 *지금 추천* 카드 추가: 사용자가 다음에 무엇을 하면 좋은지 한 가지를 강조 표시. 보호구역 확장이 가능하면 우선, 그 다음 회복 비용 대비 생산량 증가량(ROI)이 가장 좋은 동물, 둘 다 불가하면 가장 가까운 다음 행동까지 대기 시간 안내.
@@ -22,10 +22,17 @@
 - mapping.txt가 AGP에 의해 AAB의 `BUNDLE-METADATA/com.android.tools.build.obfuscation/proguard.map`로 자동 포함되어 Play Console이 별도 업로드 없이 디오브퓨스케이션에 사용.
 - AAB 크기 약 53% 감소 (10.2 MB → 4.8 MB) 예상 (로컬 빌드 기준).
 
+### Build / CI
+- `versionCode` 4 → 5, `versionName` 0.4.0 → 0.5.0
+- 한국어/영어 Play Store 출시 노트: `store-release-notes/v0.5.0.txt`
+
 ### Verification
 - `./gradlew :app:compileDebugKotlin` 성공
 - `./gradlew :app:testDebugUnitTest` 성공 (총 20건: BalanceCalculator 5 + DailyBonusRules 6 + BuildHomeUiStateUseCase 9)
 - 신규 테스트: 자정 경계 자격, 시간대 영향, 생산량 기반 보상 스케일링, 0 생산량 하한 클램프 등
+- `./gradlew :app:bundleRelease` 로컬 서명 성공 (R8 활성, mapping AAB 메타에 자동 포함)
+- `jarsigner -verify app-release.aab` → `jar verified.`
+- ⚠️ R8 활성화 release 빌드 실기기 동작 확인은 미수행 — 사용자 사이드로드 검증 권고 (앱 시작 / 홈 / 보호구역 탭 / 회복 지원 / 보호구역 확장 / 도감 / 설정 / 일일 보상 수령)
 - `./gradlew :app:bundleRelease` (R8 활성화) 성공 — `minifyReleaseWithR8` 통과, AAB 4.8 MB, jarsigner verify OK
 - ⚠️ **R8 활성화 후 release 빌드 실기기 동작 확인은 미수행** — 다음 릴리즈 출시 전 사이드로드 테스트 필수
 

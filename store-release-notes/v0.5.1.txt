@@ -1,0 +1,20 @@
+<ko-KR>
+홈 화면을 더 보기 좋게 정돈했습니다.
+
+• 카드 순서 정리: 보호구역 상태 → 보호 포인트 → 지금 추천 → 다음 해금 → 오늘의 보상 순으로, 첫 화면에서 한눈에 읽힙니다.
+• 추천 카드 강조: 지금 가장 가치 있는 행동이 화면에서 가장 또렷하게 보이도록 색과 그림자를 정돈했습니다.
+• 보호구역 헤더 위 레벨 표시가 어떤 배경에서도 잘 보이도록 가독성을 보강했습니다.
+• 하단 도감·설정 버튼은 보조 행동에 맞게 톤을 차분하게 정리했습니다.
+
+진행 데이터는 그대로 보존됩니다.
+</ko-KR>
+<en-US>
+The home screen is easier to read at a glance.
+
+• Card order: sanctuary status → care points → now recommended → next unlock → today's reward.
+• Stronger "now recommended" card: the single best next action stands out with clearer color and shadow.
+• Sanctuary header level badge is readable on every background.
+• Bottom archive / settings buttons toned down for their supporting role.
+
+All your existing progress is preserved.
+</en-US>

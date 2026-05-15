@@ -1,5 +1,25 @@
 # Progress
 
+## 2026-05-15 (저녁) — v0.5.1 릴리즈 준비
+
+### Done
+
+- 버전 갱신: versionCode 5 → 6, versionName 0.5.0 → 0.5.1 (`app/build.gradle.kts`, SettingsScreen 표기)
+- CHANGELOG Unreleased → v0.5.1 - 2026-05-15 승격, Build/CI · Verification 추가
+- 출시 노트 신규: `store-release-notes/v0.5.1.txt` (ko-KR 269 / en-US 427자, 500자 한도 안)
+- 로컬 서명 AAB 빌드 성공: `app-release.aab` 4.64 MB
+  - R8 활성 유지 (`minifyReleaseWithR8` 통과), mapping.txt AAB BUNDLE-METADATA에 자동 포함
+  - `jarsigner -verify` → `jar verified.`
+- 바탕화면 자동 복사 (Play Console 업로드 가속):
+  - `C:\Users\jeiel\OneDrive\바탕 화면\wild-haven-idle-v0.5.1.aab`
+  - `C:\Users\jeiel\OneDrive\바탕 화면\wild-haven-idle-v0.5.1-release-notes.txt`
+
+### Not Done
+
+- 태그 v0.5.1 푸시 (커밋 직후 자동 실행 예정)
+- 실기기 사이드로드 검증 (사용자 수동 단계)
+- Play Console 업로드 (사용자 수동 단계)
+
 ## 2026-05-15 (오후) — Phase 0.5 P4 1차: 홈 카드/버튼 마이크로 폴리시
 
 ### Done

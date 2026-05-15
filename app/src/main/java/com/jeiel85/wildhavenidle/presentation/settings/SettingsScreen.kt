@@ -103,7 +103,7 @@ fun SettingsScreen(
                 )
                 Spacer(modifier = Modifier.height(spacing.sm))
                 Text(
-                    text = "Wild Haven Idle v0.5.0",
+                    text = "Wild Haven Idle v0.5.1",
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Text(

@@ -1,6 +1,6 @@
 # CHANGELOG.md
 
-## Unreleased
+## v0.5.1 - 2026-05-15
 
 ### Changed
 - 홈 화면 카드 순서 정렬: `보호구역 헤더 → 보호 포인트 → 지금 추천 → 다음 해금 → 일일 보상 → 보호구역 확장 → 보호 중인 동물`. 사용자가 첫 스크롤에서 "현재 상태 → 보호 포인트 → 추천 행동 → 보상/진행" 순서로 한눈에 읽히도록 재배치 (Phase 0.5 P4).
@@ -14,10 +14,16 @@
 - `docs/ART_DIRECTION.md` §11 신설: 에셋 분류 규칙(`keep` / `repurpose` / `replace`)과 현재 도입된 에셋의 분류 표(2026-05-15 기준 동물 5종/헤더/앱 아이콘 모두 `keep`, 스토어 그래픽은 `review`).
 - 의심 에셋 처리 절차 명문화: 분류 결정 → 본 문서에 기록 → §8~§10으로 새 에셋 생성 → 한 PR에서 교체. *즉흥 판단으로 시리즈 일관성을 무너뜨리는 것*을 막는다.
 
+### Build / CI
+- `versionCode` 5 → 6, `versionName` 0.5.0 → 0.5.1
+- 한국어/영어 Play Store 출시 노트: `store-release-notes/v0.5.1.txt`
+
 ### Verification
 - `./gradlew :app:compileDebugKotlin` 성공
 - `./gradlew :app:testDebugUnitTest` 성공 (회귀 없음)
-- 실기기/Studio Preview 시각 회귀 점검은 후속 작업으로 분리
+- `./gradlew :app:bundleRelease` 로컬 서명 성공 (R8 활성 유지)
+- `jarsigner -verify -strict app-release.aab` → `jar verified.`
+- ⚠️ 실기기/Studio Preview 시각 회귀 점검은 사용자 사이드로드 권고: 앱 시작 / 홈 진입 (카드 순서·추천 강조·도감/설정 OutlinedButton) / 보호구역 헤더 Lv.N 알약 가독성 / 보호구역 탭 / 회복 지원 / 보호구역 확장 / 도감 / 설정
 
 ## v0.5.0 - 2026-05-14
 

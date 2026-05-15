@@ -2,6 +2,42 @@
 
 ## 2026-05-15
 
+- 작업: v0.5.1 릴리즈 준비 — 홈 마이크로 폴리시(Phase 0.5 P4 1차)를 사용자에게 전달
+- 변경 파일:
+  - app/build.gradle.kts (versionCode 5 → 6, versionName 0.5.0 → 0.5.1)
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/settings/SettingsScreen.kt (표기 v0.5.1)
+  - CHANGELOG.md (Unreleased → v0.5.1 - 2026-05-15 승격, Build/CI · Verification 추가)
+  - store-release-notes/v0.5.1.txt (신규, ko-KR 269자 / en-US 427자, 한도 500자 내)
+  - HISTORY.md, .agent/progress.md
+- 산출물:
+  - AAB: `D:\Project\wild-haven-idle\app\build\outputs\bundle\release\app-release.aab` (4.64 MB, versionName=0.5.1, versionCode=6)
+  - 출시 노트: `store-release-notes/v0.5.1.txt`
+  - 바탕화면 복사본 (Play Console 업로드용):
+    - `C:\Users\jeiel\OneDrive\바탕 화면\wild-haven-idle-v0.5.1.aab`
+    - `C:\Users\jeiel\OneDrive\바탕 화면\wild-haven-idle-v0.5.1-release-notes.txt`
+- 검증:
+  - `./gradlew :app:bundleRelease` 로컬 서명 성공 — `minifyReleaseWithR8` 통과, `signReleaseBundle` 통과
+  - `jarsigner -verify app-release.aab` → `jar verified.` (self-signed 경고는 keystore 특성상 정상)
+  - 출시 노트 글자수 (유니코드 codepoint): ko-KR 269 / en-US 427 (500자 한도 안)
+  - 실기기/Play Console 업로드는 사용자 수동 단계
+- 결과:
+  - v0.5.0 대비 차이점 (사용자 관점):
+    1. 홈 화면 카드 순서가 `보호구역 상태 → 보호 포인트 → 지금 추천 → 다음 해금 → 일일 보상 → 보호구역 확장 → 동물 목록`으로 정렬되어 첫 스크롤에서 한눈에 읽힘
+    2. *지금 추천* 카드가 가장 강한 시각 위계로 강조됨 (primaryContainer + 더 진한 그림자 + primary 버튼)
+    3. 보호구역 헤더 위 Lv.N 라벨이 어떤 배경에서도 가독 가능 (반투명 알약 + 짙은 텍스트)
+    4. 하단 도감/설정 버튼이 OutlinedButton으로 톤 다운 — 메인 행동이 자연스럽게 더 강조됨
+    5. ART_DIRECTION.md §11 에셋 분류 규칙 항구화
+  - 코드 변경은 micro-polish만 (도메인/저장 데이터 변경 없음 → 마이그레이션 위험 0)
+- ⚠️ 사용자 검증 권고:
+  - release APK를 실기기에 사이드로드해서 한 번 돌려봐 주세요 (R8 활성, 카드 순서·강조·헤더 라벨 가독성 변경 후 첫 사용자 노출 릴리즈)
+  - 시나리오: 앱 시작 / 홈 진입 (카드 순서, *지금 추천* 강조, 헤더 Lv.N 알약 가독성) / 보호구역 탭 / 회복 지원 / 보호구역 확장 / 도감 / 설정 / 일일 보상 수령
+- 후속 작업:
+  - 태그 v0.5.1 푸시 → Android Release 워크플로 자동 트리거 → GitHub Release 자동 생성
+  - Play Console에 AAB 업로드 + 출시 노트 ko-KR/en-US 블록 붙여넣기
+  - Phase 0.5 P4 후속 (MilestoneCard 진행률 타이포, SanctuaryHeader Lv 라벨에 도감 진척 결합) 또는 Phase 0.5 P5 (모션 토큰 통일)
+
+## 2026-05-15
+
 - 작업: Phase 0.5 P4 1차 — 홈 카드/버튼 마이크로 폴리시 (시각 위계 정리)
 - 변경 파일:
   - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeScreen.kt (카드 순서 재정렬, 추천 카드 강조 격상, SanctuaryUpgradeCard 강조 하향, AnimalRecoveryCard elevation 통일, 하단 도감/설정 OutlinedButton 전환, `OutlinedButton` import 추가)

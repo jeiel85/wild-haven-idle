@@ -1,5 +1,24 @@
 # CHANGELOG.md
 
+## Unreleased
+
+### Changed
+- 홈 화면 카드 순서 정렬: `보호구역 헤더 → 보호 포인트 → 지금 추천 → 다음 해금 → 일일 보상 → 보호구역 확장 → 보호 중인 동물`. 사용자가 첫 스크롤에서 "현재 상태 → 보호 포인트 → 추천 행동 → 보상/진행" 순서로 한눈에 읽히도록 재배치 (Phase 0.5 P4).
+- 홈 추천 카드 강조 격상: 컨테이너 색을 `tertiaryContainer` → `primaryContainer`, tonal elevation을 `sm` → `md`, 메인 버튼 색을 `tertiary` → `primary`. 추천 행동이 화면에서 가장 강한 시각 위계를 가짐.
+- 홈 보호구역 확장 카드(`SanctuaryUpgradeCard`)의 컨테이너 색을 `primaryContainer` → `surface` + `tonalElevation = sm`로 한 단계 낮춤. 추천 카드와의 강조 충돌을 줄임.
+- 홈 보호 중인 동물 카드(`AnimalRecoveryCard`)의 tonal elevation을 `md` → `sm`로 통일.
+- 홈 하단 보조 navigation 버튼(`도감` / `설정`)을 `Button(buttonColors)` → `OutlinedButton`로 변경. 보조 행동의 강조를 낮춰 메인 행동(추천/일일 보상)이 자연스럽게 더 강조됨.
+- 보호구역 헤더(`SanctuaryHeader`) 위 `Lv.N` 라벨에 반투명 흰색 알약 배경(`shapes.small` + 82% alpha)을 추가하고 텍스트 색을 더 짙은 톤(`#1F3A28`)으로 조정. 헤더 PNG의 어두운 잎 영역 위에서 가독성 확보.
+
+### Documentation
+- `docs/ART_DIRECTION.md` §11 신설: 에셋 분류 규칙(`keep` / `repurpose` / `replace`)과 현재 도입된 에셋의 분류 표(2026-05-15 기준 동물 5종/헤더/앱 아이콘 모두 `keep`, 스토어 그래픽은 `review`).
+- 의심 에셋 처리 절차 명문화: 분류 결정 → 본 문서에 기록 → §8~§10으로 새 에셋 생성 → 한 PR에서 교체. *즉흥 판단으로 시리즈 일관성을 무너뜨리는 것*을 막는다.
+
+### Verification
+- `./gradlew :app:compileDebugKotlin` 성공
+- `./gradlew :app:testDebugUnitTest` 성공 (회귀 없음)
+- 실기기/Studio Preview 시각 회귀 점검은 후속 작업으로 분리
+
 ## v0.5.0 - 2026-05-14
 
 ### Added

@@ -8,6 +8,7 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -130,10 +132,15 @@ fun SanctuaryHeader(
         Text(
             text = "Lv.$sanctuaryLevel",
             style = MaterialTheme.typography.labelLarge,
-            color = Color(0xFF3A4F3A),
+            color = Color(0xFF1F3A28),
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier
-                .offset(x = 12.dp, y = 12.dp),
+                .offset(x = 12.dp, y = 12.dp)
+                .background(
+                    color = Color(0xFFFFFFFF).copy(alpha = 0.82f),
+                    shape = MaterialTheme.shapes.small,
+                )
+                .padding(horizontal = 8.dp, vertical = 2.dp),
         )
     }
 }

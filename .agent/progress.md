@@ -1,5 +1,42 @@
 # Progress
 
+## 2026-05-15 (오후) — Phase 0.5 P4 1차: 홈 카드/버튼 마이크로 폴리시
+
+### Done
+
+- 홈 화면 카드 순서 재정렬: `헤더 → 타이틀 → 보호 포인트 → 지금 추천 → 다음 해금 → 일일 보상 → 보호구역 확장 → 동물 목록 → 보조 navigation`
+  - 사용자 요구 우선순위 `현재 보호구역 상태 → 보호 포인트 → 추천 행동 → 보상/진행`을 첫 스크롤에서 한눈에 읽히게 정렬
+  - 기존 순서에서는 일일 보상이 추천 위에 있어 추천 행동의 강조가 약했다 — 추천을 보호 포인트 바로 아래로 끌어올림
+- 추천 카드(`RecommendedActionCard`) 강조 격상
+  - 컨테이너 색: `tertiaryContainer` → `primaryContainer`
+  - tonal elevation: `sm` → `md`
+  - 메인 버튼 색: `tertiary` → `primary` (기본 머티리얼 톤 사용)
+  - `onPrimaryContainer` 텍스트 색으로 정합성 유지
+- 보호구역 확장 카드(`SanctuaryUpgradeCard`) 강조 하향
+  - 컨테이너 색: `primaryContainer` → `surface`, `tonalElevation = sm` 추가
+  - 추천 카드와 동일 색이 경쟁하는 문제 해소
+- 보호 중인 동물 카드(`AnimalRecoveryCard`) tonal elevation `md` → `sm` 통일
+- 홈 하단 도감/설정 버튼: `Button(filled)` → `OutlinedButton` (낮은 강조)
+  - 보조 행동이 메인 행동만큼 강하게 보이던 문제 해소
+- 보호구역 헤더 `Lv.N` 라벨 가독성 보강
+  - 반투명 흰색 알약 배경(`shapes.small` + 82% alpha)
+  - 텍스트 색 `#3A4F3A` → `#1F3A28` (헤더 PNG의 잎 영역 위에서도 식별)
+- 에셋 분류 규칙 항구화: `docs/ART_DIRECTION.md` §11 신설
+  - `keep` / `repurpose` / `replace` 정의
+  - 현재 분류표 (동물 5종 PNG + 헤더 PNG + 앱 아이콘 + AnimalSilhouette = `keep`, 스토어 그래픽 = `review`, `repurpose`/`replace` 후보 없음)
+  - 의심 에셋 처리 절차 (분류 → 기록 → 새 에셋 생성 → 한 PR 교체)
+- 검증
+  - `./gradlew :app:compileDebugKotlin` 성공
+  - `./gradlew :app:testDebugUnitTest` 성공 (회귀 없음)
+
+### Not Done
+
+- 실기기/Compose Preview 시각 회귀 점검 (Android Studio 미사용 환경, 다음 세션 또는 사용자 사이드로드 시 확인 필요)
+- 360dp 작은 화면에서 OutlinedButton 두 개의 텍스트 잘림 여부 시각 확인 (`maxLines=1` + Ellipsis는 적용됨)
+- MilestoneCard 진행률 타이포 추가 정돈 (현재 % 라벨만 강조됨) — P4 후속
+- SanctuaryHeader Lv 라벨에 도감 진척 등 추가 정보 결합 검토 — P4 후속
+- Phase 0.5 P5 (모션 timing/easing 토큰 통일) — 미착수
+
 ## 2026-05-15
 
 ### Done

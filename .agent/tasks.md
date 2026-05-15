@@ -50,12 +50,14 @@
   - [x] `AnimalIllustration` map switch: 5종 모두 PNG, `color` 파라미터 제거 (절차적 호출 폐기)
   - [x] `AnimalSilhouette` (LOCKED) 절차적 Canvas 유지 — 그레이 통일감 위해 의도적 보존
 - [ ] P4: Card/button micro-polish (shadow, radius, spacing, progress typography)
-  - [ ] Audit Home first screen before generating/replacing more assets
-  - [ ] Keep current animal/header PNGs unless a concrete `replace` reason is found
-  - [ ] Classify any questionable asset as `keep` / `repurpose` / `replace`
-  - [ ] Make primary action hierarchy clear: current status → care points → recommended action → rewards/progress
-  - [ ] Tune card background/elevation/radius/spacing/button emphasis through `WildHavenTheme` tokens
-  - [ ] Verify normal and 360dp previews for text overlap, button clipping, and image crowding
+  - [x] Audit Home first screen before generating/replacing more assets (2026-05-15)
+  - [x] Keep current animal/header PNGs unless a concrete `replace` reason is found (현재 분류는 모두 `keep`)
+  - [x] Classify any questionable asset as `keep` / `repurpose` / `replace` — `docs/ART_DIRECTION.md` §11 신설
+  - [x] Make primary action hierarchy clear: current status → care points → recommended action → rewards/progress — 카드 순서 재정렬 적용
+  - [x] Tune card background/elevation/radius/spacing/button emphasis through `WildHavenTheme` tokens — 추천 카드 강조, 보조 버튼 Outlined, elevation 정렬
+  - [ ] Verify normal and 360dp previews for text overlap, button clipping, and image crowding — 실기기/Studio Preview 시각 회귀 점검 후속
+  - [ ] (후속) MilestoneCard 진행률 타이포 추가 정돈 (현재 % 라벨만 강조됨)
+  - [ ] (후속) SanctuaryHeader 위 Lv 라벨에 도감 진척 등 추가 정보 결합 검토
 - [ ] P5: Motion timing/easing tokens unified
 
 ## Commercialization Phase 1 (per docs/COMMERCIALIZATION_PLAN.md)

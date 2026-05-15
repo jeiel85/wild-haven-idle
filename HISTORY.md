@@ -2,6 +2,35 @@
 
 ## 2026-05-15
 
+- 작업: Phase 0.5 P4 1차 — 홈 카드/버튼 마이크로 폴리시 (시각 위계 정리)
+- 변경 파일:
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/home/HomeScreen.kt (카드 순서 재정렬, 추천 카드 강조 격상, SanctuaryUpgradeCard 강조 하향, AnimalRecoveryCard elevation 통일, 하단 도감/설정 OutlinedButton 전환, `OutlinedButton` import 추가)
+  - app/src/main/java/com/jeiel85/wildhavenidle/presentation/components/SanctuaryHeader.kt (Lv.N 라벨 반투명 알약 배경 + 텍스트 색 짙은 톤 조정, `background`/`padding` import 추가)
+  - docs/ART_DIRECTION.md (§11 에셋 분류 규칙 신설, 현재 분류표 + 의심 에셋 처리 절차)
+  - .agent/tasks.md (P4 체크리스트 일부 체크, 후속 항목 추가)
+  - .agent/progress.md
+  - CHANGELOG.md (Unreleased에 Changed/Documentation/Verification 추가)
+- 검증:
+  - `./gradlew :app:compileDebugKotlin` 성공
+  - `./gradlew :app:testDebugUnitTest` 성공 (회귀 없음, 신규 도메인 변경 없음)
+  - 실기기/Compose Preview 시각 회귀 점검은 수행하지 않음 — 사용자 사이드로드 또는 Studio Preview에서 후속 확인 필요
+- 결과:
+  - 첫 스크롤 시각 위계: 보호구역 헤더 → 보호 포인트(primary 패널) → **지금 추천(primaryContainer + md elevation + primary 버튼)** → 다음 해금 → 일일 보상 → 보호구역 확장 → 동물 목록 → 보조 navigation
+  - 사용자 요구 순서 `현재 보호구역 상태 → 보호 포인트 → 추천 행동 → 보상/진행`이 카드 순서로 정착됨
+  - 추천 카드와 보호구역 확장 카드가 동시에 같은 색(primaryContainer)으로 경쟁하던 문제 해소 — 추천만 강조, 확장은 보조 카드로 톤 다운
+  - 하단 도감/설정이 컬러풀한 채움 버튼에서 OutlinedButton으로 바뀌면서 *메인 행동이 자연스럽게 더 강조됨*
+  - 보호구역 헤더 Lv.N 라벨이 잎 영역 위에서도 식별 가능 (반투명 알약 + 짙은 텍스트)
+  - 에셋 처리 정책이 ART_DIRECTION.md §11로 항구화됨 — 의심 에셋이 보일 때 무작정 삭제·교체가 아니라 분류 먼저
+- 후속 작업:
+  - 사용자 사이드로드 또는 Android Studio에서 `HomeScreenPreview` / `HomeScreenSmallScreenPreview` 시각 회귀 점검 (특히 360dp에서 OutlinedButton 두 개 텍스트 잘림 여부, 헤더 Lv 알약 가독성)
+  - Phase 0.5 P4 후속:
+    - MilestoneCard 진행률 타이포 추가 정돈
+    - SanctuaryHeader Lv 라벨에 도감 진척 등 결합 검토
+  - Phase 0.5 P5: 모션 timing/easing 토큰 통일
+  - 또는 기능 트랙으로 전환 (Phase 2 P2 첫 회복 마일스톤 축하 다이얼로그)
+
+## 2026-05-15
+
 - 작업: 다음 세션용 디자인 개선 인계 메모 작성
 - 변경 파일:
   - .agent/session-handoff.md

@@ -26,6 +26,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -159,13 +160,6 @@ private fun HomeContentBody(
             tapReward = uiState.tapReward,
         )
 
-        uiState.dailyBonus?.let { offer ->
-            DailyBonusCard(
-                offer = offer,
-                onClaim = onClaimDailyBonus,
-            )
-        }
-
         RecommendedActionCard(
             action = uiState.recommendedAction,
             onUpgrade = onUpgradeSanctuary,
@@ -174,6 +168,13 @@ private fun HomeContentBody(
 
         uiState.nextUnlock?.let { nextUnlock ->
             MilestoneCard(progress = nextUnlock)
+        }
+
+        uiState.dailyBonus?.let { offer ->
+            DailyBonusCard(
+                offer = offer,
+                onClaim = onClaimDailyBonus,
+            )
         }
 
         SanctuaryUpgradeCard(
@@ -202,25 +203,27 @@ private fun HomeContentBody(
 
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(spacing.sm),
         ) {
-            Button(
+            OutlinedButton(
                 onClick = onNavigateToArchive,
                 modifier = Modifier.weight(1f),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.secondary,
-                ),
             ) {
-                Text("도감")
+                Text(
+                    text = "도감",
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
             }
-            Button(
+            OutlinedButton(
                 onClick = onNavigateToSettings,
                 modifier = Modifier.weight(1f),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.tertiary,
-                ),
             ) {
-                Text("설정")
+                Text(
+                    text = "설정",
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
             }
         }
 
@@ -357,14 +360,14 @@ private fun RecommendedActionCard(
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.medium,
-        color = MaterialTheme.colorScheme.tertiaryContainer,
-        tonalElevation = WildHavenTheme.elevation.sm,
+        color = MaterialTheme.colorScheme.primaryContainer,
+        tonalElevation = WildHavenTheme.elevation.md,
     ) {
         Column(modifier = Modifier.padding(spacing.cardPadding)) {
             Text(
                 text = "지금 추천",
                 style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
             )
             Spacer(modifier = Modifier.height(spacing.xs + 2.dp))
 
@@ -394,7 +397,7 @@ private fun ActionableBody(
         text = action.titleKo,
         style = MaterialTheme.typography.titleMedium,
         fontWeight = FontWeight.SemiBold,
-        color = MaterialTheme.colorScheme.onTertiaryContainer,
+        color = MaterialTheme.colorScheme.onPrimaryContainer,
         maxLines = 2,
         overflow = TextOverflow.Ellipsis,
     )
@@ -402,7 +405,7 @@ private fun ActionableBody(
     Text(
         text = "${action.costLabel} · ${action.effectLabel}",
         style = MaterialTheme.typography.bodySmall,
-        color = MaterialTheme.colorScheme.onTertiaryContainer,
+        color = MaterialTheme.colorScheme.onPrimaryContainer,
         maxLines = 2,
         overflow = TextOverflow.Ellipsis,
     )
@@ -413,9 +416,6 @@ private fun ActionableBody(
         modifier = Modifier
             .fillMaxWidth()
             .graphicsLayer { scaleX = pulse; scaleY = pulse },
-        colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.tertiary,
-        ),
     ) {
         Text(
             text = action.ctaLabelKo,
@@ -432,7 +432,7 @@ private fun WaitForNextBody(action: RecommendedAction.WaitForNext) {
         text = action.targetLabelKo,
         style = MaterialTheme.typography.titleMedium,
         fontWeight = FontWeight.SemiBold,
-        color = MaterialTheme.colorScheme.onTertiaryContainer,
+        color = MaterialTheme.colorScheme.onPrimaryContainer,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
     )
@@ -447,7 +447,7 @@ private fun WaitForNextBody(action: RecommendedAction.WaitForNext) {
     Text(
         text = helper,
         style = MaterialTheme.typography.bodySmall,
-        color = MaterialTheme.colorScheme.onTertiaryContainer,
+        color = MaterialTheme.colorScheme.onPrimaryContainer,
         maxLines = 2,
         overflow = TextOverflow.Ellipsis,
     )
@@ -539,7 +539,8 @@ private fun SanctuaryUpgradeCard(
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.medium,
-        color = MaterialTheme.colorScheme.primaryContainer,
+        color = MaterialTheme.colorScheme.surface,
+        tonalElevation = WildHavenTheme.elevation.sm,
     ) {
         Column(modifier = Modifier.padding(spacing.cardPadding)) {
             Row(
@@ -609,7 +610,7 @@ private fun AnimalRecoveryCard(
         modifier = modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.medium,
         color = MaterialTheme.colorScheme.surface,
-        tonalElevation = WildHavenTheme.elevation.md,
+        tonalElevation = WildHavenTheme.elevation.sm,
     ) {
         Row(
             modifier = Modifier.padding(spacing.md),

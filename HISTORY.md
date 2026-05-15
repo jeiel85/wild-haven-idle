@@ -1,5 +1,24 @@
 # HISTORY.md
 
+## 2026-05-15
+
+- 작업: 다음 세션용 디자인 개선 인계 메모 작성
+- 변경 파일:
+  - .agent/session-handoff.md
+  - .agent/tasks.md
+  - .agent/progress.md
+  - HISTORY.md
+- 검증:
+  - 문서 변경만 수행
+  - Gradle 빌드/테스트는 실행하지 않음
+- 결과:
+  - 현재 디자인 문제를 "에셋 전면 교체"가 아니라 "홈 화면 위계/카드/버튼 마이크로 폴리시"로 먼저 다루기로 정리
+  - 기존 동물 5종 PNG와 보호구역 헤더 PNG는 우선 유지 후보로 두고, 의심 에셋만 `keep` / `repurpose` / `replace`로 분류하도록 기록
+  - 다음 세션의 우선 작업을 Commercialization Phase 0.5 P4로 명시
+- 후속 작업:
+  - 홈 화면 스크린샷 또는 Compose Preview를 기준으로 P4 카드/버튼 마이크로 폴리시 착수
+  - 디자인 변경 후 `./gradlew :app:compileDebugKotlin` 및 `./gradlew :app:testDebugUnitTest` 실행
+
 ## 2026-05-14
 
 - 작업: v0.5.0 릴리즈 준비 — 추천 카드 + 가독성 + R8 + 일일 보상을 한 릴리즈로 묶음

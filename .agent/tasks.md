@@ -50,6 +50,12 @@
   - [x] `AnimalIllustration` map switch: 5종 모두 PNG, `color` 파라미터 제거 (절차적 호출 폐기)
   - [x] `AnimalSilhouette` (LOCKED) 절차적 Canvas 유지 — 그레이 통일감 위해 의도적 보존
 - [ ] P4: Card/button micro-polish (shadow, radius, spacing, progress typography)
+  - [ ] Audit Home first screen before generating/replacing more assets
+  - [ ] Keep current animal/header PNGs unless a concrete `replace` reason is found
+  - [ ] Classify any questionable asset as `keep` / `repurpose` / `replace`
+  - [ ] Make primary action hierarchy clear: current status → care points → recommended action → rewards/progress
+  - [ ] Tune card background/elevation/radius/spacing/button emphasis through `WildHavenTheme` tokens
+  - [ ] Verify normal and 360dp previews for text overlap, button clipping, and image crowding
 - [ ] P5: Motion timing/easing tokens unified
 
 ## Commercialization Phase 1 (per docs/COMMERCIALIZATION_PLAN.md)

@@ -1,0 +1,20 @@
+<ko-KR>
+디자인 전면 개편 미리보기입니다.
+
+- 새 화면 구성: 보호구역(홈) · 관찰 기록 · 서식지 환경 · 도감 · 설정
+- 하단 탭 바와 따뜻한 자연 색감(올리브·세이지·아이보리) 적용
+- 회복 단계 표시, 야생 복귀 동선, 오프라인 소식 팝업 새 디자인
+
+알려진 제한:
+이번 빌드는 디자인 셸 우선 공개입니다. 새 화면은 자체 시연 데이터로 동작하며, 이전 버전에서 모아둔 보호 포인트와 회복 진행은 아직 화면에 보이지 않습니다. 저장된 데이터는 삭제되지 않으며, 다음 패치에서 새 디자인과 연결됩니다.
+</ko-KR>
+<en-US>
+Visual design refresh preview.
+
+- New 5-tab layout: Sanctuary, Observations, Habitat, Journal, Settings
+- Bottom navigation with a warm nature palette
+- New recovery cards, release-to-wild flow, offline news popup
+
+Known limitation:
+This is a design shell preview. The new screens use demo data, so points and recovery progress from the previous version are not shown yet. Your saved data is preserved and will be reconnected in the next patch.
+</en-US>

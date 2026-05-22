@@ -1,5 +1,25 @@
 # CHANGELOG.md
 
+## v0.6.0 - 2026-05-23
+
+### Changed
+- 앱 디자인 전면 개편: 보호구역(홈) / 관찰 기록 / 서식지 환경 / 도감 / 설정 5개 화면 구조로 재구성. 하단 NavigationBar + 상단 Sanctuary Status 카드 헤더. 새 팔레트(Artistic Olive·Sage·Ivory·EarthySand·TerraCotta) 적용.
+- 진입 Activity를 새 디자인 MainActivity(`com.jeiel85.wildhavenidle.renew.MainActivity`)로 교체. 기존 MainActivity 클래스는 차후 기능 통합 참조용으로 코드 보존.
+
+### ⚠️ Known Issue (중요)
+- **이번 빌드는 디자인 셸 출시입니다.** 새 화면들은 자체 인메모리 mock 데이터로 동작하며, 기존 `GameRepository`/`GameStateDataStore`/`BalanceCalculator`/`DailyBonus` 등 실제 게임 로직과 아직 연결되어 있지 않습니다. 이전 버전(v0.5.1)에서 모아둔 보호 포인트·동물 회복 진행·일일 보너스 상태는 화면에 표시되지 않으며, 새 화면에서 한 행동은 앱을 닫으면 사라집니다. 저장된 DataStore 데이터 자체는 삭제되지 않으며, 다음 패치에서 새 UI에 연결될 예정입니다.
+
+### Build / CI
+- `versionCode` 6 → 7, `versionName` 0.5.1 → 0.6.0
+- 의존성 추가: `androidx.compose.material:material-icons-extended`, `androidx.lifecycle:lifecycle-runtime-compose`
+- 한국어/영어 Play Store 출시 노트: `store-release-notes/v0.6.0.txt`
+
+### Verification
+- `./gradlew :app:compileDebugKotlin` 성공 (HelpOutline/VolumeUp AutoMirrored 권고 warning 2건 — 원본 디자인 코드 그대로 보존)
+- `./gradlew :app:testDebugUnitTest` 성공 (회귀 없음)
+- `./gradlew :app:assembleDebug` 성공
+- ⚠️ 실기기 사이드로드 검증 필수: 앱 시작 / 5개 탭(보호구역/관찰 기록/서식지 환경/도감/설정) 전환 / 오프라인 보상 팝업 / 회복 지원 버튼 / 서식지 환경 업그레이드 버튼
+
 ## v0.5.1 - 2026-05-15
 
 ### Changed

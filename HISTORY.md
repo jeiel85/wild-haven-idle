@@ -1,5 +1,41 @@
 # HISTORY.md
 
+## 2026-05-23
+
+- 작업: v0.6.0 릴리즈 준비 — 디자인 전면 개편 셸 (`design/renew` 브랜치에서 진행 후 main 머지)
+- 변경 파일:
+  - `app/build.gradle.kts` (versionCode 6 → 7, versionName 0.5.1 → 0.6.0, 의존성 `material-icons-extended` + `lifecycle-runtime-compose` 추가)
+  - `gradle/libs.versions.toml` (위 두 라이브러리 카탈로그 항목 추가)
+  - `app/src/main/AndroidManifest.xml` (launcher Activity → `.renew.MainActivity`, 기존 `.MainActivity`는 `exported=false`로 비활성화·코드 보존)
+  - `app/src/main/java/com/jeiel85/wildhavenidle/renew/MainActivity.kt` (신규, 5개 화면 + WildHavenViewModel mock + OfflineRewardPopup)
+  - `app/src/main/java/com/jeiel85/wildhavenidle/renew/ui/theme/{Color,Theme,Type}.kt` (신규, Artistic 팔레트 + Serif/SansSerif Typography)
+  - `CHANGELOG.md` (v0.6.0 - 2026-05-23 추가, Known Issue 명시)
+  - `store-release-notes/v0.6.0.txt` (신규, ko-KR 281자 / en-US 444자, 500자 한도 내)
+  - `HISTORY.md`, `.agent/progress.md`
+- 산출물:
+  - AAB: `D:\Project\wild-haven-idle\app\build\outputs\bundle\release\app-release.aab`
+  - 출시 노트: `store-release-notes/v0.6.0.txt`
+  - 바탕화면 복사본 (Play Console 업로드용): `wild-haven-idle-v0.6.0.aab`, `wild-haven-idle-v0.6.0-release-notes.txt`
+- 검증:
+  - `./gradlew :app:compileDebugKotlin` 성공 (HelpOutline/VolumeUp AutoMirrored 권고 warning 2건 — 원본 디자인 코드 보존)
+  - `./gradlew :app:testDebugUnitTest` 성공 (회귀 없음)
+  - `./gradlew :app:assembleDebug` 성공
+  - `./gradlew :app:bundleRelease` 로컬 서명 성공 (R8 활성)
+  - `jarsigner -verify -strict app-release.aab` → `jar verified.`
+- 결과 (사용자 관점):
+  1. 진입 시 새로운 5탭 구조(보호구역/관찰 기록/서식지 환경/도감/설정) + Sanctuary Status 헤더 카드 + 하단 NavigationBar
+  2. Artistic 팔레트(올리브·세이지·아이보리·EarthySand) 전면 적용, Serif Italic 헤드라인
+  3. 회복 단계 배지, 야생 복귀 동행 CTA, OfflineRewardPopup 새 디자인
+- ⚠️ 데이터/기능 호환성 경고 (사용자 본인 출시 강행 결정으로 진행):
+  - 새 MainActivity는 `GameRepository`/`GameStateDataStore` 등 기존 도메인을 *읽지 않음* — 보호 포인트, 동물 회복 진행, 일일 보너스가 화면에서 사라짐
+  - 새 UI에서 한 행동은 인메모리 mock에만 반영되며 앱 종료 시 휘발
+  - 저장된 DataStore preferences는 *삭제되지 않으므로* 다음 패치에서 새 UI에 연결 가능
+  - 기존 `com.jeiel85.wildhavenidle.MainActivity` 및 presentation/* 코드는 모두 보존 (참조용)
+- 후속 작업:
+  - 다음 패치(v0.6.1+): mock `WildHavenViewModel`을 기존 `HomeViewModel`/`ArchiveViewModel`/`GameRepository`로 교체, DataStore 영속화 복원, 일일 보너스/오프라인 보상 실제 계산 연결
+  - 실기기 사이드로드 검증 시나리오: 앱 시작 / 5개 탭 전환 / 오프라인 보상 팝업 / 회복 지원 / 서식지 환경 업그레이드
+  - 기존 5종 동물 PNG/헤더 PNG 자산을 새 디자인에 통합할지(현재 이모지) 또는 분류 변경(`repurpose`)할지 결정
+
 ## 2026-05-15
 
 - 작업: v0.5.1 릴리즈 준비 — 홈 마이크로 폴리시(Phase 0.5 P4 1차)를 사용자에게 전달

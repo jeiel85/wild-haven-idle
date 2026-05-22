@@ -1,5 +1,31 @@
 # Progress
 
+## 2026-05-23 — v0.6.0 릴리즈 준비 (디자인 전면 개편 셸)
+
+### Done
+
+- `design/renew` 브랜치 분기, 사용자가 별도 프로젝트(`D:\Project\wild-haven-idle-renew`)에서 만든 디자인 코드 4파일을 `com.jeiel85.wildhavenidle.renew` 서브패키지로 이식 (패키지 선언만 변경, 본문 그대로)
+- AndroidManifest launcher Activity를 `.renew.MainActivity`로 교체, 기존 `.MainActivity`는 `exported=false`로 비활성화하고 코드는 보존
+- 의존성 추가: `material-icons-extended`, `lifecycle-runtime-compose` (libs.versions.toml + app/build.gradle.kts)
+- 버전 갱신: versionCode 6 → 7, versionName 0.5.1 → 0.6.0
+- CHANGELOG v0.6.0 + Known Issue 섹션 (디자인 셸·기존 데이터 표시 보류 명시)
+- 출시 노트 `store-release-notes/v0.6.0.txt` 신규 (ko 281 / en 444, 500자 한도 내)
+- 로컬 서명 AAB 빌드 성공, `jarsigner -verify -strict` 통과
+- 바탕화면 자동 복사 (`wild-haven-idle-v0.6.0.aab`, `wild-haven-idle-v0.6.0-release-notes.txt`)
+
+### Known Risk (사용자 출시 강행 결정 후 진행)
+
+- 새 MainActivity는 자체 인메모리 mock 상태만 사용 — 기존 `GameRepository`/`GameStateDataStore`/`BalanceCalculator`/`DailyBonus`와 단절
+- v0.5.1 사용자가 v0.6.0 받으면 진행 상태(포인트, 동물 회복도, 일일 보너스)가 화면에서 사라짐
+- DataStore preferences는 삭제되지 않으므로 다음 패치에서 복원 가능
+
+### Not Done
+
+- main 머지 + 태그 v0.6.0 푸시 (커밋 직후 자동 실행 예정)
+- 실기기 사이드로드 검증 (사용자 수동 단계)
+- Play Console 업로드 (사용자 수동 단계)
+- 다음 패치: mock ViewModel을 기존 도메인/Repository로 교체
+
 ## 2026-05-15 (저녁) — v0.5.1 릴리즈 준비
 
 ### Done

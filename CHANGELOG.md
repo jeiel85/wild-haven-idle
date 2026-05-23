@@ -19,6 +19,7 @@
 - `./gradlew :app:assembleDebug` 성공
 - `./gradlew :app:bundleRelease` 성공
 - `jarsigner -verify app-release.aab` 성공 (`-strict`는 self-signed release 인증서 경고로 실패하므로 일반 검증 결과를 기록)
+- GitHub Actions `Android CI` / `Android Release` 성공, GitHub Release `v0.6.3`에 APK/AAB 업로드 확인
 
 ## v0.6.2 - 2026-05-23
 

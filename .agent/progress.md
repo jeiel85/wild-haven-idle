@@ -15,10 +15,10 @@
 - `./gradlew :app:bundleRelease` 성공
 - `jarsigner -verify app-release.aab` 성공 (`-strict`는 self-signed 인증서 warning으로 실패)
 - 바탕화면 복사 완료: `wild-haven-idle-v0.6.3.aab`, `wild-haven-idle-v0.6.3-release-notes.txt`
-
-### Not Done
-
-- 커밋·푸시·태그 푸시, CI 확인은 이어서 수행 예정
+- 커밋 `e22c75a` 생성 후 `main` fast-forward 반영 및 원격 푸시
+- `v0.6.3` 태그 푸시
+- GitHub Actions `Android CI` / `Android Release` 성공
+- GitHub Release `v0.6.3` 생성 및 APK/AAB 업로드 확인
 
 ## 2026-05-23 (저녁) — v0.6.2 mock 잔여물 정리
 

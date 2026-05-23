@@ -22,6 +22,9 @@
   - `./gradlew :app:bundleRelease` 성공 (로컬 release signing 환경 파일을 프로세스에만 주입)
   - `jarsigner -verify app-release.aab` → `jar verified` (self-signed 인증서 warning은 기존 release signing 특성)
   - `jarsigner -verify -strict app-release.aab` → self-signed 인증서 때문에 실패. Android 배포 서명 자체는 일반 verify 기준 통과.
+  - GitHub Actions `Android CI` 성공 (`main` push, run 26331726675)
+  - GitHub Actions `Android Release` 성공 (`v0.6.3` tag push, run 26331728904)
+  - GitHub Release `v0.6.3` 생성 및 `app-release.apk` / `app-release.aab` 업로드 확인
 - 산출물:
   - AAB: `app/build/outputs/bundle/release/app-release.aab` (4.93 MB)
   - 출시 노트: `store-release-notes/v0.6.3.txt`
@@ -30,7 +33,7 @@
   - 기존 사진풍 배경, 동물 실루엣, 세부 풍경을 제거하고 방패/잎 중심의 단순 런처 아이콘으로 교체.
   - 아이콘 원본과 density별 런처 PNG가 같은 생성 원본에서 파생되도록 정리.
 - 후속 작업:
-  - 커밋·푸시·v0.6.3 태그 푸시, GitHub Actions release 확인
+  - Play Console 업로드는 필요 시 바탕화면 AAB와 출시 노트로 진행
 
 ## 2026-05-23 (저녁) — v0.6.2 mock 잔여물 정리
 

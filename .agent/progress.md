@@ -1,5 +1,18 @@
 # Progress
 
+## 2026-05-23 (밤) — GitHub Pages Jekyll 실패 방지
+
+### Done
+
+- 실패 로그 확인: Pages build의 `Build with Jekyll` 단계에서 `jekyll-github-metadata`가 GitHub API `GET /repos/jeiel85/wild-haven-idle/pages` 호출 중 `401 Bad credentials` 발생
+- `/docs`는 정적 `index.html` 중심이므로 Jekyll 변환이 필수가 아님을 확인
+- `docs/.nojekyll` 추가로 GitHub Pages Jekyll 처리를 우회하도록 수정
+- CHANGELOG / HISTORY / progress 갱신
+
+### Not Done
+
+- 커밋·푸시 후 CI 확인은 이어서 수행 예정
+
 ## 2026-05-23 (밤) — v0.6.3 앱 아이콘 단순화
 
 ### Done

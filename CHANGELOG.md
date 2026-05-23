@@ -1,5 +1,10 @@
 # CHANGELOG.md
 
+## Unreleased
+
+### Build / CI
+- GitHub Pages가 `/docs` 정적 페이지를 Jekyll로 처리하다 `jekyll-github-metadata`의 GitHub API 인증 오류로 실패할 수 있어, `docs/.nojekyll`을 추가해 정적 파일 그대로 배포하도록 조정.
+
 ## v0.6.3 - 2026-05-23
 
 ### Changed

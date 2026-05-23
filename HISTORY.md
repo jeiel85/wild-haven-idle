@@ -1,5 +1,20 @@
 # HISTORY.md
 
+## 2026-05-23 (밤) — GitHub Pages Jekyll 실패 방지
+
+- 작업: GitHub Pages가 `/docs` 정적 페이지를 Jekyll로 처리하며 `jekyll-github-metadata` GitHub API 인증 오류(`401 Bad credentials`)로 실패할 수 있는 문제 방지.
+- 변경 파일:
+  - `docs/.nojekyll`
+  - `CHANGELOG.md`
+  - `HISTORY.md`
+  - `.agent/progress.md`
+- 검증:
+  - GitHub Actions 재실행 전 로컬 변경만 반영.
+- 결과:
+  - Pages가 Jekyll 변환 없이 정적 파일을 그대로 배포하도록 설정.
+- 후속 작업:
+  - 커밋·푸시 후 Pages/Android CI 상태 확인.
+
 ## 2026-05-23 (밤) — v0.6.3 앱 아이콘 단순화
 
 - 작업: 앱 런처 아이콘을 작은 크기에서 더 잘 읽히는 단순 그래픽으로 재제작하고 v0.6.3 패치 버전 준비.

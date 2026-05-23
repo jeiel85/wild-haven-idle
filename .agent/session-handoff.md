@@ -1,5 +1,50 @@
 # Session Handoff
 
+## 2026-05-23
+
+### Current branch / state
+
+- Branch: `main` (design/renew는 fast-forward 머지 완료)
+- 최신 커밋: `275b685 Merge branch 'design/renew' into main: v0.6.0 디자인 셸 도입`
+- 태그: `v0.6.0` 푸시 완료
+- Working tree at handoff: clean
+
+### v0.6.0 산출물 (모두 준비 완료, Play Store 업로드만 보류)
+
+- AAB (서명·R8 활성): `app/build/outputs/bundle/release/app-release.aab` (4.89 MB, versionCode=7)
+- APK (서명): `app/build/outputs/apk/release/app-release.apk` (3.2 MB)
+- 출시 노트: `store-release-notes/v0.6.0.txt` (ko 281 / en 444)
+- 바탕화면 복사본: `C:\Users\jeiel\OneDrive\바탕 화면\wild-haven-idle-v0.6.0.aab`, `wild-haven-idle-v0.6.0-release-notes.txt`
+- 폰 실기기 6장 스크린샷: `store-graphics/v0.6.0-device-shots/` (1080×2340, 480dpi, Samsung 시리얼 R3CWC0KB53Z)
+- GitHub Actions release workflow: v0.6.0 태그로 트리거 → 진행 상황은 `gh run list --limit 5`로 확인
+
+### 🚧 차단된 항목 — Play Store 업로드 (사용자 결정 필요)
+
+Chrome MCP로 https://play.google.com/console 직접 확인 결과:
+
+- 로그인 계정: `jeiel85@gmail.com`
+- 연결된 개발자 계정 셀렉터에 표시되는 유일한 항목: `Yongeun Park` (developer ID `4685898627432283006`)
+- 정책 상태: **🔴 계정 해지** (2021-10-20 사용 중지, "활동이 없어 해지되었으며 재활성화할 수 없습니다")
+
+→ 이 Google 계정으로는 Play Store 업로드 자체가 막힘. 자동 진행은 더 이상 불가.
+
+### 사용자 결정이 필요한 옵션
+
+1. 다른 Google 계정에 활성 Play 개발자 계정이 있는 경우 → 해당 계정으로 Chrome 로그인 후 다음 세션에서 재시도 (말씀해주시면 Chrome MCP로 바로 업로드 자동화 가능)
+2. 새 Play 개발자 계정 등록 → https://play.google.com/console/signup ($25 + 본인 인증 + 정책 검토)
+3. Play Store 출시 보류 → GitHub Release만 활용
+
+### v0.5.1 Play Store 등재 여부 의문 (확인 필요)
+
+- 폰의 v0.5.1 firstInstallTime이 2026-05-14 → Play Store가 아닌 ADB 사이드로드 또는 GitHub Release APK 직접 설치였을 가능성. v0.5.1까지 실제로 Play Store에 올라간 적 있는지 사용자 확인 필요.
+
+### v0.6.1+ 권장 작업 (디자인 셸 → 기능 통합)
+
+- mock `WildHavenViewModel` (`com.jeiel85.wildhavenidle.renew.MainActivity`)을 기존 `HomeViewModel`/`ArchiveViewModel`/`GameRepository`/`GameStateDataStore`로 교체
+- `BalanceCalculator`/`DailyBonus`/`BuildHomeUiStateUseCase` 호출 복원
+- `SanctuarySettingsScreen`의 mock 버전 표기 `v2.1.0` → `BuildConfig.VERSION_NAME` 바인딩
+- 5종 PNG 일러스트(rabbit/fox/deer/owl/lynx) 및 헤더 PNG를 새 디자인에 통합할지 / `repurpose`할지 결정
+
 ## 2026-05-15
 
 ### Current branch

@@ -1,5 +1,41 @@
 # CHANGELOG.md
 
+## v0.6.1 - 2026-05-23
+
+### Changed
+- 새 디자인 5개 화면(보호구역/관찰 기록/서식지 환경/도감/설정)을 기존 도메인(`GameRepository`/`GameStateDataStore`/`BalanceCalculator`/`AnimalDefinitions`)에 연결. v0.6.0에서 셸 형태로만 도입했던 디자인이 실제 게임 진행 상태를 읽고 변경한다.
+  - 보호 포인트·초당 생산량: `GameState.carePoint` + `BalanceCalculator.calculateTotalProductionPerSecond`
+  - 동물 5종(rabbit_001/fox_001/deer_001/owl_001/lynx_001): `protectedAnimals` + `AnimalDefinitions.mvpAnimals`, recoveryStage 1~20을 0~100% 진척도로 환산
+  - 회복 단계 배지: stage 1 = 긴급 구조됨, 1<stage<max = 보호소 회복 중, stage == max = 자연 복귀 대기
+  - "조용한 안식 제공" 버튼: 실제 `supportAnimalRecovery` 호출 (도메인 비용 계산은 그대로)
+  - 패시브 틱(1초마다): `addCarePoint(pointsPerSecond)`로 DataStore에 누적 저장 — 앱 종료 후에도 보존
+  - 진입 시 오프라인 보상: `applyOfflineRewardIfNeeded` 결과를 새 디자인의 OfflineRewardPopup으로 표시
+- 보호구역 환경 정비 카드(`HabitatRestorationScreen`) 첫 번째 항목을 실제 `upgradeSanctuary`에 매핑. `sanctuaryLevel`과 `BalanceCalculator.calculateSanctuaryUpgradeCost`를 사용.
+- 나머지 3개 환경 정비 카드(숲길/덤불숲/치유 지원소)는 "준비 중" 배지로 비활성화 — 4개 카테고리 도메인 확장은 v0.7+ 예정.
+- 설정 화면 버전 표기를 mock `v2.1.0` → `BuildConfig.VERSION_NAME` 동적 바인딩.
+- Hero 동물 이모지를 도메인 5종 ID에 맞게 매핑 (rabbit_001 🐰, fox_001 🦊, deer_001 🦌, owl_001 🦉, lynx_001 🐈‍⬛).
+
+### Known Limitations (다음 패치 예정)
+- 관찰 기록 화면의 "조용한 안식 제공 (🐾 25)" 버튼 라벨이 mock의 25로 박혀있어 실제 도메인 비용(stage에 따라 50/106/170/…)과 표시가 다름. 도메인은 정확하지만 UI 텍스트 정리는 v0.6.2+.
+- 잠긴 동물 카드의 "흔적 발견" 버튼은 no-op. 기존 도메인은 조건(`UnlockCondition`) 충족 시 자동으로 보호 동물에 합류한다. v0.7+에서 수동 unlock 옵션 추가 또는 UI 단순화 예정.
+- 일일 보호 활동 보상(`DailyBonusRules`)은 새 디자인에 자리가 없어 카드 노출이 비활성. 자격은 도메인에 보존되며 다음 패치에서 새 UI에 통합.
+
+### Build / CI
+- `versionCode` 7 → 8, `versionName` 0.6.0 → 0.6.1
+- `buildFeatures.buildConfig = true` 활성화 (BuildConfig.VERSION_NAME 사용을 위함)
+- 한국어/영어 Play Store 출시 노트: `store-release-notes/v0.6.1.txt`
+
+### Verification
+- `./gradlew :app:compileDebugKotlin` 성공
+- `./gradlew :app:testDebugUnitTest` 성공 (회귀 없음)
+- `./gradlew :app:assembleDebug` 성공
+- `./gradlew :app:assembleRelease` 성공 (R8 활성)
+- 실기기 검증 (Samsung 1080×2340, 480dpi):
+  - 보호 포인트가 1초마다 +1.2 (sanctuaryLevel 1 + rabbit stage 1 base 0.2 × archive multiplier 1.02 ≈ 1.224)
+  - 5개 탭 전환 정상, 숲토끼 hero 카드 진척도 5% (stage 1/20)
+  - 도감에서 보호 중인 1종 펼침 + 미발견 4종 잠금
+  - 설정 화면 버전 표기 "v0.6.0" (실제 versionName, v0.6.1 릴리즈 빌드에서는 v0.6.1로 표시)
+
 ## v0.6.0 - 2026-05-23
 
 ### Changed

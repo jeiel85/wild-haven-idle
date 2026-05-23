@@ -1,5 +1,39 @@
 # HISTORY.md
 
+## 2026-05-23 (오후) — v0.6.1 도메인 통합
+
+- 작업: v0.6.0의 디자인 셸을 기존 도메인과 연결해 실제 게임 진행 상태가 새 UI에 반영되도록 통합.
+- 변경 파일:
+  - `app/build.gradle.kts` (versionCode 7 → 8, versionName 0.6.0 → 0.6.1, `buildFeatures.buildConfig = true`)
+  - `app/src/main/java/com/jeiel85/wildhavenidle/renew/MainActivity.kt` (WildHavenViewModel 교체 — GameRepository 주입, runPassiveTick → DataStore.addCarePoint 호출, supportRehabilitation → supportAnimalRecovery, purchaseRestoration → upgradeSanctuary, discoverWildlife no-op; ViewModelFactory 추가; onCreate에서 GameRepository 생성; hero emoji 매핑 5종 확장; 설정 버전 → BuildConfig.VERSION_NAME; HabitatRestorationScreen에서 비활성 카드 "준비 중" 표시)
+  - `app/src/main/java/com/jeiel85/wildhavenidle/renew/DomainMapping.kt` (신규 — `buildWildlifeList` / `buildRestorations` / `heroEmojiFor` / `cardIconFor` / `isRestorationEnabled` / `SANCTUARY_MAIN_ID`)
+  - `CHANGELOG.md` (v0.6.1 추가, Known Limitations 명시)
+  - `store-release-notes/v0.6.1.txt` (신규, ko 277 / en 439)
+  - `HISTORY.md`, `.agent/progress.md`
+- 산출물:
+  - AAB: `D:\Project\wild-haven-idle\app\build\outputs\bundle\release\app-release.aab`
+  - 출시 노트: `store-release-notes/v0.6.1.txt`
+  - 바탕화면 복사본: `wild-haven-idle-v0.6.1.aab`, `wild-haven-idle-v0.6.1-release-notes.txt`
+- 검증:
+  - `./gradlew :app:compileDebugKotlin` 성공 (HelpOutline/VolumeUp AutoMirrored warning 2건 — 원본 디자인 코드 보존)
+  - `./gradlew :app:testDebugUnitTest` 성공
+  - `./gradlew :app:assembleDebug` 성공
+  - `./gradlew :app:assembleRelease` 성공 (R8 활성)
+  - `jarsigner -verify -strict app-release.aab` → 통과
+  - 실기기 검증 (Samsung 1080×2340, 480dpi): 5개 탭 정상, 보호 포인트 1초마다 +1.2 누적, 숲토끼 hero 5%, 도감 5종 분기, 설정 버전 v0.6.0 표시(현재 빌드 기준)
+- 결과 (사용자 관점):
+  1. v0.6.0의 mock 화면들이 진짜 GameRepository를 읽고 쓴다 — 보호 포인트·동물 회복도·sanctuaryLevel 모두 실제 저장 데이터
+  2. 앱 종료 후 재시작해도 진행 상태 유지, 오프라인 보상 자동 정산
+  3. 회복 지원 / 보호구역 환경 정비(첫 번째 카드) 실제 동작
+- Known Limitations (v0.6.2+ 예정):
+  - 관찰 기록 카드의 "조용한 안식 제공 🐾 25" 라벨이 mock이라 실제 도메인 비용(stage 기반)과 다름
+  - 잠긴 동물 카드의 "흔적 발견" 버튼 no-op (도메인은 조건 자동 unlock)
+  - 일일 보호 활동 보상 카드 미표시 (도메인 자격은 보존)
+  - 환경 정비 4개 카테고리 중 3개는 "준비 중" 비활성
+- 후속 작업:
+  - v0.6.1 태그 푸시 → Android Release workflow 자동 트리거 → GitHub Release 생성
+  - Play Store `pedaiah85@gmail.com` 개발자 계정으로 업로드 (Chrome MCP로 자동화)
+
 ## 2026-05-23
 
 - 작업: v0.6.0 릴리즈 준비 — 디자인 전면 개편 셸 (`design/renew` 브랜치에서 진행 후 main 머지)

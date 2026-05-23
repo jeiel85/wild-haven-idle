@@ -1,0 +1,22 @@
+<ko-KR>
+새 디자인이 기존 진행 상태와 연결되었습니다.
+
+- 보호 포인트와 초당 생산량이 실제 저장 데이터로 표시
+- 5종 동물(숲토끼·붉은여우·어린 사슴·밤부엉이·스라소니)이 회복 단계와 함께 노출
+- 회복 지원 버튼이 실제로 동작, 자동 해금 조건도 그대로
+- 보호구역 환경 정비(첫 번째 카드)가 실제 업그레이드와 연결
+- 앱을 닫아도 진행 상태가 보존되며, 오프라인 시간 동안의 보상도 자동 정산
+
+다음 업데이트에서 일일 보호 활동 보상과 환경 카테고리 4종 확장을 새 디자인에 추가할 예정입니다.
+</ko-KR>
+<en-US>
+The new design is now connected to your saved progress.
+
+- Points and per-second rate reflect your real saved data
+- Five species (Rabbit, Fox, Deer, Owl, Lynx) show recovery stage
+- Recovery support button works; auto-unlocks preserved
+- First habitat restoration card is wired to sanctuary upgrade
+- Progress saves across launches, offline rewards settle automatically
+
+Next update will add the daily bonus and expand habitat categories.
+</en-US>

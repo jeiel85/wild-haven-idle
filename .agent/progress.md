@@ -1,5 +1,35 @@
 # Progress
 
+## 2026-05-23 (저녁) — v0.6.2 mock 잔여물 정리
+
+### Done
+
+- `feat/v0.6.2-mock-cleanup` 브랜치 분기
+- WildlifeSubject에 `supportCost` / `observationNumber` / `unlockHint` 필드 추가
+- DomainMapping:
+  - `supportCost` 계산 — `BalanceCalculator.calculateRecoverySupportCost(getRecoveryBaseCost(def), stage)`
+  - `observationNumber` — `AnimalDefinitions.mvpAnimals` 인덱스 + 1
+  - `unlockHintFor` — UnlockCondition별 한국어 안내 (보호 포인트 누적·다른 동물 회복 단계·생산량·보호 동물 누적 수)
+- UI mock 교체:
+  - AnimalRehabCard 비용 라벨 → `animal.supportCost`
+  - LockedAnimalDiscoveryCard → unlockHint 텍스트 + "관찰 중" 배지 (mock 비용/흔적 발견 버튼 제거)
+  - Hero "OBSERVATION 042" → `%03d` 동적
+- ViewModel에 `dailyBonusEligible` / `dailyBonusReward` StateFlow + `claimDailyBonus()` 추가
+- SanctuaryDashboardScreen에 `DailyBonusCard` 자격 시 노출
+- 버전 8 → 9, 0.6.1 → 0.6.2
+- 컴파일/테스트/assemble/bundle 모두 성공, 실기기 6장 검증
+- jarsigner -verify 통과, 바탕화면 복사 완료
+
+### Not Done
+
+- 커밋·main 머지·v0.6.2 태그 푸시 (이후 자동 실행)
+- Play Store 업로드 (pedaiah85@gmail.com 계정 / Chrome 새 창 사용자 대기 중)
+
+### v0.7+ 예정
+
+- Settings 토글 3개 DataStore 영속화
+- 환경 정비 4 카테고리 도메인 확장
+
 ## 2026-05-23 (오후) — v0.6.1 도메인 통합
 
 ### Done

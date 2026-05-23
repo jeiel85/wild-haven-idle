@@ -1,5 +1,43 @@
 # HISTORY.md
 
+## 2026-05-23 (저녁) — v0.6.2 mock 잔여물 정리
+
+- 작업: v0.6.1까지 남아있던 UI 측 mock 라벨/버튼을 모두 실제 도메인 데이터로 교체하고 일일 보호 활동 보상 카드를 새 디자인에 통합.
+- 변경 파일:
+  - `app/build.gradle.kts` (versionCode 8 → 9, versionName 0.6.1 → 0.6.2)
+  - `app/src/main/java/com/jeiel85/wildhavenidle/renew/MainActivity.kt`
+    - WildlifeSubject에 `supportCost` / `observationNumber` / `unlockHint` 필드 추가
+    - AnimalRehabCard 버튼 라벨 "🐾 25" mock → `animal.supportCost`
+    - LockedAnimalDiscoveryCard 시그니처 단순화, mock 비용+버튼 → `unlockHint` 텍스트 + "관찰 중" 배지
+    - Hero badge "OBSERVATION 042" 고정 → `OBSERVATION %03d` 동적 (`observationNumber`)
+    - ViewModel에 `dailyBonusEligible` / `dailyBonusReward` StateFlow + `claimDailyBonus()` 추가
+    - SanctuaryDashboardScreen에서 자격 있을 때 `DailyBonusCard` 노출 (showcase 아래·state summary 위)
+  - `app/src/main/java/com/jeiel85/wildhavenidle/renew/DomainMapping.kt`
+    - `toWildlifeSubject`에 observationNumber 추가, supportCost 계산
+    - `unlockHintFor` 신규: UnlockCondition 5종을 한국어 안내 텍스트로 변환
+  - `CHANGELOG.md` (v0.6.2 추가)
+  - `store-release-notes/v0.6.2.txt` (신규, ko 264 / en 414)
+  - `HISTORY.md`, `.agent/progress.md`
+- 산출물:
+  - AAB: `app/build/outputs/bundle/release/app-release.aab` (5.14 MB)
+  - 출시 노트: `store-release-notes/v0.6.2.txt`
+  - 바탕화면 복사본: `wild-haven-idle-v0.6.2.aab`, `wild-haven-idle-v0.6.2-release-notes.txt`
+- 검증:
+  - `:app:compileDebugKotlin` / `:app:testDebugUnitTest` / `:app:assembleDebug` / `:app:assembleRelease` / `:app:bundleRelease` 모두 성공
+  - `jarsigner -verify -strict` → `jar verified`
+  - 실기기 6장 (`store-graphics/v0.6.2-device-shots/`):
+    - 첫 진입 시 OfflineRewardPopup +880 + DailyBonusCard +19094 동시 노출
+    - OBSERVATION 001 (rabbit_001) 동적 표시
+    - AnimalRehabCard 버튼 "🐾 50" 실제 계산값
+    - carePoint 2,283에서 fox_001 자동 unlock 트리거 확인 ("긴급 구조됨" 배지로 합류)
+    - 설정 화면 버전 v0.6.2
+- Known Limitations (v0.7+):
+  - Settings 토글 3개 인메모리 상태 유지 (DataStore 영속화는 도메인 확장 필요)
+  - 환경 정비 4카드 중 첫 번째만 활성 (도메인의 단일 sanctuaryUpgrade 모델 유지)
+- 후속:
+  - v0.6.2 태그 푸시 → Android Release workflow 자동 트리거 → GitHub Release 생성
+  - Play Store `pedaiah85@gmail.com` 업로드는 사용자 Chrome 새 일반 창 + computer-use 권한 다이얼로그 응답 대기
+
 ## 2026-05-23 (오후) — v0.6.1 도메인 통합
 
 - 작업: v0.6.0의 디자인 셸을 기존 도메인과 연결해 실제 게임 진행 상태가 새 UI에 반영되도록 통합.

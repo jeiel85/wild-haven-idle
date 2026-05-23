@@ -52,14 +52,15 @@ object DomainMapping {
     /** 5종 동물 전체를 새 UI의 WildlifeSubject 리스트로 매핑한다 (보호 중/미발견 모두). */
     fun buildWildlifeList(state: GameState): List<WildlifeSubject> {
         val protectedById = state.protectedAnimals.associateBy { it.animalId }
-        return AnimalDefinitions.mvpAnimals.map { def ->
-            toWildlifeSubject(def, protectedById[def.id])
+        return AnimalDefinitions.mvpAnimals.mapIndexed { index, def ->
+            toWildlifeSubject(def, protectedById[def.id], observationNumber = index + 1)
         }
     }
 
     private fun toWildlifeSubject(
         def: AnimalDefinition,
         protectedAnimal: ProtectedAnimal?,
+        observationNumber: Int,
     ): WildlifeSubject {
         val isDiscovered = protectedAnimal != null
         val stageValue = protectedAnimal?.recoveryStage ?: 0
@@ -75,6 +76,14 @@ object DomainMapping {
             stageValue <= 1 -> RecoveryStage.RESCUED
             else -> RecoveryStage.REHABILITATING
         }
+        val supportCost = if (isDiscovered && stageValue < maxStage) {
+            BalanceCalculator.calculateRecoverySupportCost(
+                baseCost = BalanceCalculator.getRecoveryBaseCost(def),
+                currentRecoveryStage = stageValue.coerceAtLeast(1),
+            )
+        } else {
+            0L
+        }
         return WildlifeSubject(
             id = def.id,
             name = def.nameKo,
@@ -84,20 +93,32 @@ object DomainMapping {
             observationYield = def.baseSupportBonus,
             currentStage = recoveryStage,
             cardIcon = cardIconFor(def.id),
-            discoverCost = unlockHintCost(def.unlockCondition),
+            discoverCost = 0L,
             isDiscovered = isDiscovered,
+            supportCost = supportCost,
+            observationNumber = observationNumber,
+            unlockHint = if (isDiscovered) "" else unlockHintFor(def.unlockCondition),
         )
     }
 
     /**
-     * 새 UI의 잠긴 동물 카드에 표시되는 "비용" 숫자는 기존 도메인의 자동 unlock과 맞지 않지만
-     * 0이면 UI가 어색해서, `CarePointReached(amount)`처럼 명시 비용이 있는 조건은 그 값을 노출.
-     * 다른 조건(스테이지/생산량/머릿수)은 0을 반환하고, UI 측에서 버튼이 no-op이라 큰 의미 없음.
+     * 자동 unlock 조건을 사용자가 이해할 수 있는 한국어 안내 텍스트로 변환한다.
+     * 새 UI의 잠긴 동물 카드에서 mock의 "비용 + 흔적 발견" 버튼 대신 노출한다.
      */
-    private fun unlockHintCost(condition: UnlockCondition): Long = when (condition) {
-        is UnlockCondition.CarePointReached -> condition.amount
-        else -> 0L
+    private fun unlockHintFor(condition: UnlockCondition): String = when (condition) {
+        UnlockCondition.InitialAnimal -> "보호구역의 첫 구조 동물입니다."
+        is UnlockCondition.CarePointReached ->
+            "보호 포인트 ${condition.amount}p 누적 시 보호구역에 합류"
+        is UnlockCondition.RecoveryStageReached ->
+            "${animalNameFor(condition.animalId)} 회복 ${condition.stage}단계 도달 시 합류"
+        is UnlockCondition.TotalProductionReached ->
+            "초당 생산량 +%.1f 도달 시 합류".format(condition.productionPerSecond)
+        is UnlockCondition.ProtectedAnimalCountReached ->
+            "보호 동물 ${condition.count}마리 누적 시 합류"
     }
+
+    private fun animalNameFor(id: String): String =
+        AnimalDefinitions.mvpAnimals.firstOrNull { it.id == id }?.nameKo ?: id
 
     /**
      * 새 UI는 4개의 환경 복원 카드를 보여준다. v0.6.1에서는 첫 번째만 실제 sanctuary 업그레이드와

@@ -288,7 +288,7 @@ DALL·E 3 (잠금 서비스)의 출력 사이즈에 맞춰 다음과 같이 운�
 | keep | `wh_animal_owl_001.png` | 황혼 라벤더 톤, 시리즈 일관성 유지 |
 | keep | `wh_animal_lynx_001.png` | 초겨울 침엽수림 톤, 시리즈 일관성 유지 |
 | keep | `wh_habitat_forest_001.png` | 헤더 풀폭 풍경, 동물 산책 위에 좌상단 비움 제약 충족 |
-| keep | `ic_launcher*.png` (앱 아이콘) | 단순 보호구역 방패 + 큰 잎 실루엣. 작은 런처 크기 가독성을 위해 동물/풍경 세부 묘사 제거 |
+| keep | `ic_launcher*.png` (앱 아이콘) | 단색 배경 + 보호구역 방패 외곽 + 큰 잎 심볼. 작은 런처 크기 가독성을 위해 배경 글로우, 내부 라인, 동물/풍경 세부 묘사 제거 |
 | keep | `AnimalSilhouette` 절차적 Canvas (LOCKED 상태) | 그레이 통일감을 위해 의도적 보존 |
 | review | `store-graphics/**` (Play Store 마케팅 자산) | 실기기 스크린샷과 함께 묶음으로 재검토 |
 | repurpose | (현재 후보 없음) | — |

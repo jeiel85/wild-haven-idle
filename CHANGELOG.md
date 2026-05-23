@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Changed
+- 앱 런처 아이콘을 한 단계 더 단순화. 배경 글로우, 내부 선, 보조 곡선 요소를 제거하고 단색 배경 + 방패 외곽 + 큰 잎 심볼만 남겨 48dp 수준에서도 형태가 덜 뭉치도록 조정.
+
 ### Build / CI
 - GitHub Pages가 `/docs` 정적 페이지를 Jekyll로 처리하다 `jekyll-github-metadata`의 GitHub API 인증 오류로 실패할 수 있어, `docs/.nojekyll`을 추가해 정적 파일 그대로 배포하도록 조정.
 

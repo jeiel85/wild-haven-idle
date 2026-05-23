@@ -12,8 +12,8 @@
 
 | Asset | File | Source | License | Commercial Use | Modified | Notes |
 |---|---|---|---|---|---|---|
-| App icon source | `docs/assets/wild-haven-icon-source.png` | Self-generated geometric raster asset with local PIL script | Owned | Yes | Yes | Simplified sanctuary shield and leaf mark, no text, no external source image |
-| App launcher icons | `app/src/main/res/mipmap-*/ic_launcher*.png` | Derived from `docs/assets/wild-haven-icon-source.png` | Owned | Yes | Yes | Density-specific Android launcher icons generated from the simplified source |
+| App icon source | `docs/assets/wild-haven-icon-source.png` | Self-generated geometric raster asset with local PIL script | Owned | Yes | Yes | Minimal sanctuary shield and leaf mark, no text, no external source image |
+| App launcher icons | `app/src/main/res/mipmap-*/ic_launcher*.png` | Derived from `docs/assets/wild-haven-icon-source.png` | Owned | Yes | Yes | Density-specific Android launcher icons generated from the minimal source |
 | Animal silhouettes (LOCKED state) | (procedural Compose Canvas in `WildlifeIllustration.kt` `AnimalSilhouette`) | Self-coded | Owned | Yes | No | 도감 LOCKED 상태에서 그레이 통일감을 위해 절차적 Canvas 유지. 카드 일러스트(`AnimalIllustration`)는 5종 모두 §2의 AI 생성 PNG 사용 |
 | Font | TBD | TBD | TBD | TBD | TBD | Must verify before release |
 | Sound effects | TBD | TBD | TBD | TBD | TBD | MVP can ship without sound |

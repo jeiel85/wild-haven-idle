@@ -1,5 +1,15 @@
 # Progress
 
+## 2026-05-23 (밤) — 앱 아이콘 2차 단순화
+
+### Done
+
+- 현재 아이콘 재확인: 48px에서 내부 선, 곡선 잎맥, 배경 글로우가 여전히 뭉쳐 보임
+- 새 아이콘 방향 확정: 단색 배경 + 방패 외곽 + 큰 잎 + 중앙 잎맥만 유지
+- `docs/assets/wild-haven-icon-source.png`와 `mipmap-*` launcher PNG 재생성
+- CHANGELOG / HISTORY / ART_DIRECTION / ASSET_LICENSES / progress 갱신
+- `./gradlew :app:assembleDebug` 성공
+
 ## 2026-05-23 (밤) — GitHub Pages Jekyll 실패 방지
 
 ### Done

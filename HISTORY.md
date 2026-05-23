@@ -1,5 +1,25 @@
 # HISTORY.md
 
+## 2026-05-23 (밤) — 앱 아이콘 2차 단순화
+
+- 작업: v0.6.3에서 단순화한 앱 아이콘을 다시 확인하고, 작은 런처 크기에서 남아 있던 복잡도를 추가로 제거.
+- 변경 파일:
+  - `docs/assets/wild-haven-icon-source.png`
+  - `app/src/main/res/mipmap-*/ic_launcher.png`
+  - `app/src/main/res/mipmap-*/ic_launcher_round.png`
+  - `CHANGELOG.md`
+  - `HISTORY.md`
+  - `docs/ART_DIRECTION.md`
+  - `docs/ASSET_LICENSES.md`
+  - `.agent/progress.md`
+- 검증:
+  - `./gradlew :app:assembleDebug` 성공.
+- 결과:
+  - 배경 글로우, 내부 라인, 보조 곡선을 제거하고 단색 배경 + 방패 외곽 + 큰 잎 심볼만 유지.
+  - 48px 미리보기 기준으로 이전보다 형태가 덜 뭉치도록 조정.
+- 후속 작업:
+  - 없음.
+
 ## 2026-05-23 (밤) — GitHub Pages Jekyll 실패 방지
 
 - 작업: GitHub Pages가 `/docs` 정적 페이지를 Jekyll로 처리하며 `jekyll-github-metadata` GitHub API 인증 오류(`401 Bad credentials`)로 실패할 수 있는 문제 방지.

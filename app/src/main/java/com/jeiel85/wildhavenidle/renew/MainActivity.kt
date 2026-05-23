@@ -38,14 +38,25 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.jeiel85.wildhavenidle.BuildConfig
+import com.jeiel85.wildhavenidle.core.time.SystemTimeProvider
+import com.jeiel85.wildhavenidle.data.local.GameStateDataStore
+import com.jeiel85.wildhavenidle.data.repository.GameRepository
+import com.jeiel85.wildhavenidle.domain.balance.BalanceCalculator
+import com.jeiel85.wildhavenidle.domain.definitions.AnimalDefinitions
 import com.jeiel85.wildhavenidle.renew.ui.theme.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import java.util.Locale
 
 // Data Models representing the "Observation & Sanctuary Restore" philosophy
@@ -90,131 +101,67 @@ enum class Screen(val title: String, val icon: ImageVector) {
     SETTINGS("설정", Icons.Default.Settings)
 }
 
-// Game State Management through MVVM ViewModel
-class WildHavenViewModel : ViewModel() {
-    private val _points = MutableStateFlow(325.0)
-    val points: StateFlow<Double> = _points.asStateFlow()
+// Game State Management through MVVM ViewModel — v0.6.1부터 기존 도메인(GameRepository)과 연결
+class WildHavenViewModel(
+    private val gameRepository: GameRepository,
+) : ViewModel() {
 
-    private val _pointsPerSec = MutableStateFlow(0.8)
-    val pointsPerSec: StateFlow<Double> = _pointsPerSec.asStateFlow()
+    val points: StateFlow<Double> = gameRepository.gameState
+        .map { it.carePoint }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), 0.0)
 
-    private val _wildlifeList = MutableStateFlow<List<WildlifeSubject>>(emptyList())
-    val wildlifeList: StateFlow<List<WildlifeSubject>> = _wildlifeList.asStateFlow()
+    val pointsPerSec: StateFlow<Double> = gameRepository.gameState
+        .map { state ->
+            BalanceCalculator.calculateTotalProductionPerSecond(
+                sanctuaryLevel = state.sanctuaryLevel,
+                protectedAnimals = state.protectedAnimals,
+                definitions = AnimalDefinitions.mvpAnimals,
+            )
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), 0.0)
 
-    private val _restorations = MutableStateFlow<List<ShelterRestoration>>(emptyList())
-    val restorations: StateFlow<List<ShelterRestoration>> = _restorations.asStateFlow()
+    val wildlifeList: StateFlow<List<WildlifeSubject>> = gameRepository.gameState
+        .map { DomainMapping.buildWildlifeList(it) }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), emptyList())
 
-    private val _showOfflineReward = MutableStateFlow(true)
+    val restorations: StateFlow<List<ShelterRestoration>> = gameRepository.gameState
+        .map { DomainMapping.buildRestorations(it) }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), emptyList())
+
+    private val _offlineRewardPoints = MutableStateFlow(0L)
+    val offlineRewardPoints: Long get() = _offlineRewardPoints.value
+
+    private val _showOfflineReward = MutableStateFlow(false)
     val showOfflineReward: StateFlow<Boolean> = _showOfflineReward.asStateFlow()
 
-    val offlineRewardPoints = 1200L
-
     init {
-        // Initialize with cozy animal observation cards
-        _wildlifeList.value = listOf(
-            WildlifeSubject(
-                id = "squirrel",
-                name = "상처 입은 줄무늬 다람쥐",
-                englishName = "Eutamias sibiricus",
-                rescueStory = "마을 근처에서 상처를 입고 구조되었습니다. 꼬리 붓기가 거의 가라앉았으며, 활발함을 가끔 비추고 있습니다. 보호 관리사의 발자국 소리에도 안정감을 찾아갑니다.",
-                currentRecovery = 82,
-                observationYield = 0.4,
-                currentStage = RecoveryStage.REHABILITATING,
-                cardIcon = Icons.Default.Spa,
-                discoverCost = 0L,
-                isDiscovered = true
-            ),
-            WildlifeSubject(
-                id = "deer",
-                name = "부상당한 새끼 노루",
-                englishName = "Capreolus pygargus",
-                rescueStory = "올가미 흔적이 다리에 깊게 남아, 구조 직후 집중 케어를 지속하고 있습니다. 조심스럽게 마른 목을 물가에서 축이며 안식을 찾고 있습니다.",
-                currentRecovery = 45,
-                observationYield = 1.2,
-                currentStage = RecoveryStage.REHABILITATING,
-                cardIcon = Icons.Default.Grass,
-                discoverCost = 150L,
-                isDiscovered = true
-            ),
-            WildlifeSubject(
-                id = "owl",
-                name = "날개 상처 수리부엉이",
-                englishName = "Bubo bubo",
-                rescueStory = "유리벽 충돌로 인해 좌측 날개 깃이 상했습니다. 야행성 비행 훈련을 차분히 수행할 만큼 깃대의 회복세가 매우 가파르고 긍정적입니다.",
-                currentRecovery = 95,
-                observationYield = 2.5,
-                currentStage = RecoveryStage.READY_TO_RETURN,
-                cardIcon = Icons.Default.Yard,
-                discoverCost = 450L,
-                isDiscovered = false
-            ),
-            WildlifeSubject(
-                id = "fox",
-                name = "기진맥진 붉은여우",
-                englishName = "Vulpes vulpes",
-                rescueStory = "탈수 가득한 상태로 조용한 숲길 구석에서 구조되었습니다. 깊은 안정을 취하며 서서히 눈빛의 야성을 되찾아 가고 있습니다.",
-                currentRecovery = 20,
-                observationYield = 3.8,
-                currentStage = RecoveryStage.REHABILITATING,
-                cardIcon = Icons.Default.Eco,
-                discoverCost = 1200L,
-                isDiscovered = false
-            )
-        )
-
-        // Initialize Sanctuary Restorations (rather than clinical numerical upgrades)
-        _restorations.value = listOf(
-            ShelterRestoration(
-                id = "water",
-                name = "물가 여울 쉼터 조성",
-                currentLevel = 1,
-                baseCost = 50L,
-                rateAddition = 0.3,
-                description = "야생동물이 안심하고 물을 마시며 깨끗하게 정돈할 수 있도록, 맑게 흐르는 여울 물목을 조용히 다듬어 줍니다.",
-                icon = Icons.Default.WaterDrop
-            ),
-            ShelterRestoration(
-                id = "forest",
-                name = "조용한 숲길 낙엽길 정비",
-                currentLevel = 0,
-                baseCost = 250L,
-                rateAddition = 0.8,
-                description = "보호구역 관리사의 걸음 소리가 동물의 휴식을 방해하지 않도록 바스락거리는 숲길에 부드러운 흙과 지푸라기를 도포합니다.",
-                icon = Icons.Default.Forest
-            ),
-            ShelterRestoration(
-                id = "shrub",
-                name = "밀집 관목 덤불숲 확장",
-                currentLevel = 0,
-                baseCost = 800L,
-                rateAddition = 1.6,
-                description = "회복 중인 작은 동물들이 시선으로부터 숨을 수 있는 천연 천막이 되도록 가시 없는 빽빽한 야생 베리 덤불을 울창하게 복원합니다.",
-                icon = Icons.Default.NaturePeople
-            ),
-            ShelterRestoration(
-                id = "center",
-                name = "종합 자연 치유 지원소 개선",
-                currentLevel = 0,
-                baseCost = 2500L,
-                rateAddition = 3.5,
-                description = "구조된 동물들을 밀착 보호하는 친환경 돌봄 센터의 설비를 황토와 편백나무 구조물로 부드럽게 개선하여 치유를 극대화합니다.",
-                icon = Icons.Default.MedicalServices
-            )
-        )
-    }
-
-    // Main ticker for passive dynamic points accrual (optimized to run once per second for UI thread smoothness)
-    suspend fun runPassiveTick() {
-        while (true) {
-            delay(1000)
-            val currentRate = _pointsPerSec.value
-            _points.update { it + currentRate }
+        // 진입 시점에 한 번 오프라인 보상을 정산하고, 보상이 있으면 팝업 노출
+        viewModelScope.launch {
+            val reward = gameRepository.applyOfflineRewardIfNeeded()
+            if (reward > 0.0) {
+                _offlineRewardPoints.value = reward.toLong()
+                _showOfflineReward.value = true
+            }
         }
     }
 
-    // Accept offline reward points
+    /**
+     * 1초마다 도메인의 carePoint에 현재 생산량을 더하는 패시브 틱.
+     * `MainActivity`가 `LaunchedEffect`에서 한 번만 호출한다.
+     */
+    suspend fun runPassiveTick() {
+        while (true) {
+            delay(1000)
+            val rate = pointsPerSec.value
+            if (rate > 0.0) {
+                gameRepository.addCarePoint(rate)
+            }
+        }
+    }
+
     fun claimOfflineReward() {
-        _points.update { it + offlineRewardPoints }
+        // 보상 자체는 진입 시점 applyOfflineRewardIfNeeded에서 이미 carePoint에 추가됨.
+        // UI 입장에선 팝업만 닫으면 됨.
         _showOfflineReward.value = false
     }
 
@@ -222,93 +169,43 @@ class WildHavenViewModel : ViewModel() {
         _showOfflineReward.value = false
     }
 
-    // Supporting/Rehabilitating action for a single animal (Observation support)
     fun supportRehabilitation(animalId: String) {
-        val subject = _wildlifeList.value.find { it.id == animalId } ?: return
-        if (subject.currentRecovery >= 100 && subject.currentStage != RecoveryStage.RETURNED_TO_WILD) {
-            // Trigger Release to Wild (gives bonus points or completes log entries)
-            val bonus = 150.0
-            _points.update { it + bonus }
-            _wildlifeList.update { list ->
-                list.map {
-                    if (it.id == animalId) it.copy(
-                        currentRecovery = 100,
-                        currentStage = RecoveryStage.RETURNED_TO_WILD,
-                        observationYield = it.observationYield * 1.5
-                    ) else it
-                }
-            }
-            recalculatePointsPerSecond()
-            return
-        }
-
-        if (subject.currentStage == RecoveryStage.RETURNED_TO_WILD) return
-
-        // Daily/Quiet gentle care logic
-        val cost = 25.0
-        if (_points.value >= cost) {
-            _points.update { it - cost }
-            _wildlifeList.update { list ->
-                list.map {
-                    if (it.id == animalId) {
-                        val nextRecovery = (it.currentRecovery + 5).coerceAtMost(100)
-                        val nextStage = if (nextRecovery >= 100) RecoveryStage.READY_TO_RETURN else it.currentStage
-                        it.copy(currentRecovery = nextRecovery, currentStage = nextStage)
-                    } else it
-                }
-            }
-            recalculatePointsPerSecond()
+        viewModelScope.launch {
+            gameRepository.supportAnimalRecovery(animalId)
         }
     }
 
-    // Discover (unlock) an endangered animal to support
     fun discoverWildlife(animalId: String) {
-        val subject = _wildlifeList.value.find { it.id == animalId } ?: return
-        if (!subject.isDiscovered && _points.value >= subject.discoverCost) {
-            _points.update { it - subject.discoverCost }
-            _wildlifeList.update { list ->
-                list.map {
-                    if (it.id == animalId) it.copy(isDiscovered = true) else it
-                }
-            }
-            recalculatePointsPerSecond()
-        }
+        // 기존 도메인은 조건(`UnlockCondition`) 충족 시 자동으로 보호 동물에 합류한다.
+        // 새 UI의 "흔적 발견" 버튼은 v0.6.1에서 표시만 유지하고 동작은 no-op으로 둔다.
+        // v0.7+에서 도메인에 수동 unlock 옵션을 추가하면 그때 연결.
     }
 
-    // Purchase environmentally integrated restorations
     fun purchaseRestoration(upgradeId: String) {
-        val upgrade = _restorations.value.find { it.id == upgradeId } ?: return
-        val currentCost = getRestorationCost(upgrade)
-        if (_points.value >= currentCost) {
-            _points.update { it - currentCost }
-            _restorations.update { list ->
-                list.map {
-                    if (it.id == upgradeId) it.copy(currentLevel = it.currentLevel + 1) else it
-                }
-            }
-            recalculatePointsPerSecond()
+        if (!DomainMapping.isRestorationEnabled(upgradeId)) return
+        viewModelScope.launch {
+            gameRepository.upgradeSanctuary()
         }
     }
 
     fun getRestorationCost(upgrade: ShelterRestoration): Long {
-        return (upgrade.baseCost * Math.pow(upgrade.costMultiplier, upgrade.currentLevel.toDouble())).toLong()
+        return if (DomainMapping.isRestorationEnabled(upgrade.id)) {
+            upgrade.baseCost
+        } else {
+            Long.MAX_VALUE
+        }
     }
+}
 
-    // Recalculate based on active rehab animals and active habitat additions
-    private fun recalculatePointsPerSecond() {
-        var baseRate = 0.5
-        // Contributed rate from active discovered animals in protection
-        _wildlifeList.value.forEach {
-            if (it.isDiscovered) {
-                // If returned to wild, they still yield high spiritual observation points remotely
-                baseRate += (it.currentRecovery / 100.0) * it.observationYield
-            }
+class WildHavenViewModelFactory(
+    private val gameRepository: GameRepository,
+) : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        require(modelClass.isAssignableFrom(WildHavenViewModel::class.java)) {
+            "Unknown ViewModel class: ${modelClass.name}"
         }
-        // Contributed rate from restorations
-        _restorations.value.forEach {
-            baseRate += it.currentLevel * it.rateAddition
-        }
-        _pointsPerSec.value = baseRate
+        return WildHavenViewModel(gameRepository) as T
     }
 }
 
@@ -316,9 +213,21 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val timeProvider = SystemTimeProvider
+        val gameRepository = GameRepository(
+            localDataStore = GameStateDataStore(
+                context = this,
+                defaultNowMillis = timeProvider::nowMillis,
+            ),
+            timeProvider = timeProvider,
+        )
+
         setContent {
             MyApplicationTheme {
-                val gameViewModel: WildHavenViewModel = viewModel()
+                val gameViewModel: WildHavenViewModel = viewModel(
+                    factory = WildHavenViewModelFactory(gameRepository),
+                )
 
                 // Register real-time ticker loop using Coroutines
                 LaunchedEffect(Unit) {
@@ -597,12 +506,7 @@ fun SanctuaryDashboardScreen(viewModel: WildHavenViewModel) {
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = when (heroAnimal.id) {
-                                "fox" -> "🦊"
-                                "deer" -> "🦌"
-                                "owl" -> "🦉"
-                                else -> "🐿️"
-                            },
+                            text = DomainMapping.heroEmojiFor(heroAnimal.id),
                             style = TextStyle(fontSize = 58.sp)
                         )
                     }
@@ -1164,8 +1068,9 @@ fun HabitatRestorationScreen(viewModel: WildHavenViewModel) {
         }
 
         items(restorations, key = { it.id }) { restoration ->
-            val cost = viewModel.getRestorationCost(restoration)
-            val canAfford = points >= cost
+            val enabled = DomainMapping.isRestorationEnabled(restoration.id)
+            val cost = if (enabled) viewModel.getRestorationCost(restoration) else 0L
+            val canAfford = enabled && points >= cost
 
             Card(
                 modifier = Modifier
@@ -1230,7 +1135,7 @@ fun HabitatRestorationScreen(viewModel: WildHavenViewModel) {
                                 .height(40.dp)
                         ) {
                             Text(
-                                text = "🐾 $cost",
+                                text = if (enabled) "🐾 $cost" else "준비 중",
                                 style = MaterialTheme.typography.labelSmall.copy(
                                     fontWeight = FontWeight.Bold,
                                     color = if (canAfford) Color.White else ArtisticCharcoal.copy(alpha = 0.3f),
@@ -1510,7 +1415,7 @@ fun SanctuarySettingsScreen() {
                         )
                     )
                     Text(
-                        text = "와일드 헤이븐 아이들 v2.1.0",
+                        text = "와일드 헤이븐 아이들 v${BuildConfig.VERSION_NAME}",
                         style = MaterialTheme.typography.labelSmall.copy(
                             color = ArtisticSage,
                             fontWeight = FontWeight.Bold

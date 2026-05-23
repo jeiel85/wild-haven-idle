@@ -1,5 +1,40 @@
 # Progress
 
+## 2026-05-23 (오후) — v0.6.1 도메인 통합
+
+### Done
+
+- `feat/v0.6.1-domain-integration` 브랜치 분기
+- 새 디자인의 mock `WildHavenViewModel`을 `GameRepository` 기반 실 구현으로 교체
+- `renew/DomainMapping.kt` 신규: `WildlifeSubject`/`ShelterRestoration` 매핑, hero emoji 5종, 환경 정비 활성 여부 판별
+- `renew/MainActivity.kt`:
+  - `WildHavenViewModel`: `points`/`pointsPerSec`/`wildlifeList`/`restorations`를 모두 `gameRepository.gameState` map으로 노출
+  - `runPassiveTick`이 `addCarePoint(rate)`로 DataStore에 누적
+  - 진입 시 `applyOfflineRewardIfNeeded` 결과를 OfflineRewardPopup 표시
+  - `WildHavenViewModelFactory` 추가
+  - `MainActivity.onCreate`에서 `GameRepository(GameStateDataStore, SystemTimeProvider)` 생성
+  - hero 이모지 `when`을 `DomainMapping.heroEmojiFor`로 교체 (rabbit_001 등 5종 ID 매핑)
+  - 설정 버전 표기 `v2.1.0` → `BuildConfig.VERSION_NAME`
+  - `HabitatRestorationScreen`에서 `DomainMapping.isRestorationEnabled`로 4개 카드 분기 (첫 번째만 활성, 나머지 "준비 중")
+- `app/build.gradle.kts`: versionCode 7 → 8, versionName 0.6.0 → 0.6.1, `buildConfig = true` 추가
+- CHANGELOG v0.6.1 + Known Limitations
+- 출시 노트 `store-release-notes/v0.6.1.txt` (ko 277 / en 439)
+- 컴파일/테스트/assembleDebug/assembleRelease 모두 성공
+- 실기기(Samsung) 5개 탭 + restore 화면 검증 — `store-graphics/v0.6.1-device-shots/wh61_01~05.png`
+
+### Not Done
+
+- 바탕화면 자동 복사 (커밋 후 자동 실행 예정)
+- main 머지 + 태그 v0.6.1 푸시 (커밋 직후 자동 실행 예정)
+- Play Store 업로드 (Chrome MCP로 pedaiah85 계정 전환 후 진행)
+
+### v0.6.2+ 예정
+
+- 회복 지원 버튼 텍스트 비용 표시 도메인 동기화
+- 잠긴 동물 카드 흔적 발견 버튼 정리 또는 도메인 수동 unlock 추가
+- 일일 보호 활동 보상 카드 새 디자인에 통합
+- 환경 정비 4개 카테고리 도메인 확장
+
 ## 2026-05-23 — v0.6.0 릴리즈 준비 (디자인 전면 개편 셸)
 
 ### Done

@@ -9,11 +9,12 @@
   - `HISTORY.md`
   - `.agent/progress.md`
 - 검증:
-  - GitHub Actions 재실행 전 로컬 변경만 반영.
+  - GitHub Pages `pages-build-deployment` 성공 (`main` push, run 26331997903)
+  - GitHub Actions `Android CI` 성공 (`main` push, run 26331998139)
 - 결과:
   - Pages가 Jekyll 변환 없이 정적 파일을 그대로 배포하도록 설정.
 - 후속 작업:
-  - 커밋·푸시 후 Pages/Android CI 상태 확인.
+  - 없음
 
 ## 2026-05-23 (밤) — v0.6.3 앱 아이콘 단순화
 

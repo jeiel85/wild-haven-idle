@@ -8,10 +8,9 @@
 - `/docs`는 정적 `index.html` 중심이므로 Jekyll 변환이 필수가 아님을 확인
 - `docs/.nojekyll` 추가로 GitHub Pages Jekyll 처리를 우회하도록 수정
 - CHANGELOG / HISTORY / progress 갱신
-
-### Not Done
-
-- 커밋·푸시 후 CI 확인은 이어서 수행 예정
+- 커밋 `525a2f4` 생성 및 `main` 푸시
+- GitHub Pages `pages-build-deployment` 성공
+- GitHub Actions `Android CI` 성공
 
 ## 2026-05-23 (밤) — v0.6.3 앱 아이콘 단순화
 

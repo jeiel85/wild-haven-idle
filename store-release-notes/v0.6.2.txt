@@ -1,0 +1,20 @@
+<ko-KR>
+보이는 숫자와 표시가 실제 진행 상태와 정확히 맞도록 정리했습니다.
+
+- 회복 지원 버튼이 실제 도메인 비용(동물·단계 기반)으로 표시
+- 잠긴 동물 카드가 자동 발견 조건을 그대로 안내 (보호 포인트 누적·다른 동물 회복 단계·생산량·보호 누적 수)
+- 도감 번호가 동물별로 다르게 표시
+- 자격 있는 날에는 일일 보호 활동 보상 카드가 보호구역 화면에 노출되어 받기 가능
+
+이전 mock 표시(고정 비용 25, 흔적 발견 버튼 등)가 모두 실제 데이터로 교체되었습니다.
+</ko-KR>
+<en-US>
+Numbers and labels now match your real progress.
+
+- Recovery support button shows the real domain cost (per animal and stage)
+- Locked animal cards explain the auto-unlock condition directly
+- Observation numbers vary by species
+- A daily protection bonus card appears on the sanctuary screen on eligible days
+
+The previous mock placeholders (fixed cost 25, manual unlock button, etc.) are replaced with real data.
+</en-US>

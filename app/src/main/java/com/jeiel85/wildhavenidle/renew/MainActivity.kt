@@ -47,6 +47,7 @@ import com.jeiel85.wildhavenidle.core.time.SystemTimeProvider
 import com.jeiel85.wildhavenidle.data.local.GameStateDataStore
 import com.jeiel85.wildhavenidle.data.repository.GameRepository
 import com.jeiel85.wildhavenidle.domain.balance.BalanceCalculator
+import com.jeiel85.wildhavenidle.domain.dailybonus.DailyBonusRules
 import com.jeiel85.wildhavenidle.domain.definitions.AnimalDefinitions
 import com.jeiel85.wildhavenidle.renew.ui.theme.*
 import kotlinx.coroutines.delay
@@ -71,7 +72,13 @@ data class WildlifeSubject(
     val currentStage: RecoveryStage,
     val cardIcon: ImageVector,
     val discoverCost: Long,
-    val isDiscovered: Boolean = false
+    val isDiscovered: Boolean = false,
+    /** 실제 도메인에서 계산된 다음 회복 지원 비용. `BalanceCalculator.calculateRecoverySupportCost`. */
+    val supportCost: Long = 0L,
+    /** 도감 번호(1부터). `AnimalDefinitions.mvpAnimals`에서의 위치. */
+    val observationNumber: Int = 0,
+    /** 미발견 동물의 자동 unlock 조건 안내 텍스트(한국어). 잠긴 카드에서만 사용. */
+    val unlockHint: String = "",
 )
 
 enum class RecoveryStage(val label: String, val color: Color) {
@@ -128,6 +135,19 @@ class WildHavenViewModel(
         .map { DomainMapping.buildRestorations(it) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), emptyList())
 
+    val dailyBonusEligible: StateFlow<Boolean> = gameRepository.gameState
+        .map { state ->
+            DailyBonusRules.isEligible(
+                lastClaimedAtMillis = state.lastDailyBonusClaimedAtMillis,
+                nowMillis = System.currentTimeMillis(),
+            )
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), false)
+
+    val dailyBonusReward: StateFlow<Long> = pointsPerSec
+        .map { DailyBonusRules.computeReward(it).toLong() }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000L), DailyBonusRules.MIN_BONUS_POINTS.toLong())
+
     private val _offlineRewardPoints = MutableStateFlow(0L)
     val offlineRewardPoints: Long get() = _offlineRewardPoints.value
 
@@ -176,9 +196,14 @@ class WildHavenViewModel(
     }
 
     fun discoverWildlife(animalId: String) {
-        // 기존 도메인은 조건(`UnlockCondition`) 충족 시 자동으로 보호 동물에 합류한다.
-        // 새 UI의 "흔적 발견" 버튼은 v0.6.1에서 표시만 유지하고 동작은 no-op으로 둔다.
-        // v0.7+에서 도메인에 수동 unlock 옵션을 추가하면 그때 연결.
+        // v0.6.2부터 잠긴 카드 UI에서 "흔적 발견" 버튼을 제거하고 자동 unlock 조건 텍스트만 노출.
+        // 호환을 위해 메서드는 남겨두지만 호출 경로 없음.
+    }
+
+    fun claimDailyBonus() {
+        viewModelScope.launch {
+            gameRepository.claimDailyBonus()
+        }
     }
 
     fun purchaseRestoration(upgradeId: String) {
@@ -433,6 +458,8 @@ fun BottomNavigationTabBar(
 @Composable
 fun SanctuaryDashboardScreen(viewModel: WildHavenViewModel) {
     val wildlifeList by viewModel.wildlifeList.collectAsStateWithLifecycle()
+    val dailyBonusEligible by viewModel.dailyBonusEligible.collectAsStateWithLifecycle()
+    val dailyBonusReward by viewModel.dailyBonusReward.collectAsStateWithLifecycle()
     val activeUnderCareCount = wildlifeList.count { it.isDiscovered && it.currentStage != RecoveryStage.RETURNED_TO_WILD }
     val returnedCount = wildlifeList.count { it.currentStage == RecoveryStage.RETURNED_TO_WILD }
 
@@ -475,7 +502,11 @@ fun SanctuaryDashboardScreen(viewModel: WildHavenViewModel) {
                     .padding(horizontal = 10.dp, vertical = 4.dp)
             ) {
                 Text(
-                    text = "OBSERVATION ${if (heroAnimal.isDiscovered) "042" else "🔒"}",
+                    text = if (heroAnimal.isDiscovered) {
+                        "OBSERVATION %03d".format(heroAnimal.observationNumber)
+                    } else {
+                        "OBSERVATION 🔒"
+                    },
                     style = MaterialTheme.typography.labelSmall.copy(
                         color = ArtisticSage,
                         fontSize = 9.sp,
@@ -610,6 +641,15 @@ fun SanctuaryDashboardScreen(viewModel: WildHavenViewModel) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // Daily protection bonus card — 자격 있을 때만 노출. 1일 1회 로컬 자정 경계 기준.
+        if (dailyBonusEligible) {
+            DailyBonusCard(
+                rewardPoints = dailyBonusReward,
+                onClaim = { viewModel.claimDailyBonus() },
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
         // State summary dashboards
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -662,6 +702,85 @@ fun SanctuaryDashboardScreen(viewModel: WildHavenViewModel) {
                         color = ArtisticCharcoal.copy(alpha = 0.8f),
                         lineHeight = 20.sp
                     )
+                )
+            }
+        }
+    }
+}
+
+// 일일 보호 활동 보상 카드 — DailyBonusRules.isEligible == true일 때만 노출.
+@Composable
+fun DailyBonusCard(
+    rewardPoints: Long,
+    onClaim: () -> Unit,
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .testTag("daily_bonus_card")
+            .shadow(elevation = 4.dp, shape = RoundedCornerShape(20.dp), clip = false),
+        colors = CardDefaults.cardColors(containerColor = ArtisticEarthySand),
+        shape = RoundedCornerShape(20.dp),
+        border = BorderStroke(1.dp, ArtisticSage.copy(alpha = 0.25f)),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 18.dp, vertical = 14.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Row(
+                modifier = Modifier.weight(1f),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .background(ArtisticSage.copy(alpha = 0.2f)),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text("🌱", style = TextStyle(fontSize = 20.sp))
+                }
+                Spacer(modifier = Modifier.width(12.dp))
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "오늘의 보호 활동 보상",
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            fontWeight = FontWeight.Bold,
+                            color = ArtisticOlive,
+                        ),
+                    )
+                    Text(
+                        text = "🐾 +$rewardPoints",
+                        style = MaterialTheme.typography.labelMedium.copy(
+                            color = ArtisticSage,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Monospace,
+                        ),
+                    )
+                }
+            }
+
+            Button(
+                onClick = onClaim,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = ArtisticOlive,
+                    contentColor = Color.White,
+                ),
+                shape = RoundedCornerShape(14.dp),
+                modifier = Modifier
+                    .testTag("daily_bonus_claim_button")
+                    .height(40.dp),
+            ) {
+                Text(
+                    text = "받기",
+                    style = MaterialTheme.typography.labelSmall.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
+                        letterSpacing = 0.5.sp,
+                    ),
                 )
             }
         }
@@ -751,11 +870,7 @@ fun AnimalRecoveryScreen(viewModel: WildHavenViewModel) {
             }
 
             items(lockedAnimals, key = { it.id }) { animal ->
-                LockedAnimalDiscoveryCard(
-                    animal = animal,
-                    canAffordUnlock = points >= animal.discoverCost,
-                    onDiscoverClick = { viewModel.discoverWildlife(animal.id) }
-                )
+                LockedAnimalDiscoveryCard(animal = animal)
             }
         }
     }
@@ -917,7 +1032,11 @@ fun AnimalRehabCard(
                             .height(44.dp)
                     ) {
                         Text(
-                            text = if (animal.currentStage == RecoveryStage.READY_TO_RETURN) "야생 복귀 동행 🍃" else "조용한 안식 제공 (🐾 25)",
+                            text = if (animal.currentStage == RecoveryStage.READY_TO_RETURN) {
+                                "야생 복귀 동행 🍃"
+                            } else {
+                                "조용한 안식 제공 (🐾 ${animal.supportCost})"
+                            },
                             style = MaterialTheme.typography.labelSmall.copy(
                                 fontWeight = FontWeight.Bold,
                                 color = Color.White,
@@ -959,8 +1078,6 @@ fun AnimalRehabCard(
 @Composable
 fun LockedAnimalDiscoveryCard(
     animal: WildlifeSubject,
-    canAffordUnlock: Boolean,
-    onDiscoverClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -996,7 +1113,7 @@ fun LockedAnimalDiscoveryCard(
                     )
                 }
                 Spacer(modifier = Modifier.width(12.dp))
-                Column {
+                Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = "희미한 발자국과 온기",
                         style = MaterialTheme.typography.bodyMedium.copy(
@@ -1005,31 +1122,31 @@ fun LockedAnimalDiscoveryCard(
                         )
                     )
                     Text(
-                        text = "보호 포인트 🐾 ${animal.discoverCost}",
+                        text = animal.unlockHint,
                         style = MaterialTheme.typography.labelSmall.copy(
                             color = ArtisticSage,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            lineHeight = 14.sp
                         )
                     )
                 }
             }
 
-            Button(
-                onClick = onDiscoverClick,
-                enabled = canAffordUnlock,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = ArtisticOlive,
-                    contentColor = Color.White,
-                    disabledContainerColor = ArtisticCharcoal.copy(alpha = 0.08f)
-                ),
-                shape = RoundedCornerShape(14.dp),
-                modifier = Modifier.height(38.dp)
+            Spacer(modifier = Modifier.width(12.dp))
+
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(14.dp))
+                    .background(ArtisticEarthySand)
+                    .border(1.dp, ArtisticSage.copy(alpha = 0.25f), RoundedCornerShape(14.dp))
+                    .padding(horizontal = 12.dp, vertical = 8.dp)
             ) {
                 Text(
-                    text = "흔적 발견",
+                    text = "관찰 중",
                     style = MaterialTheme.typography.labelSmall.copy(
                         fontWeight = FontWeight.Bold,
-                        color = if (canAffordUnlock) Color.White else ArtisticCharcoal.copy(alpha = 0.3f)
+                        color = ArtisticSage,
+                        letterSpacing = 0.5.sp
                     )
                 )
             }

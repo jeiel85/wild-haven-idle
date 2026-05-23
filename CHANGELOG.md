@@ -1,5 +1,35 @@
 # CHANGELOG.md
 
+## v0.6.2 - 2026-05-23
+
+### Changed
+- 관찰 기록 카드의 "조용한 안식 제공" 버튼 라벨이 *실제 도메인 비용*(`BalanceCalculator.calculateRecoverySupportCost`)으로 표시. 이전엔 mock의 "🐾 25"가 고정되어 있어 실제 비용과 어긋났음.
+- 잠긴 동물 카드(`LockedAnimalDiscoveryCard`)의 mock "비용 + 흔적 발견" 버튼을 *자동 unlock 조건 안내 텍스트* + "관찰 중" 배지로 교체. `UnlockCondition`별 한국어 매핑(보호 포인트 누적 / 특정 동물 회복 단계 도달 / 초당 생산량 도달 / 보호 동물 누적 수). 도메인은 원래 조건 자동 unlock이라 사용자 혼동(누를 수 없는 버튼)을 제거.
+- Sanctuary 화면의 "OBSERVATION 042" 고정 mock 배지가 *동물의 도감 번호*(`AnimalDefinitions.mvpAnimals`에서의 인덱스 + 1)로 동적 표시.
+
+### Added
+- 일일 보호 활동 보상 카드(`DailyBonusCard`)를 sanctuary 화면 첫 행에 추가. 자격 있는 날(`DailyBonusRules.isEligible`, 로컬 자정 경계 기준)에만 노출되며, 보상량은 현재 초당 생산량 × 3시간(최소 50pt). 받기 시 `gameRepository.claimDailyBonus`로 도메인에 적용.
+
+### Build / CI
+- `versionCode` 8 → 9, `versionName` 0.6.1 → 0.6.2
+- 한국어/영어 Play Store 출시 노트: `store-release-notes/v0.6.2.txt`
+
+### Verification
+- `./gradlew :app:compileDebugKotlin` 성공
+- `./gradlew :app:testDebugUnitTest` 성공
+- `./gradlew :app:assembleDebug` 성공
+- `./gradlew :app:assembleRelease` / `:app:bundleRelease` 성공
+- 실기기 검증 (Samsung 1080×2340, 480dpi, 6장 — `store-graphics/v0.6.2-device-shots/`):
+  - OfflineRewardPopup +880, Sanctuary 헤더 carePoint 2,193~2,289로 1초마다 +1.8 누적
+  - DailyBonusCard "🐾 +19094" 노출 (1.8 × 3 × 3600 = 19,440 근사)
+  - OBSERVATION 001 표시 (rabbit_001)
+  - 관찰 기록: 숲토끼 비용 🐾 50, 붉은여우 자동 unlock 발동 확인
+  - 설정 버전 v0.6.2
+
+### Known Limitations (v0.7+ 예정)
+- Settings 화면의 토글 3개(배경음/진동/알림)는 여전히 인메모리. DataStore 영속화는 도메인 확장이 커서 보류.
+- 환경 정비 4개 카테고리 중 첫 번째만 실제 sanctuary upgrade와 연결. 나머지 3개 "준비 중" 비활성 상태 유지.
+
 ## v0.6.1 - 2026-05-23
 
 ### Changed

@@ -1,5 +1,25 @@
 # Progress
 
+## 2026-05-23 (밤) — v0.6.3 앱 아이콘 단순화
+
+### Done
+
+- `codex/simplify-app-icon-v0.6.3` 브랜치 분기
+- 기존 사진풍 앱 아이콘을 단순 보호구역 방패 + 큰 잎 실루엣 중심 그래픽으로 교체
+- `docs/assets/wild-haven-icon-source.png` 1024×1024 원본 재생성
+- `mipmap-mdpi`~`mipmap-xxxhdpi`의 `ic_launcher.png` / `ic_launcher_round.png` 재생성
+- 버전 갱신: versionCode 9 → 10, versionName 0.6.2 → 0.6.3
+- CHANGELOG / HISTORY / README / ART_DIRECTION / ASSET_LICENSES / 출시 노트 갱신
+- `./gradlew :app:test` 성공
+- `./gradlew :app:assembleDebug` 성공
+- `./gradlew :app:bundleRelease` 성공
+- `jarsigner -verify app-release.aab` 성공 (`-strict`는 self-signed 인증서 warning으로 실패)
+- 바탕화면 복사 완료: `wild-haven-idle-v0.6.3.aab`, `wild-haven-idle-v0.6.3-release-notes.txt`
+
+### Not Done
+
+- 커밋·푸시·태그 푸시, CI 확인은 이어서 수행 예정
+
 ## 2026-05-23 (저녁) — v0.6.2 mock 잔여물 정리
 
 ### Done

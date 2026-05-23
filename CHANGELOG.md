@@ -1,5 +1,25 @@
 # CHANGELOG.md
 
+## v0.6.3 - 2026-05-23
+
+### Changed
+- 앱 런처 아이콘을 더 단순한 보호구역 방패 + 큰 잎 실루엣 중심 그래픽으로 교체. 기존 사진풍 배경, 동물 실루엣, 세부 풍경을 제거해 작은 홈 화면 아이콘 크기에서도 형태가 더 또렷하게 보이도록 조정.
+- `docs/assets/wild-haven-icon-source.png` 원본과 `mipmap-*`의 `ic_launcher.png` / `ic_launcher_round.png`를 동일한 새 원본에서 재생성.
+
+### Documentation
+- 앱 아이콘 에셋 출처와 분류를 새 직접 생성 그래픽 기준으로 갱신.
+- README 현재 버전을 `0.6.3`으로 갱신.
+
+### Build / CI
+- `versionCode` 9 → 10, `versionName` 0.6.2 → 0.6.3
+- 한국어/영어 Play Store 출시 노트: `store-release-notes/v0.6.3.txt`
+
+### Verification
+- `./gradlew :app:test` 성공
+- `./gradlew :app:assembleDebug` 성공
+- `./gradlew :app:bundleRelease` 성공
+- `jarsigner -verify app-release.aab` 성공 (`-strict`는 self-signed release 인증서 경고로 실패하므로 일반 검증 결과를 기록)
+
 ## v0.6.2 - 2026-05-23
 
 ### Changed

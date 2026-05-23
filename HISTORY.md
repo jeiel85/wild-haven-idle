@@ -1,5 +1,37 @@
 # HISTORY.md
 
+## 2026-05-23 (밤) — v0.6.3 앱 아이콘 단순화
+
+- 작업: 앱 런처 아이콘을 작은 크기에서 더 잘 읽히는 단순 그래픽으로 재제작하고 v0.6.3 패치 버전 준비.
+- 변경 파일:
+  - `app/build.gradle.kts` (versionCode 9 → 10, versionName 0.6.2 → 0.6.3)
+  - `docs/assets/wild-haven-icon-source.png` (단순 보호구역 방패 + 큰 잎 실루엣 원본)
+  - `app/src/main/res/mipmap-*/ic_launcher.png`
+  - `app/src/main/res/mipmap-*/ic_launcher_round.png`
+  - `CHANGELOG.md`
+  - `store-release-notes/v0.6.3.txt`
+  - `README.md`
+  - `docs/ART_DIRECTION.md`
+  - `docs/ASSET_LICENSES.md`
+  - `.agent/tasks.md`
+  - `.agent/progress.md`
+  - `.agent/decisions.md`
+- 검증:
+  - `./gradlew :app:test` 성공 (기존 AutoMirrored 아이콘 권고 warning 2건 유지)
+  - `./gradlew :app:assembleDebug` 성공
+  - `./gradlew :app:bundleRelease` 성공 (로컬 release signing 환경 파일을 프로세스에만 주입)
+  - `jarsigner -verify app-release.aab` → `jar verified` (self-signed 인증서 warning은 기존 release signing 특성)
+  - `jarsigner -verify -strict app-release.aab` → self-signed 인증서 때문에 실패. Android 배포 서명 자체는 일반 verify 기준 통과.
+- 산출물:
+  - AAB: `app/build/outputs/bundle/release/app-release.aab` (4.93 MB)
+  - 출시 노트: `store-release-notes/v0.6.3.txt`
+  - 바탕화면 복사본: `wild-haven-idle-v0.6.3.aab`, `wild-haven-idle-v0.6.3-release-notes.txt`
+- 결과:
+  - 기존 사진풍 배경, 동물 실루엣, 세부 풍경을 제거하고 방패/잎 중심의 단순 런처 아이콘으로 교체.
+  - 아이콘 원본과 density별 런처 PNG가 같은 생성 원본에서 파생되도록 정리.
+- 후속 작업:
+  - 커밋·푸시·v0.6.3 태그 푸시, GitHub Actions release 확인
+
 ## 2026-05-23 (저녁) — v0.6.2 mock 잔여물 정리
 
 - 작업: v0.6.1까지 남아있던 UI 측 mock 라벨/버튼을 모두 실제 도메인 데이터로 교체하고 일일 보호 활동 보상 카드를 새 디자인에 통합.

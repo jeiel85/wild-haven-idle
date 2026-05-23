@@ -22,7 +22,7 @@ Wild Haven Idle is a local-first Android idle simulation about restoring a wildl
 | 개발 단계 | MVP 개발 중 |
 | 플랫폼 | Android |
 | Application ID | `com.jeiel85.wildhavenidle` |
-| 현재 버전 | `0.1.0` |
+| 현재 버전 | `0.6.3` |
 | 저장 방식 | 로컬 우선 |
 | CI | GitHub Actions |
 | 릴리즈 산출물 | APK, AAB |

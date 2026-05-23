@@ -13,6 +13,7 @@
 - [x] Configure signed release APK/AAB builds
 - [x] Add GitHub Actions release workflow using repository secrets
 - [x] Add game identity app icon
+- [x] Simplify app launcher icon for small-size readability
 - [x] Publish GitHub Release with signed APK/AAB on tag push
 - [x] Surface APK download CTA on GitHub Pages
 

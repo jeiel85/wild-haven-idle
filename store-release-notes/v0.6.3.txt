@@ -1,0 +1,17 @@
+<ko-KR>
+앱 아이콘을 더 단순한 보호구역 방패와 큰 잎 중심 그래픽으로 교체했습니다.
+
+- 작은 홈 화면 아이콘 크기에서도 형태가 더 또렷하게 보이도록 개선
+- 기존 사진풍 배경과 세부 풍경 요소를 제거
+- 원형/일반 런처 아이콘을 동일한 새 원본에서 재생성
+
+게임 진행 데이터와 플레이 규칙은 변경되지 않습니다.
+
+<en-US>
+Updated the app icon with a simpler sanctuary shield and large leaf mark.
+
+- Improved readability at small launcher icon sizes
+- Removed the previous photo-like background and detailed scenery
+- Regenerated regular and round launcher icons from the same new source
+
+Game progress data and gameplay rules are unchanged.

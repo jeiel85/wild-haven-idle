@@ -88,3 +88,16 @@ The icon communicates sanctuary restoration and wildlife protection without refe
 
 Impact:
 The generated source image is tracked under `docs/assets/wild-haven-icon-source.png`, with launcher PNGs derived into `mipmap-*` resources.
+
+---
+
+## 2026-05-23: Simplified launcher icon
+
+Decision:
+Replace the detailed photo-like launcher icon with a simpler geometric sanctuary shield and single large leaf mark.
+
+Reason:
+The previous icon carried the right identity but had too many background and animal details for small Android launcher sizes. The simplified mark keeps the sanctuary/leaf identity while improving readability.
+
+Impact:
+`docs/assets/wild-haven-icon-source.png` and all `mipmap-*` launcher PNGs are regenerated from the simplified source. Animal silhouettes are no longer part of the launcher icon and remain represented inside the app UI instead.

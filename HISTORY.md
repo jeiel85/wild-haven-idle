@@ -1,5 +1,20 @@
 # HISTORY.md
 
+## 2026-05-27 — 릴리즈 바탕화면 복사 규칙 문서화
+
+- 작업: "새 버전 만들기" 요청 시 AAB와 출시 노트를 바탕화면에 복사해야 하는 규칙을 `AGENTS.md`에 명시.
+- 변경 파일:
+  - `AGENTS.md`
+  - `HISTORY.md`
+  - `.agent/progress.md`
+- 검증:
+  - 기존 `AGENTS.md`에는 Expected Assets만 있고 바탕화면 복사 규칙이 없음을 확인.
+  - `git diff --check` 성공.
+- 결과:
+  - 다음 릴리즈부터 GitHub Release 확인과 별개로 `wild-haven-idle-vX.Y.Z.aab`, `wild-haven-idle-vX.Y.Z-release-notes.txt`를 실제 Windows 바탕화면에 복사하고 파일 크기까지 확인하는 것이 완료 조건에 포함됨.
+- 후속 작업:
+  - 없음.
+
 ## 2026-05-27 — v0.6.4 리뉴얼 UI 확인용 릴리즈 준비
 
 - 작업: 최신 AAB에서 리뉴얼 디자인 진입점이 유지되는지 확인하고, 사용자가 내려받아 재확인할 수 있도록 v0.6.4 패치 버전을 준비.

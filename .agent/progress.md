@@ -1,5 +1,14 @@
 # Progress
 
+## 2026-05-27 — 릴리즈 바탕화면 복사 규칙 문서화
+
+### Done
+
+- `AGENTS.md`에 "새 버전 만들기" 요청 시 바탕화면 AAB/TXT 복사를 릴리즈 완료 조건으로 추가.
+- 실제 바탕화면 탐색 순서 명시: `C:\Users\jeiel\OneDrive\바탕 화면` 우선, 없으면 `C:\Users\jeiel\Desktop`.
+- 파일명 규칙 명시: `wild-haven-idle-vX.Y.Z.aab`, `wild-haven-idle-vX.Y.Z-release-notes.txt`.
+- signed AAB는 GitHub Release 산출물을 우선 사용하도록 명시.
+
 ## 2026-05-27 — v0.6.4 리뉴얼 UI 확인용 릴리즈
 
 ### Done

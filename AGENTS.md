@@ -21,6 +21,7 @@ Build/Test Commands: ./gradlew test, ./gradlew assembleDebug
 Release Trigger: tag push
 CI System: GitHub Actions
 Expected Assets: APK, AAB
+Desktop Export: AAB, release notes TXT
 Application ID: com.jeiel85.wildhavenidle
 ```
 
@@ -494,11 +495,21 @@ Closes #123
 
 릴리즈 또는 주요 기능 푸시 후에는 CI/CD 상태와 산출물을 확인합니다.
 
+사용자가 "새 버전 만들기" 또는 릴리즈 생성을 요청하면 GitHub Release 생성 확인과 별개로, Play Console 업로드와 즉시 확인을 위해 실제 사용자 바탕화면에도 산출물을 복사합니다.
+
+바탕화면 복사 규칙:
+
+- 대상 위치는 실제 Windows 바탕화면을 확인해 사용합니다. 우선 `C:\Users\jeiel\OneDrive\바탕 화면`을 확인하고, 없으면 `C:\Users\jeiel\Desktop`을 사용합니다.
+- 복사 파일명은 `wild-haven-idle-vX.Y.Z.aab`, `wild-haven-idle-vX.Y.Z-release-notes.txt` 형식을 사용합니다.
+- AAB는 GitHub Release에서 생성된 signed AAB를 우선 사용합니다. 로컬 빌드 산출물을 복사하는 경우 서명 여부를 별도로 확인하고 보고합니다.
+- 복사 후 `Get-ChildItem` 등으로 파일 존재, 크기, 수정 시간을 확인해 최종 보고에 포함합니다.
+
 확인 항목:
 
 - GitHub Actions 성공 여부
 - 릴리즈 생성 여부
 - APK/AAB 산출물 업로드 여부
+- 바탕화면 AAB/TXT 복사 및 파일 크기 확인 여부
 - 산출물 파일 크기가 0이 아닌지
 - 릴리즈 노트가 최신 변경 사항을 반영하는지
 - `CHANGELOG.md`와 릴리즈 노트가 서로 모순되지 않는지

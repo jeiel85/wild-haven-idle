@@ -206,6 +206,7 @@ ANDROID_RELEASE_KEY_PASSWORD
 | 앱 아이콘 512px | [store-graphics/icon-512.png](store-graphics/icon-512.png) |
 | 기능 그래픽 1024×500 | [store-graphics/feature-graphic-1024x500.png](store-graphics/feature-graphic-1024x500.png) |
 | 휴대전화 스크린샷 | [store-graphics/screenshots](store-graphics/screenshots/) |
+| 현재 Play Console 업로드 묶음 | [store-graphics/play-console-current](store-graphics/play-console-current/) |
 | 버전별 출시 노트 | [store-release-notes](store-release-notes/) |
 | 개인정보처리방침 | [docs/privacy.html](docs/privacy.html) |
 

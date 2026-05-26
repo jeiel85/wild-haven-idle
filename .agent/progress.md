@@ -1,5 +1,25 @@
 # Progress
 
+## 2026-05-26 — Play Console 그래픽 자산 준비
+
+### Done
+
+- `codex/simpler-app-icon-v2`는 이미 `main`의 조상임을 확인.
+- `git merge --no-ff codex/simpler-app-icon-v2` 실행 결과 이미 최신 상태 확인.
+- 경량 아이콘 원본(`docs/assets/wild-haven-icon-source.png`)에서 `store-graphics/icon-512.png` 재생성.
+- 경량 아이콘 원본을 포함해 `store-graphics/feature-graphic-1024x500.png` 재생성.
+- `store-graphics/play-console-current/`에 Play Console 업로드 묶음 정리:
+  - 앱 아이콘 1장
+  - 기능 그래픽 1장
+  - 휴대전화 스크린샷 6장
+- `store-graphics/README.md`와 `README.md`에 현재 업로드 묶음 경로 추가.
+
+### Verification
+
+- `icon-512.png`: 512×512 PNG, 16.8 KB
+- `feature-graphic-1024x500.png`: 1024×500 PNG, 80.9 KB
+- `play-console-current/phone-screenshots/*.png`: 1080×2340 PNG, 6장
+
 ## 2026-05-26 — GitHub 공개 표면 최신화
 
 ### Done

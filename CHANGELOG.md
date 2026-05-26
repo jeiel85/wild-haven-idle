@@ -11,9 +11,13 @@
 
 ### Changed
 - 앱 런처 아이콘을 한 단계 더 단순화. 배경 글로우, 내부 선, 보조 곡선 요소를 제거하고 단색 배경 + 방패 외곽 + 큰 잎 심볼만 남겨 48dp 수준에서도 형태가 덜 뭉치도록 조정.
+- Play Console용 512px 앱 아이콘과 기능 그래픽을 최신 경량 아이콘 원본에서 재생성해 업로드 파일 크기를 줄임.
 
 ### Build / CI
 - GitHub Pages가 `/docs` 정적 페이지를 Jekyll로 처리하다 `jekyll-github-metadata`의 GitHub API 인증 오류로 실패할 수 있어, `docs/.nojekyll`을 추가해 정적 파일 그대로 배포하도록 조정.
+
+### Documentation
+- Play Console에 바로 올릴 현재 그래픽 묶음을 `store-graphics/play-console-current/`에 정리하고 README에 업로드 경로를 추가.
 
 ## v0.6.3 - 2026-05-23
 

@@ -4,6 +4,9 @@ Wild Haven Idle Google Play Console 스토어 등록정보 업로드용 그래�
 
 ## 에셋 목록
 
+현재 Play Console 업로드용으로 바로 사용할 묶음은
+[`play-console-current/`](play-console-current/)에 정리되어 있습니다.
+
 | 파일 | 용도 | 사양 | Play Console 위치 |
 |---|---|---|---|
 | `icon-512.png` | 고해상도 앱 아이콘 | 512×512 PNG, 알파 가능, 1MB 이하 | 스토어 등록정보 → 그래픽 → 앱 아이콘 |
@@ -12,6 +15,19 @@ Wild Haven Idle Google Play Console 스토어 등록정보 업로드용 그래�
 | `screenshots/02-animals.png` | 홈 화면의 보호 동물 영역 | 1080×2240 PNG | 동일 |
 | `screenshots/03-archive.png` | 도감 | 1080×2240 PNG | 동일 |
 | `screenshots/04-settings.png` | 설정 | 1080×2240 PNG | 동일 |
+
+### 현재 업로드 묶음
+
+| 파일 | 용도 | 사양 |
+|---|---|---|
+| `play-console-current/icon-512.png` | 앱 아이콘 | 512×512 PNG, 16.8 KB |
+| `play-console-current/feature-graphic-1024x500.png` | 기능 그래픽 | 1024×500 PNG, 80.9 KB |
+| `play-console-current/phone-screenshots/01-sanctuary.png` | 휴대전화 스크린샷 | 1080×2340 PNG |
+| `play-console-current/phone-screenshots/02-animals.png` | 휴대전화 스크린샷 | 1080×2340 PNG |
+| `play-console-current/phone-screenshots/03-animals-real-data.png` | 휴대전화 스크린샷 | 1080×2340 PNG |
+| `play-console-current/phone-screenshots/04-restore.png` | 휴대전화 스크린샷 | 1080×2340 PNG |
+| `play-console-current/phone-screenshots/05-explore.png` | 휴대전화 스크린샷 | 1080×2340 PNG |
+| `play-console-current/phone-screenshots/06-settings.png` | 휴대전화 스크린샷 | 1080×2340 PNG |
 
 ## 생성 스크립트
 

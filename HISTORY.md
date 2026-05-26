@@ -1,5 +1,28 @@
 # HISTORY.md
 
+## 2026-05-26 — Play Console 그래픽 자산 준비
+
+- 작업: 경량화된 앱 아이콘 브랜치가 `main`에 이미 반영되어 있음을 확인하고, 해당 원본으로 Play Console용 그래픽 자산을 재생성.
+- 변경 파일:
+  - `store-graphics/icon-512.png`
+  - `store-graphics/feature-graphic-1024x500.png`
+  - `store-graphics/play-console-current/**`
+  - `store-graphics/README.md`
+  - `README.md`
+  - `CHANGELOG.md`
+  - `HISTORY.md`
+  - `.agent/progress.md`
+- 검증:
+  - `git merge --no-ff codex/simpler-app-icon-v2` 결과: 이미 최신 상태.
+  - `python store-graphics/generate_icon_512.py` 성공, `icon-512.png` 512×512 / 16.8 KB 생성.
+  - `python store-graphics/generate_feature_graphic.py` 성공, `feature-graphic-1024x500.png` 1024×500 / 80.9 KB 생성.
+  - Pillow로 현재 업로드 묶음 이미지 규격 확인: 아이콘 512×512, 기능 그래픽 1024×500, 휴대전화 스크린샷 6장 1080×2340.
+- 결과:
+  - Play Console 업로드용 현재 묶음이 `store-graphics/play-console-current/`에 정리됨.
+  - 스크린샷은 이미 촬영된 `v0.6.2-device-shots` 실기기 캡처 6장을 업로드 순서에 맞춰 복사해 그대로 사용.
+- 후속 작업:
+  - Play Console 등록정보에서 `play-console-current` 폴더의 아이콘, 기능 그래픽, 휴대전화 스크린샷 6장을 업로드.
+
 ## 2026-05-26 — GitHub 공개 표면 최신화
 
 - 작업: GitHub IO, README, GitHub 설명/홈페이지/토픽을 최신 `v0.6.3` 공개 상태에 맞춰 점검하고 부족한 링크와 메타데이터를 보강.

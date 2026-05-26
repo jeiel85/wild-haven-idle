@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Documentation
+- GitHub Pages와 README의 저장소/Release 링크를 실제 공개 저장소 `wild-haven-idle-android` 기준으로 정정.
+- README 상단에 Pages, 개인정보처리방침, 최신 Release, 스토어 그래픽 자료 링크를 모아 최신 공개 표면을 한눈에 확인할 수 있도록 정리.
+- GitHub Pages 랜딩 페이지에 개인정보처리방침 링크와 절대 Open Graph URL을 추가하고, 최신 단순화 아이콘 설명과 맞지 않던 대체 텍스트를 갱신.
+- 아직 공개되지 않은 Google Play URL은 404로 확인되어 다운로드 CTA에서 제거하고, 스토어 준비 자료 링크로 대체.
+- GitHub 저장소 토픽을 Android, Kotlin, Jetpack Compose, Material 3, idle game, local-first, DataStore, GitHub Pages, Play Store 등 현재 앱 성격에 맞게 채움.
+
 ### Changed
 - 앱 런처 아이콘을 한 단계 더 단순화. 배경 글로우, 내부 선, 보조 곡선 요소를 제거하고 단색 배경 + 방패 외곽 + 큰 잎 심볼만 남겨 48dp 수준에서도 형태가 덜 뭉치도록 조정.
 

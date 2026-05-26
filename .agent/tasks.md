@@ -16,6 +16,7 @@
 - [x] Simplify app launcher icon for small-size readability
 - [x] Publish GitHub Release with signed APK/AAB on tag push
 - [x] Surface APK download CTA on GitHub Pages
+- [x] Refresh public GitHub surfaces for latest version
 
 ## Next
 

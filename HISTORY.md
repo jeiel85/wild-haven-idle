@@ -1,5 +1,36 @@
 # HISTORY.md
 
+## 2026-05-26 — GitHub 공개 표면 최신화
+
+- 작업: GitHub IO, README, GitHub 설명/홈페이지/토픽을 최신 `v0.6.3` 공개 상태에 맞춰 점검하고 부족한 링크와 메타데이터를 보강.
+- 변경 파일:
+  - `README.md`
+  - `docs/index.html`
+  - `CHANGELOG.md`
+  - `HISTORY.md`
+  - `.agent/tasks.md`
+  - `.agent/progress.md`
+- 원격 설정:
+  - GitHub Pages: `main` 브랜치 `/docs`, `https://jeiel85.github.io/wild-haven-idle-android/`
+  - 저장소 설명: 작은 야생동물 보호구역을 복원하고, 구조 동물의 회복을 지원하며, 도감을 채워 나가는 Android 방치형 성장 시뮬레이션입니다.
+  - 홈페이지: `https://jeiel85.github.io/wild-haven-idle-android/`
+  - 토픽: `android`, `android-app`, `datastore`, `github-pages`, `gradle`, `idle-game`, `jetpack-compose`, `kotlin`, `local-first`, `material3`, `play-store`, `wildlife`
+- 검증:
+  - `git diff --check` 성공
+  - Python `html.parser`로 `docs/index.html`, `docs/privacy.html` 구문 확인 성공
+  - GitHub Pages 설정 확인 성공 (`status: built`, `/docs`, HTTPS enforced)
+  - 공개 Pages/Privacy/Release URL HTTP 200 확인
+  - Google Play URL은 HTTP 404로 확인되어 공개 다운로드 링크에서 제외
+  - 로컬 정적 서버(`docs/`) + 브라우저 확인: old repo 링크 없음, privacy 링크 있음, Play Store 링크 없음, primary CTA `스토어 자료 보기`
+  - GitHub Actions `Android CI`와 `pages-build-deployment` 최신 run 성공 확인
+- 결과:
+  - README 상단에서 Pages, 개인정보처리방침, 최신 Release, 스토어 그래픽 자료를 바로 찾을 수 있음.
+  - 랜딩 페이지의 GitHub/Release 링크가 실제 `wild-haven-idle-android` 저장소로 연결됨.
+  - 아직 공개되지 않은 Google Play 링크 대신 스토어 준비 자료를 안내해 깨진 CTA를 제거.
+  - 저장소 토픽이 비어 있던 상태에서 앱 정체성과 기술 스택을 설명하는 태그로 채워짐.
+- 후속 작업:
+  - 없음.
+
 ## 2026-05-23 (밤) — 앱 아이콘 2차 단순화
 
 - 작업: v0.6.3에서 단순화한 앱 아이콘을 다시 확인하고, 작은 런처 크기에서 남아 있던 복잡도를 추가로 제거.

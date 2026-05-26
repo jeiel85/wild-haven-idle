@@ -1,5 +1,32 @@
 # Progress
 
+## 2026-05-26 — GitHub 공개 표면 최신화
+
+### Done
+
+- 원격 저장소 메타데이터 확인: 실제 공개 저장소는 `jeiel85/wild-haven-idle-android`, Pages URL은 `https://jeiel85.github.io/wild-haven-idle-android/`
+- README의 Android CI badge 링크를 실제 저장소 기준으로 정정
+- README 상단에 공개 링크 표 추가:
+  - GitHub Pages
+  - 개인정보처리방침
+  - 최신 GitHub Release
+  - 스토어 그래픽 자료
+- README에 `v0.6.3` 최신 버전 하이라이트와 Play Store 준비 자료 위치 추가
+- GitHub Pages `docs/index.html`의 GitHub/Release 링크를 `wild-haven-idle-android`로 정정
+- Pages 랜딩에 privacy 링크와 절대 Open Graph URL 추가
+- Google Play URL은 현재 404로 확인되어 Pages/README의 다운로드 CTA에서 제외하고 스토어 준비 자료 링크로 대체
+- 단순화된 최신 앱 아이콘에 맞게 hero 이미지 alt 텍스트 갱신
+- GitHub 저장소 topics를 현재 앱 성격에 맞게 채움
+
+### Verification
+
+- `git diff --check` 성공
+- Python `html.parser`: `docs/index.html`, `docs/privacy.html` 구문 확인 성공
+- GitHub Pages 설정: `/docs`, HTTPS enforced, built 상태 확인
+- 공개 URL 확인: Pages, Privacy, Release HTTP 200 / Google Play HTTP 404
+- 로컬 브라우저 확인: old repo 링크 없음, Android repo 링크 6개, privacy 링크 있음, Play Store 링크 없음, primary CTA `스토어 자료 보기`
+- GitHub Actions 최신 상태 확인: `Android CI`, `pages-build-deployment` 최신 run 성공
+
 ## 2026-05-23 (밤) — 앱 아이콘 2차 단순화
 
 ### Done

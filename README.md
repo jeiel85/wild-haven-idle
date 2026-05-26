@@ -1,11 +1,9 @@
-# 🏕️ Wild Haven Idle — 와일드 헤이븐
+# Wild Haven Idle — 와일드 헤이븐
 
-[![Android CI](https://github.com/jeiel85/wild-haven-idle/actions/workflows/android.yml/badge.svg)](https://github.com/jeiel85/wild-haven-idle/actions/workflows/android.yml)
-[![Google Play](https://img.shields.io/badge/Google%20Play-Download-414141?logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.jeiel85.wildhavenidle)
+[![Android CI](https://github.com/jeiel85/wild-haven-idle-android/actions/workflows/android.yml/badge.svg)](https://github.com/jeiel85/wild-haven-idle-android/actions/workflows/android.yml)
+[![Release](https://img.shields.io/badge/GitHub%20Release-APK%20%2B%20AAB-31543d)](https://github.com/jeiel85/wild-haven-idle-android/releases/latest)
 
 > **숲속 보호구역을 복원하고, 다친 야생동물을 돌보는 방치형 힐링 게임**
-
-📱 **Google Play 스토어에서 다운로드:** <https://play.google.com/store/apps/details?id=com.jeiel85.wildhavenidle>
 
 작은 야생동물 보호구역의 관리자가 되어 보호 포인트를 모으고, 구조 동물의 회복을 지원하며, 도감을 채워 나가는 Android 방치형 성장 시뮬레이션입니다.
 
@@ -15,17 +13,37 @@ Wild Haven Idle is a local-first Android idle simulation about restoring a wildl
   <img src="docs/assets/wild-haven-icon-source.png" alt="Wild Haven Idle app icon" width="220">
 </p>
 
+## 공개 링크
+
+| 항목 | 링크 |
+|---|---|
+| GitHub Pages | <https://jeiel85.github.io/wild-haven-idle-android/> |
+| 개인정보처리방침 | <https://jeiel85.github.io/wild-haven-idle-android/privacy.html> |
+| 최신 GitHub Release | <https://github.com/jeiel85/wild-haven-idle-android/releases/latest> |
+| 스토어 그래픽 자료 | [store-graphics](store-graphics/README.md) |
+
 ## 프로젝트 상태
 
 | 항목 | 상태 |
 |---|---|
-| 개발 단계 | MVP 개발 중 |
+| 개발 단계 | MVP 공개 빌드 개선 중 |
 | 플랫폼 | Android |
 | Application ID | `com.jeiel85.wildhavenidle` |
 | 현재 버전 | `0.6.3` |
 | 저장 방식 | 로컬 우선 |
+| 권한/SDK 정책 | 네트워크, 로그인, 광고, 결제, 분석 SDK 없음 |
 | CI | GitHub Actions |
 | 릴리즈 산출물 | APK, AAB |
+| Pages source | `main` 브랜치 `/docs` |
+
+## 최신 버전 하이라이트
+
+`v0.6.3`은 작은 런처 크기에서도 앱 정체성이 더 잘 읽히도록 아이콘을 단순화한 패치 버전입니다.
+
+- 단색 배경, 보호구역 방패 외곽, 큰 잎 심볼 중심의 런처 아이콘
+- Google Play용 512px 아이콘과 기능 그래픽 자료 유지
+- GitHub Release에 signed APK/AAB 자동 업로드
+- Pages는 `/docs` 정적 사이트로 배포되며 Jekyll 변환을 우회
 
 ## 게임 소개
 
@@ -178,6 +196,18 @@ ANDROID_RELEASE_KEY_PASSWORD
 
 - `Android CI`: PR/main 검증, debug APK, signed release APK/AAB artifact 생성
 - `Android Release`: 수동 실행 또는 `v*` 태그 푸시로 signed release artifact 생성
+
+## Play Store 준비 자료
+
+스토어 등록에 필요한 공개 자료는 저장소에 함께 정리되어 있습니다.
+
+| 자료 | 위치 |
+|---|---|
+| 앱 아이콘 512px | [store-graphics/icon-512.png](store-graphics/icon-512.png) |
+| 기능 그래픽 1024×500 | [store-graphics/feature-graphic-1024x500.png](store-graphics/feature-graphic-1024x500.png) |
+| 휴대전화 스크린샷 | [store-graphics/screenshots](store-graphics/screenshots/) |
+| 버전별 출시 노트 | [store-release-notes](store-release-notes/) |
+| 개인정보처리방침 | [docs/privacy.html](docs/privacy.html) |
 
 ## 개발 원칙
 

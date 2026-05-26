@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.6.4 - 2026-05-27
+
 ### Documentation
 - GitHub Pages와 README의 저장소/Release 링크를 실제 공개 저장소 `wild-haven-idle-android` 기준으로 정정.
 - README 상단에 Pages, 개인정보처리방침, 최신 Release, 스토어 그래픽 자료 링크를 모아 최신 공개 표면을 한눈에 확인할 수 있도록 정리.
@@ -18,6 +20,16 @@
 
 ### Documentation
 - Play Console에 바로 올릴 현재 그래픽 묶음을 `store-graphics/play-console-current/`에 정리하고 README에 업로드 경로를 추가.
+
+### Build / CI
+- `versionCode` 10 → 11, `versionName` 0.6.3 → 0.6.4
+- 한국어/영어 확인용 출시 노트: `store-release-notes/v0.6.4.txt`
+
+### Verification
+- 최신 릴리즈 AAB와 로컬 재빌드 AAB의 manifest에서 launcher Activity가 `com.jeiel85.wildhavenidle.renew.MainActivity`임을 확인.
+- `./gradlew :app:test assembleDebug bundleRelease` 성공.
+- 로컬 AAB manifest에서 `versionCode` 11, `versionName` 0.6.4 확인.
+- 로컬 AAB는 release signing 환경변수 없이 생성되어 unsigned이며, 배포용 signed AAB는 GitHub Actions `Android Release`에서 생성 예정.
 
 ## v0.6.3 - 2026-05-23
 

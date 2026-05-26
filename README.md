@@ -29,7 +29,7 @@ Wild Haven Idle is a local-first Android idle simulation about restoring a wildl
 | 개발 단계 | MVP 공개 빌드 개선 중 |
 | 플랫폼 | Android |
 | Application ID | `com.jeiel85.wildhavenidle` |
-| 현재 버전 | `0.6.3` |
+| 현재 버전 | `0.6.4` |
 | 저장 방식 | 로컬 우선 |
 | 권한/SDK 정책 | 네트워크, 로그인, 광고, 결제, 분석 SDK 없음 |
 | CI | GitHub Actions |
@@ -38,10 +38,10 @@ Wild Haven Idle is a local-first Android idle simulation about restoring a wildl
 
 ## 최신 버전 하이라이트
 
-`v0.6.3`은 작은 런처 크기에서도 앱 정체성이 더 잘 읽히도록 아이콘을 단순화한 패치 버전입니다.
+`v0.6.4`는 최신 리뉴얼 UI 진입점과 공개 자료를 다시 확인해 내려받아 검증하기 쉬운 패치 버전입니다.
 
-- 단색 배경, 보호구역 방패 외곽, 큰 잎 심볼 중심의 런처 아이콘
-- Google Play용 512px 아이콘과 기능 그래픽 자료 유지
+- 앱 진입점이 리뉴얼 화면(`renew.MainActivity`)인지 AAB 내부 manifest 기준으로 재확인
+- Google Play용 512px 아이콘, 기능 그래픽, 스크린샷 묶음 정리
 - GitHub Release에 signed APK/AAB 자동 업로드
 - Pages는 `/docs` 정적 사이트로 배포되며 Jekyll 변환을 우회
 

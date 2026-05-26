@@ -1,5 +1,23 @@
 # Progress
 
+## 2026-05-27 — v0.6.4 리뉴얼 UI 확인용 릴리즈
+
+### Done
+
+- 최신 `main` 동기화 완료.
+- 현재 소스의 launcher Activity가 `.renew.MainActivity`임을 확인.
+- GitHub Release `v0.6.3` AAB와 로컬 재빌드 AAB manifest에서 `com.jeiel85.wildhavenidle.renew.MainActivity`, versionName `0.6.3`, versionCode `10` 확인.
+- Play Console 현재 스크린샷 `01-sanctuary.png`가 리뉴얼 5탭 UI임을 확인.
+- 버전 갱신: versionCode 10 → 11, versionName 0.6.3 → 0.6.4.
+- `CHANGELOG.md`, `README.md`, `HISTORY.md`, `store-release-notes/v0.6.4.txt` 갱신.
+- `./gradlew :app:test assembleDebug bundleRelease` 성공.
+- 로컬 AAB manifest에서 versionCode 11, versionName 0.6.4, launcher `com.jeiel85.wildhavenidle.renew.MainActivity` 확인.
+- 로컬 AAB는 release signing 환경변수 없이 생성되어 `jarsigner -verify` 기준 unsigned. signed AAB는 GitHub Actions release workflow에서 생성 예정.
+
+### Next
+
+- 커밋, 태그 `v0.6.4` 푸시, GitHub Release 산출물 확인.
+
 ## 2026-05-26 — Play Console 그래픽 자산 준비
 
 ### Done

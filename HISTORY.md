@@ -1,5 +1,27 @@
 # HISTORY.md
 
+## 2026-05-27 — v0.6.4 리뉴얼 UI 확인용 릴리즈 준비
+
+- 작업: 최신 AAB에서 리뉴얼 디자인 진입점이 유지되는지 확인하고, 사용자가 내려받아 재확인할 수 있도록 v0.6.4 패치 버전을 준비.
+- 변경 파일:
+  - `app/build.gradle.kts` (versionCode 10 → 11, versionName 0.6.3 → 0.6.4)
+  - `README.md`
+  - `CHANGELOG.md`
+  - `store-release-notes/v0.6.4.txt`
+  - `HISTORY.md`
+  - `.agent/progress.md`
+- 검증:
+  - 최신 `main`과 `origin/main` 동기화 확인.
+  - GitHub Release `v0.6.3` AAB 및 로컬 재빌드 AAB manifest에서 launcher Activity가 `com.jeiel85.wildhavenidle.renew.MainActivity`임을 확인.
+  - `store-graphics/play-console-current/phone-screenshots/01-sanctuary.png`가 리뉴얼 5탭 UI 화면임을 확인.
+  - `./gradlew :app:test assembleDebug bundleRelease` 성공.
+  - 로컬 AAB manifest에서 versionCode 11, versionName 0.6.4, launcher `com.jeiel85.wildhavenidle.renew.MainActivity` 확인.
+  - `jarsigner -verify app-release.aab` → local release signing 환경변수 없이 생성된 AAB라 `jar is unsigned` 확인. 배포용 signed AAB는 GitHub Actions에서 repository secrets로 생성 예정.
+- 결과:
+  - 리뉴얼 UI 코드가 빌드에 포함된 상태에서 새 버전 번호와 확인용 출시 노트를 준비.
+- 후속 작업:
+  - 커밋, 태그 `v0.6.4` 푸시 후 GitHub Actions `Android Release` 성공 및 GitHub Release AAB 업로드 확인.
+
 ## 2026-05-26 — Play Console 그래픽 자산 준비
 
 - 작업: 경량화된 앱 아이콘 브랜치가 `main`에 이미 반영되어 있음을 확인하고, 해당 원본으로 Play Console용 그래픽 자산을 재생성.

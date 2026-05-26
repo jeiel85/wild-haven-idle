@@ -1,0 +1,17 @@
+<ko-KR>
+최신 리뉴얼 UI가 포함된 확인용 패치 빌드입니다.
+
+- 앱 진입점이 리뉴얼 화면인지 AAB 내부 manifest 기준으로 재확인
+- GitHub Pages, README, 스토어 그래픽 자료 링크를 최신 공개 저장소 기준으로 정리
+- Play Console용 아이콘, 기능 그래픽, 스크린샷 묶음을 현재 자료 폴더에 정리
+
+게임 진행 데이터와 플레이 규칙은 변경되지 않습니다.
+
+<en-US>
+Patch build for checking the latest renewed UI package.
+
+- Rechecked that the app launches into the renewed UI from the AAB manifest
+- Updated GitHub Pages, README, and store asset links for the public repository
+- Organized the current Play Console icon, feature graphic, and screenshot set
+
+Game progress data and gameplay rules are unchanged.

@@ -1,5 +1,30 @@
 # HISTORY.md
 
+## 2026-05-27 — 릴리즈 노트 태그 및 바탕화면 export 형식 보정
+
+- 작업: v0.6.4 출시 노트의 언어 태그를 닫는 형식으로 수정하고, 다른 프로젝트의 바탕화면 export 파일명 관례를 Wild Haven 규칙에 반영.
+- 참고한 바탕화면 사례:
+  - `PulpitInk-v1.3.1-vc5.aab`, `PulpitInk-v1.3.1-vc5-release-notes.txt`
+  - `MarkScene-v2.6.0-vc260.aab`, `MarkScene-v2.6.0-vc260-release-notes.txt`
+  - `BrioDo-v1.5.2-vc38.aab`, `BrioDo-v1.5.2-vc38-release-notes.txt`
+- 변경 파일:
+  - `store-release-notes/v0.6.4.txt`
+  - `AGENTS.md`
+  - `HISTORY.md`
+  - `.agent/progress.md`
+- 검증:
+  - 바탕화면의 다른 프로젝트 출시 노트가 `<ko-KR> ... </ko-KR>`, `<en-US> ... </en-US>` 형식임을 확인.
+  - `git diff --check` 성공.
+  - GitHub Release `v0.6.4`의 signed AAB를 내려받아 `jarsigner -verify` → `jar verified`.
+  - 바탕화면 내보내기 확인:
+    - `C:\Users\jeiel\OneDrive\바탕 화면\WildHavenIdle-v0.6.4-vc11.aab` (4,868,651 bytes)
+    - `C:\Users\jeiel\OneDrive\바탕 화면\WildHavenIdle-v0.6.4-vc11-release-notes.txt` (815 bytes)
+- 결과:
+  - Wild Haven 릴리즈 노트도 닫는 언어 태그를 포함.
+  - 다음 릴리즈부터 바탕화면 파일명은 `WildHavenIdle-vX.Y.Z-vcN.aab`, `WildHavenIdle-vX.Y.Z-vcN-release-notes.txt` 형식으로 내보냄.
+- 후속 작업:
+  - 없음.
+
 ## 2026-05-27 — 릴리즈 바탕화면 복사 규칙 문서화
 
 - 작업: "새 버전 만들기" 요청 시 AAB와 출시 노트를 바탕화면에 복사해야 하는 규칙을 `AGENTS.md`에 명시.

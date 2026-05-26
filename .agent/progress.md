@@ -1,5 +1,19 @@
 # Progress
 
+## 2026-05-27 — 릴리즈 노트 태그 및 바탕화면 export 형식 보정
+
+### Done
+
+- 바탕화면의 다른 프로젝트 export 사례 확인:
+  - `PulpitInk-v1.3.1-vc5.aab` / `PulpitInk-v1.3.1-vc5-release-notes.txt`
+  - `MarkScene-v2.6.0-vc260.aab` / `MarkScene-v2.6.0-vc260-release-notes.txt`
+  - `BrioDo-v1.5.2-vc38.aab` / `BrioDo-v1.5.2-vc38-release-notes.txt`
+- `store-release-notes/v0.6.4.txt`의 언어 블록을 닫는 태그 포함 형식으로 수정.
+- `AGENTS.md` 바탕화면 export 파일명 규칙을 `WildHavenIdle-vX.Y.Z-vcN.*` 형식으로 보정.
+- GitHub Release `v0.6.4`의 signed AAB를 내려받아 `WildHavenIdle-v0.6.4-vc11.aab`로 바탕화면에 내보냄.
+- 수정된 닫는 태그 포함 출시 노트를 `WildHavenIdle-v0.6.4-vc11-release-notes.txt`로 바탕화면에 내보냄.
+- 구형 파일명 `wild-haven-idle-v0.6.4.*` 복사본은 혼동 방지를 위해 제거.
+
 ## 2026-05-27 — 릴리즈 바탕화면 복사 규칙 문서화
 
 ### Done

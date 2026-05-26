@@ -500,7 +500,8 @@ Closes #123
 바탕화면 복사 규칙:
 
 - 대상 위치는 실제 Windows 바탕화면을 확인해 사용합니다. 우선 `C:\Users\jeiel\OneDrive\바탕 화면`을 확인하고, 없으면 `C:\Users\jeiel\Desktop`을 사용합니다.
-- 복사 파일명은 `wild-haven-idle-vX.Y.Z.aab`, `wild-haven-idle-vX.Y.Z-release-notes.txt` 형식을 사용합니다.
+- 복사 파일명은 다른 Android 프로젝트의 바탕화면 export 관례와 맞춰 `WildHavenIdle-vX.Y.Z-vcN.aab`, `WildHavenIdle-vX.Y.Z-vcN-release-notes.txt` 형식을 사용합니다. 여기서 `N`은 `versionCode`입니다.
+- 릴리즈 노트 TXT는 Play Console 언어 블록을 닫는 태그까지 포함합니다. 예: `<ko-KR> ... </ko-KR>`, `<en-US> ... </en-US>`.
 - AAB는 GitHub Release에서 생성된 signed AAB를 우선 사용합니다. 로컬 빌드 산출물을 복사하는 경우 서명 여부를 별도로 확인하고 보고합니다.
 - 복사 후 `Get-ChildItem` 등으로 파일 존재, 크기, 수정 시간을 확인해 최종 보고에 포함합니다.
 

@@ -45,7 +45,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/keystore"
           echo "$ANDROID_RELEASE_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/keystore/wild-haven-release.jks"
 
-      - name: Build signed release APK and AAB
+      - name: Build signed release APK and Play Console AAB
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
         env:
           ANDROID_RELEASE_KEYSTORE_PATH: ${{ runner.temp }}/keystore/wild-haven-release.jks
@@ -54,11 +54,9 @@ jobs:
           ANDROID_RELEASE_KEY_PASSWORD: ${{ secrets.ANDROID_RELEASE_KEY_PASSWORD }}
         run: ./gradlew assembleRelease bundleRelease
 
-      - name: Upload release artifacts
+      - name: Upload release APK artifact
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
         uses: actions/upload-artifact@v7
         with:
           name: wild-haven-idle-release
-          path: |
-            app/build/outputs/apk/release/*.apk
-            app/build/outputs/bundle/release/*.aab
+          path: app/build/outputs/apk/release/*.apk
